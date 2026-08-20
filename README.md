@@ -21,6 +21,7 @@ drop into an empty folder — so project #2, #3, #10 each start in about a minut
 |------|--------------|
 | **[SETUP.md](SETUP.md)** | Installs/auths the CLIs, scaffolds Next.js + Tailwind + TS, creates a GitHub repo, connects Vercel for auto-deploy. |
 | **[CLAUDE-SETUP.md](CLAUDE-SETUP.md)** | Installs a modular `.claude/` config + two review subagents (code-quality + security) that review your code with no project bias. |
+| **[SEO-MOTION-SETUP.md](SEO-MOTION-SETUP.md)** | Top-notch **SEO + AEO** foundation (metadata, JSON-LD, sitemap, robots, `llms.txt`) + a **Framer Motion** baseline that respects reduced-motion. |
 | **[GLOBAL-CONFIG.md](GLOBAL-CONFIG.md)** | _Bonus_ — install the agents/rules **once** at the user level so **every** project inherits them automatically. |
 | **[REFERENCES.md](REFERENCES.md)** | Pinned canonical doc links (Next.js, Tailwind v4, Vercel) to keep info current. |
 
@@ -29,8 +30,9 @@ drop into an empty folder — so project #2, #3, #10 each start in about a minut
 2. Copy `SETUP.md` and `CLAUDE-SETUP.md` into it.
 3. Say: **"Read SETUP.md and run it. PROJECT_NAME=my-app, VISIBILITY=private."**
 4. Then: **"Read CLAUDE-SETUP.md and create every file it defines."**
+5. Then: **"Read SEO-MOTION-SETUP.md and install it."**
 
-That's it — live repo, live Vercel deploy, and your AI reviewers ready to go.
+That's it — live repo, live Vercel deploy, AI reviewers, and an SEO/AEO + motion baseline ready to go.
 
 > Prefer no AI? Every step has a copy-paste script. See each file's **Manual mode**.
 
@@ -44,6 +46,7 @@ Install + login commands are in **SETUP.md → Step 0** (one-time per machine).
 - Vercel: push-to-deploy + PR preview URLs
 - `.claude/` with guardrails-first `CLAUDE.md`, modular rules, permission allowlist
 - `code-quality-reviewer` (Sonnet) + `security-auditor` (Opus) subagents — read-only, unbiased
+- SEO + AEO foundation (metadata, JSON-LD, sitemap, robots, `llms.txt`) + Framer Motion baseline
 
 ## Maintenance note
 `SETUP.md` scaffolds with `create-next-app@latest`, so you always get the **current** Next.js.
