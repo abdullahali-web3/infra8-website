@@ -51,6 +51,18 @@ vercel login
 Choose a method (usually **Continue with GitHub**) and approve in the browser.
 Confirm: `vercel whoami` → should print your username.
 
+### Set your git identity (so commits attribute to the right account)
+Mismatched git identity is a common cause of a repo showing the **"wrong" contributor**. Point
+git at the email tied to your GitHub account — ideally GitHub's private **noreply** email so your
+real address stays hidden:
+```bash
+git config --global user.name  "Your Name"
+git config --global user.email "<id>+<username>@users.noreply.github.com"
+```
+Find your noreply email at **GitHub → Settings → Emails → "Keep my email addresses private."**
+Juggling **multiple GitHub accounts**? Set this **per-repo** (drop `--global`) inside each project
+so every repo attributes correctly. Do it **before your first commit**.
+
 > Do these **once per machine**. After that, every project skips straight to Step 1.
 
 ---
@@ -90,10 +102,26 @@ git commit -m "Initial commit" || echo "nothing to commit"
 
 # 4) Create the GitHub repo and push it
 gh repo create my-app --private --source=. --remote=origin --push
+```
 
-# 5) Connect Vercel (link this repo, then first production deploy)
-vercel link
-vercel --prod
+### Step 5 — Connect Vercel (this is what enables push-to-deploy)
+
+**Recommended: dashboard import** — reliably sets up auto-deploy on every push:
+1. Go to **https://vercel.com/new** and log in.
+2. **Import Git Repository** → pick your repo. Not listed? Click the account dropdown →
+   **Add GitHub Account / Adjust GitHub App Permissions** and grant access to the repo.
+3. Vercel auto-detects Next.js — keep the defaults (Preset: Next.js, Root: `./`, no env vars).
+4. Click **Deploy** → ~1–2 min → live URL.
+
+> ⚠️ **Multiple GitHub accounts?** Vercel only shows repos from the GitHub account it's
+> **connected to**. If your repo doesn't appear: start the connection **from Vercel** (not from
+> GitHub's settings), and **authorize the account that owns the repo**. Simplest fix of all —
+> log into Vercel with *that* GitHub account (**Continue with GitHub**).
+
+**Alternative: CLI** (deploys from your machine; for push-to-deploy still do the dashboard import once):
+```bash
+vercel link      # link this folder to a Vercel project
+vercel --prod    # manual production deploy
 ```
 
 From now on: **`git push` → Vercel auto-deploys.** 🎉
@@ -102,12 +130,19 @@ Next, install your Claude config + review subagents → run **CLAUDE-SETUP.md**.
 
 ---
 
-## Gotchas already handled
-- **Capitals in the name** → npm refuses them. Always use a lowercase `PROJECT_NAME`.
-  (Forced to scaffold into an existing folder whose name has capitals? Scaffold into a
-  temp lowercase folder and move the files in — a plain `cp`/`mv`, skip `node_modules` and
-  reinstall to avoid a slow copy.)
-- **"command not found" right after install** → stale PATH; open a new terminal or use the full path.
+## Troubleshooting (the real snags & fixes)
+- **npm rejects the name (capitals)** → names must be lowercase. Use a lowercase `PROJECT_NAME`.
+  (Forced to scaffold into a folder whose name has capitals? Scaffold into a temp lowercase
+  folder and move the files in — skip `node_modules` and reinstall to avoid a slow copy.)
+- **"command not found" right after installing a CLI** → stale PATH; open a new terminal or call
+  it by full path (see Step 0).
+- **Repo shows the wrong contributor / an extra author** → your git identity didn't match your
+  GitHub account when you committed. Set it correctly *before* the first commit (Step 0). To fix
+  existing commits: reset the identity, re-author history (`git filter-branch` / `git rebase`),
+  and `git push --force` (safe on a fresh solo repo).
+- **Vercel doesn't show your repo** → Vercel is connected to a *different* GitHub account than the
+  one that owns the repo. Start the connection **from Vercel**, authorize the owning account, or
+  just log into Vercel with that GitHub account. (See Step 5.)
 - **Next 16 doesn't lint during build** → run `npm run lint` separately.
 
 ---
@@ -119,11 +154,19 @@ When a user asks you to run this file:
    `vercel --version`, `vercel whoami`.
    - If a **CLI is missing**, offer to install it with the Step 0 commands (winget/brew/npm),
      then remind the user to open a new terminal (PATH refresh).
-3. If `gh` or `vercel` is **not authenticated**, STOP and have the user run
-   `gh auth login` / `vercel login` themselves (Step 0) — these are interactive browser logins;
-   you cannot do them. Never ask for tokens/codes to do it on their behalf.
-4. Run the Manual-mode steps in order. On Windows, use full paths to `gh`/`vercel` if PATH is stale.
-5. If `npm run build` (step 2) fails, STOP and report — do not create the repo or push.
-6. After success, report the **GitHub repo URL** and the **Vercel URL**, then offer to run
-   `CLAUDE-SETUP.md` to install the Claude config + subagents.
-7. Never `git push --force`, delete files you didn't create, or change deploy settings without asking.
+3. If `gh` is **not authenticated**, STOP and have the user run `gh auth login` themselves
+   (Step 0) — interactive browser login; you cannot do it. Never ask for tokens/codes.
+4. **Before the first commit**, ensure git identity matches the user's GitHub account
+   (`git config user.name` / `user.email`; prefer the GitHub noreply email). Ask if unknown —
+   getting this wrong pollutes the contributor list.
+5. Run scaffold → build → commit → `gh repo create` (Manual-mode steps 1–4). On Windows, use
+   full paths to `gh` if PATH is stale.
+6. If `npm run build` fails, STOP and report — do not create the repo or push.
+7. **Vercel:** you can't click the dashboard, so after pushing, direct the user through the
+   Step 5 dashboard import (that's what enables push-to-deploy). Only if the user is logged into
+   the Vercel CLI and prefers it, run `vercel link` / `vercel --prod`. If their repo doesn't
+   appear in Vercel, it's the multi-account issue (Step 5).
+8. Report the **GitHub repo URL** (and the **Vercel URL** once the user has it), then offer to
+   run `CLAUDE-SETUP.md` to install the Claude config + subagents.
+9. Never delete files you didn't create or change deploy settings without asking. Only
+   `git push --force` when the user explicitly asks (e.g. to fix commit attribution).
