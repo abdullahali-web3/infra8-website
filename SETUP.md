@@ -11,6 +11,7 @@ Built to be run by **Claude Code** (max automation) or by **copy-paste** (manual
 - Next.js (App Router, Turbopack) + TypeScript + Tailwind CSS v4 + ESLint
 - Local git repo on `main`, pushed to a fresh GitHub repo
 - Vercel connected → every push auto-deploys; every PR gets a preview URL
+- A `public/content/` folder (`images/`, `icons/`) for your static assets, served from `/content/...`
 - A verified production build before anything ships
 
 ## Step 0 — Install & authenticate the CLIs (one-time per machine)
@@ -90,6 +91,9 @@ Run from the folder that will **contain** your project (the script creates the p
 # 1) Scaffold — PROJECT_NAME must be lowercase
 npx create-next-app@latest my-app --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm
 cd my-app
+
+# 1b) A home for your static assets — served from /content/... (must be under public/)
+mkdir -p public/content/images public/content/icons
 
 # 2) Verify it builds (fail fast before pushing)
 npm run build
