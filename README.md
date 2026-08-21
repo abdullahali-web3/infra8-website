@@ -1,8 +1,8 @@
 # 🚀 Next.js + Claude Code Starter Kit
 
-Two drop-in Markdown files that turn an **empty folder** into a **live, auto-deploying
-Next.js site** — with an opinionated Claude Code setup and two independent AI code
-reviewers baked in. Designed for **maximum automation**: hand a file to Claude Code and it
+Drop-in Markdown files that turn an **empty folder** into a **live, auto-deploying
+Next.js site** — with an opinionated Claude Code setup, two independent AI code
+reviewers, and visual verification tooling baked in. Designed for **maximum automation**: hand a file to Claude Code and it
 does the work; or copy-paste the scripts yourself.
 
 ## Why this exists
@@ -22,6 +22,7 @@ drop into an empty folder — so project #2, #3, #10 each start in about a minut
 | **[SETUP.md](SETUP.md)** | Installs/auths the CLIs, scaffolds Next.js + Tailwind + TS, creates a GitHub repo, connects Vercel for auto-deploy. |
 | **[CLAUDE-SETUP.md](CLAUDE-SETUP.md)** | Installs a modular `.claude/` config + two review subagents (code-quality + security) that review your code with no project bias. |
 | **[SEO-MOTION-SETUP.md](SEO-MOTION-SETUP.md)** | Top-notch **SEO + AEO** foundation (metadata, JSON-LD, sitemap, robots, `llms.txt`) + a **Framer Motion** baseline that respects reduced-motion. |
+| **[VERIFY-SETUP.md](VERIFY-SETUP.md)** | Screenshot + responsive-audit scripts, so Claude can **see** the rendered page instead of guessing that it looks right. |
 | **[GLOBAL-CONFIG.md](GLOBAL-CONFIG.md)** | _Bonus_ — install the agents/rules **once** at the user level so **every** project inherits them automatically. |
 | **[REFERENCES.md](REFERENCES.md)** | Pinned canonical doc links (Next.js, Tailwind v4, Vercel) to keep info current. |
 
@@ -31,6 +32,7 @@ drop into an empty folder — so project #2, #3, #10 each start in about a minut
 3. Say: **"Read SETUP.md and run it. PROJECT_NAME=my-app, VISIBILITY=private."**
 4. Then: **"Read CLAUDE-SETUP.md and create every file it defines."**
 5. Then: **"Read SEO-MOTION-SETUP.md and install it."**
+6. Then: **"Read VERIFY-SETUP.md and install it."**
 
 That's it — live repo, live Vercel deploy, AI reviewers, and an SEO/AEO + motion baseline ready to go.
 
@@ -47,6 +49,7 @@ Install + login commands are in **SETUP.md → Step 0** (one-time per machine).
 - `.claude/` with guardrails-first `CLAUDE.md`, modular rules, permission allowlist
 - `code-quality-reviewer` (Sonnet) + `security-auditor` (Opus) subagents — read-only, unbiased
 - SEO + AEO foundation (metadata, JSON-LD, sitemap, robots, `llms.txt`) + Framer Motion baseline
+- `screenshot.mjs` + `audit-layout.mjs` — catch layout regressions at 11 widths in one command
 
 ## Maintenance note
 `SETUP.md` scaffolds with `create-next-app@latest`, so you always get the **current** Next.js.
