@@ -61,7 +61,7 @@ export function Pricing() {
                           <RevealText
                             as="span"
                             text={row.name}
-                            className="font-display text-lg leading-6 tracking-[-0.03em] text-ink"
+                            className="font-display text-base leading-6 tracking-[-0.02em] text-ink"
                           />
                         </th>
                         <td className="px-3 py-5 align-middle whitespace-nowrap">

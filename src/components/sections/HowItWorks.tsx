@@ -10,6 +10,13 @@ import { Reveal } from "@/components/Reveal";
 import { StepArt } from "@/components/illustrations/StepArt";
 
 type TrackKey = keyof typeof TRACKS;
+
+const TONES = [
+  "bg-[radial-gradient(110%_90%_at_50%_0%,#d9e6ff_0%,#f5f8ff_62%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_90%_at_50%_0%,#ffe6c7_0%,#fff8ee_62%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_90%_at_50%_0%,#dbe7ff_0%,#f6f9ff_62%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_90%_at_50%_0%,#e9edf7_0%,#f8f9fc_62%,#ffffff_100%)]",
+] as const;
 const KEYS = Object.keys(TRACKS) as TrackKey[];
 
 export function HowItWorks() {
@@ -75,8 +82,10 @@ export function HowItWorks() {
                 {TRACKS[k].steps.map((s, i) => (
                   <li key={s.title} className="flex">
                     <article className="group flex w-full flex-col gap-6 rounded-[16px] border border-transparent bg-surface-2 p-6 transition-[transform,background-color,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:border-brand/20 hover:bg-white hover:shadow-[0_24px_48px_-28px_rgba(6,84,254,0.3)]">
-                      <div className="h-[190px] w-full overflow-hidden transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-                        <StepArt track={k} index={i} />
+                      <div className={`h-[190px] w-full overflow-hidden rounded-[10px] ring-1 ring-black/[0.04] ${TONES[(i + (k === "infra" ? 1 : 0)) % 4]}`}>
+                        <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+                          <StepArt track={k} index={i} />
+                        </div>
                       </div>
                       <div className="flex flex-col gap-5">
                         <span className="font-mono text-sm tracking-[-0.03em] text-brand">

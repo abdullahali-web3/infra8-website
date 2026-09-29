@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { MotionProvider } from "@/components/MotionProvider";
+import { SvgDefs } from "@/components/illustrations/SvgDefs";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-screen flex-col bg-white text-ink">
         <JsonLd />
+        <SvgDefs />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

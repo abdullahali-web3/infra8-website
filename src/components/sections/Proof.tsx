@@ -5,6 +5,12 @@ import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 import { ProofArt } from "@/components/illustrations/ProofArt";
 
+const TONES = [
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#d9e6ff_0%,#f5f8ff_60%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#e6ecf8_0%,#f8f9fc_60%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#ffe9cf_0%,#fff9f0_60%,#ffffff_100%)]",
+] as const;
+
 export function Proof() {
   return (
     <section id="proof" className="py-20 sm:py-28">
@@ -19,8 +25,8 @@ export function Proof() {
             <li key={p.key} className="flex">
               <Reveal delay={i * 0.12} className="flex w-full">
                 <article className="group flex w-full flex-col gap-6 rounded-[16px] border border-line bg-white p-2 transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-[0_24px_48px_-24px_rgba(6,84,254,0.25)]">
-                  <div className="h-[212px] overflow-hidden rounded-[10px] bg-surface-2 p-3 transition-colors duration-500 group-hover:bg-[#f1f5ff]">
-                    <div className="h-full transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+                  <div className={`h-[220px] overflow-hidden rounded-[10px] ring-1 ring-black/[0.04] ${TONES[i % 3]}`}>
+                    <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]">
                       <ProofArt kind={p.key} />
                     </div>
                   </div>

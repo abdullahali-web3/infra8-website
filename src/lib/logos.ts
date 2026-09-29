@@ -1,0 +1,41 @@
+const MAP: Record<string, string> = {
+  React: "react",
+  "Next.js": "nextjs",
+  "React Native": "react",
+  Flutter: "flutter",
+  "Node.js": "nodejs",
+  Python: "python",
+  FastAPI: "fastapi",
+  Django: "django",
+  PostgreSQL: "postgresql",
+  MongoDB: "mongodb",
+  Redis: "redis",
+  OpenAI: "openai",
+  Anthropic: "anthropic",
+  Figma: "figma",
+  GitHub: "github",
+  Vercel: "vercel",
+  AWS: "aws",
+  "Google Cloud": "googlecloud",
+  "Microsoft Azure": "azure",
+  Azure: "azure",
+  Terraform: "terraform",
+  Pulumi: "pulumi",
+  Docker: "docker",
+  Kubernetes: "kubernetes",
+  "GitHub Actions": "githubactions",
+  "GitLab CI": "gitlab",
+  ArgoCD: "argocd",
+  Grafana: "grafana",
+  Prometheus: "prometheus",
+  Datadog: "datadog",
+  Sentry: "sentry",
+  Vault: "vault",
+  Snyk: "snyk",
+  Trivy: "trivy",
+};
+
+export function logoSrc(name: string): string | undefined {
+  const key = MAP[name];
+  return key ? `/content/logos/${key}.svg` : undefined;
+}

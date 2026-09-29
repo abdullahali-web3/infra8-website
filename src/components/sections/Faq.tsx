@@ -25,7 +25,7 @@ export function Faq() {
             <RevealText
               text="Ownership, security, time zones and what happens if it goes wrong."
               delay={0.15}
-              className="max-w-[420px] text-base leading-7 tracking-[-0.02em] text-ink-soft sm:text-lg"
+              className="max-w-[420px] text-base leading-7 tracking-[-0.02em] text-ink-soft"
             />
             <Reveal delay={0.25}>
               <Button href={CTA.mvp} variant="secondary">
@@ -51,7 +51,7 @@ export function Faq() {
                       <RevealText
                         as="span"
                         text={item.q}
-                        className="font-display text-xl leading-7 tracking-[-0.03em] sm:text-2xl"
+                        className="font-display text-xl leading-7 tracking-[-0.03em]"
                       />
                       <span
                         className={`relative grid size-9 shrink-0 place-items-center rounded-full transition-colors duration-300 ${isOpen ? "bg-brand" : "bg-surface group-hover:bg-[#dfe8ff]"}`}

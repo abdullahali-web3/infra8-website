@@ -5,18 +5,34 @@ export const CTA = {
 } as const;
 
 export const NAV = [
-  { label: "Services", href: "#services" },
+  {
+    label: "Services",
+    href: "#services",
+    children: [
+      { label: "Product development", href: "#services" },
+      { label: "Cloud and DevOps", href: "#services" },
+      { label: "Free infra audit", href: "#get-started" },
+    ],
+  },
   { label: "How we work", href: "#how-it-works" },
   { label: "Pricing", href: "#pricing" },
   { label: "Work", href: "#proof" },
-  { label: "Company", href: "#commitments" },
+  {
+    label: "Company",
+    href: "#commitments",
+    children: [
+      { label: "Our commitments", href: "#commitments" },
+      { label: "Who it's for", href: "#fit" },
+      { label: "FAQ", href: "#faq" },
+    ],
+  },
 ] as const;
 
 export const STACK_STRIP = [
   { name: "AWS", tag: "Cloud" },
   { name: "Google Cloud", tag: "Cloud" },
   { name: "Microsoft Azure", tag: "Cloud" },
-  { name: "Terraform", tag: "Infrastructure as code" },
+  { name: "Terraform", tag: "IaC" },
   { name: "Kubernetes", tag: "Orchestration" },
   { name: "Docker", tag: "Containers" },
 ] as const;
@@ -182,7 +198,7 @@ export const STACK_TABS = {
       { name: "Frontend and mobile", items: ["React", "Next.js", "React Native", "Flutter"] },
       { name: "Backend", items: ["Node.js", "Python", "FastAPI", "Django"] },
       { name: "Data", items: ["PostgreSQL", "MongoDB", "Redis"] },
-      { name: "AI features", items: ["OpenAI API", "Anthropic API", "Open-source models", "Vector databases"] },
+      { name: "AI features", items: ["OpenAI", "Anthropic"] },
       { name: "Design and delivery", items: ["Figma", "GitHub", "Vercel", "AWS"] },
     ],
     why: "Popular, hireable technologies, so investors and your future CTO can take the code over without a rewrite.",
@@ -191,11 +207,11 @@ export const STACK_TABS = {
     label: "Live products at scale",
     groups: [
       { name: "Cloud", items: ["AWS", "Google Cloud", "Azure"] },
-      { name: "Infrastructure as code", items: ["Terraform", "Pulumi"] },
+      { name: "Infra as code", items: ["Terraform", "Pulumi"] },
       { name: "Containers", items: ["Docker", "Kubernetes"] },
       { name: "CI/CD", items: ["GitHub Actions", "GitLab CI", "ArgoCD"] },
       { name: "Monitoring", items: ["Grafana", "Prometheus", "Datadog", "Sentry"] },
-      { name: "Security", items: ["Vault", "Snyk", "Trivy", "GuardDuty", "Security Hub"] },
+      { name: "Security", items: ["Vault", "Snyk", "Trivy"] },
     ],
     why: "Everything is defined in code inside your own accounts, so you can audit it, reproduce it or leave us at any time.",
   },

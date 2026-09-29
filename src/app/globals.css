@@ -107,8 +107,54 @@ section[id] {
   }
 }
 
+@keyframes fx-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--fa, -5px));
+  }
+}
+
+@keyframes fx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fx-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.fx-float {
+  animation: fx-float 5s ease-in-out infinite;
+}
+
+.fx-dash {
+  animation: dash-flow 1.4s linear infinite;
+}
+
+.fx-spin {
+  animation: fx-spin 7s linear infinite;
+}
+
+.fx-pulse {
+  animation: fx-pulse 2.2s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .motion-safe-anim {
+  .motion-safe-anim,
+  .fx-float,
+  .fx-dash,
+  .fx-spin,
+  .fx-pulse {
     animation: none !important;
   }
 }

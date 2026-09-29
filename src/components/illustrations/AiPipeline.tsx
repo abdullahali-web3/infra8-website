@@ -4,17 +4,22 @@ import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 
 const MONO = "var(--font-geist-mono)";
+const DISPLAY = "var(--font-gsf)";
 
-const LANES = [
-  { y: 34, label: "AI code review", c: "#0654fe" },
-  { y: 150, label: "Test generation", c: "#0654fe" },
-  { y: 266, label: "Infra scan", c: "#0654fe" },
+const CHIPS = [
+  { y: 52, label: "AI code review", tone: "#0654fe" },
+  { y: 153, label: "Test generation", tone: "#ff9c33" },
+  { y: 254, label: "Infra scan", tone: "#00c91e" },
 ];
 
 const PATHS = [
-  ...LANES.map((l) => `M124 176 C160 176 140 ${l.y + 26} 176 ${l.y + 26}`),
-  ...LANES.map((l) => `M340 ${l.y + 26} C380 ${l.y + 26} 360 176 396 176`),
-  "M516 176 H548",
+  "M152 175 H226",
+  "M284 158 C 316 130 322 74 352 74",
+  "M288 175 H352",
+  "M284 192 C 316 220 322 276 352 276",
+  "M528 74 C 552 74 552 175 574 175",
+  "M528 175 H574",
+  "M528 276 C 552 276 552 175 574 175",
 ];
 
 export function AiPipeline() {
@@ -27,14 +32,9 @@ export function AiPipeline() {
         const tl = gsap.timeline({
           scrollTrigger: { trigger: root.current, start: "top 75%", once: true },
         });
-        tl.from(".ai-node", { opacity: 0, y: 18, duration: 0.7, stagger: 0.1, ease: "power3.out" })
-          .fromTo(
-            ".ai-path",
-            { drawSVG: "0%" },
-            { drawSVG: "100%", duration: 1, stagger: 0.08, ease: "power2.inOut" },
-            0.3,
-          )
-          .from(".ai-ship", { scale: 0, transformOrigin: "50% 50%", duration: 0.6, ease: "back.out(2)" }, 1.2)
+        tl.from(".ai-node", { opacity: 0, y: 16, duration: 0.7, stagger: 0.08, ease: "power3.out" })
+          .fromTo(".ai-path", { drawSVG: "0%" }, { drawSVG: "100%", duration: 1, stagger: 0.07, ease: "power2.inOut" }, 0.25)
+          .from(".ai-orb", { scale: 0.6, opacity: 0, transformOrigin: "50% 50%", duration: 0.9, ease: "back.out(1.6)" }, 0.1)
           .add(() => {
             gsap.utils.toArray<SVGPathElement>(".ai-path").forEach((p, i) => {
               const dot = root.current?.querySelector<SVGCircleElement>(`.ai-dot-${i}`);
@@ -42,12 +42,13 @@ export function AiPipeline() {
               gsap.set(dot, { opacity: 1 });
               gsap.to(dot, {
                 motionPath: { path: p, align: p, alignOrigin: [0.5, 0.5] },
-                duration: 2.4,
+                duration: 2.2,
                 ease: "none",
                 repeat: -1,
-                delay: (i % 3) * 0.35,
+                delay: (i % 4) * 0.3,
               });
             });
+            gsap.to(".ai-ring", { rotation: 360, transformOrigin: "50% 50%", duration: 18, ease: "none", repeat: -1 });
           });
       });
     },
@@ -57,46 +58,61 @@ export function AiPipeline() {
   return (
     <svg
       ref={root}
-      viewBox="0 0 600 340"
+      viewBox="0 0 720 340"
       className="h-auto w-full"
       role="img"
-      aria-label="Pipeline: a pull request passes AI code review, generated tests and infrastructure scans, then a senior engineer approves before shipping"
+      aria-label="Pipeline: a pull request goes through AI code review, generated tests and infrastructure scans, then a senior engineer approves before shipping"
     >
+      <circle cx="256" cy="175" r="110" fill="url(#gGlowBlue)" />
       {PATHS.map((d, i) => (
         <g key={i}>
-          <path d={d} fill="none" stroke="#e7e7e7" strokeWidth="2" />
-          <path className="ai-path" d={d} fill="none" stroke="#0654fe" strokeOpacity="0.55" strokeWidth="2" />
+          <path d={d} fill="none" stroke="#dbe5fb" strokeWidth="2.5" />
+          <path className="ai-path" d={d} fill="none" stroke="url(#gLine)" strokeWidth="2.5" strokeLinecap="round" />
         </g>
       ))}
       {PATHS.map((_, i) => (
-        <circle key={i} className={`ai-dot-${i}`} r="4.5" fill="#ff9c33" opacity="0" />
+        <circle key={i} className={`ai-dot-${i}`} r="5" fill="#ff9c33" stroke="#fff" strokeWidth="1.5" opacity="0" />
       ))}
 
       <g className="ai-node">
-        <rect x="8" y="150" width="116" height="52" rx="12" fill="#fff" stroke="#e7e7e7" />
-        <text x="66" y="171" textAnchor="middle" fontSize="9" fill="#7a7a7a" fontFamily={MONO}>PULL REQUEST</text>
-        <text x="66" y="188" textAnchor="middle" fontSize="12" fill="#111" fontFamily="var(--font-gsf)">feat/checkout</text>
+        <rect x="12" y="136" width="140" height="78" rx="16" fill="url(#gCard)" stroke="rgba(16,40,110,0.08)" filter="url(#fSoft)" />
+        <circle cx="42" cy="175" r="15" fill="#fff" stroke="rgba(16,40,110,0.07)" />
+        <image href="/content/logos/github.svg" x="30" y="163" width="24" height="24" />
+        <text x="66" y="169" fontSize="9" fill="#8a94a8" fontFamily={MONO} letterSpacing="0.5">PULL REQUEST</text>
+        <text x="66" y="187" fontSize="14" fill="#111" fontFamily={DISPLAY}>feat/checkout</text>
       </g>
 
-      {LANES.map((l) => (
-        <g key={l.label} className="ai-node">
-          <rect x="176" y={l.y} width="164" height="52" rx="12" fill="#fff" stroke="#e7e7e7" />
-          <rect x="188" y={l.y + 19} width="14" height="14" rx="4" fill="#0654fe" fillOpacity="0.12" />
-          <circle cx="195" cy={l.y + 26} r="2.6" fill="#0654fe" />
-          <text x="212" y={l.y + 30} fontSize="12.5" fill="#111" fontFamily="var(--font-gsf)">{l.label}</text>
+      <g className="ai-orb">
+        <circle cx="256" cy="175" r="66" fill="none" stroke="#0654fe" strokeOpacity="0.12" />
+        <circle cx="256" cy="175" r="50" fill="none" stroke="#0654fe" strokeOpacity="0.2" />
+        <circle className="ai-ring" cx="256" cy="175" r="58" fill="none" stroke="#0654fe" strokeOpacity="0.5" strokeDasharray="3 9" strokeLinecap="round" />
+        <circle cx="256" cy="175" r="32" fill="url(#gBrand)" filter="url(#fLift)" />
+        <circle cx="256" cy="175" r="32" fill="url(#gGlowWhite)" opacity="0.35" />
+        <text x="256" y="183" textAnchor="middle" fontSize="24" fill="#fff" fontFamily={DISPLAY} letterSpacing="-0.5">AI</text>
+      </g>
+
+      {CHIPS.map((c) => (
+        <g key={c.label} className="ai-node">
+          <rect x="352" y={c.y - 22} width="176" height="44" rx="22" fill="url(#gCard)" stroke="rgba(16,40,110,0.08)" filter="url(#fSoft)" />
+          <circle cx="376" cy={c.y} r="11" fill={c.tone} fillOpacity="0.14" />
+          <circle cx="376" cy={c.y} r="4.5" fill={c.tone} />
+          <text x="398" y={c.y + 5} fontSize="15" fill="#111" fontFamily={DISPLAY}>{c.label}</text>
         </g>
       ))}
 
       <g className="ai-node">
-        <rect x="396" y="146" width="120" height="60" rx="14" fill="#111" />
-        <rect x="396" y="146" width="120" height="60" rx="14" fill="none" stroke="#ff9c33" strokeWidth="1.5" strokeDasharray="3 5" />
-        <text x="456" y="171" textAnchor="middle" fontSize="9" fill="#ff9c33" fontFamily={MONO}>HUMAN IN CHARGE</text>
-        <text x="456" y="190" textAnchor="middle" fontSize="12.5" fill="#fff" fontFamily="var(--font-gsf)">Senior review</text>
-      </g>
-
-      <g className="ai-ship">
-        <circle cx="568" cy="176" r="24" fill="#00c91e" />
-        <path d="M558 176 l7 7 l12 -14" stroke="#fff" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        <rect x="574" y="124" width="132" height="102" rx="18" fill="url(#gInk)" filter="url(#fLift)" />
+        <text x="640" y="152" textAnchor="middle" fontSize="8.5" fill="#ff9c33" fontFamily={MONO} letterSpacing="0.6">HUMAN IN CHARGE</text>
+        <text x="640" y="176" textAnchor="middle" fontSize="16" fill="#fff" fontFamily={DISPLAY}>Senior review</text>
+        {[618, 640, 662].map((x) => (
+          <g key={x}>
+            <circle cx={x} cy="203" r="10" fill="#fff" fillOpacity="0.14" />
+            <circle cx={x} cy="200.5" r="3.4" fill="#fff" fillOpacity="0.85" />
+            <path d={`M${x - 5.5} 208 c 1 -4 9 -4 11 0`} fill="#fff" fillOpacity="0.85" />
+          </g>
+        ))}
+        <circle cx="704" cy="124" r="14" fill="url(#gGreen)" stroke="#fff" strokeWidth="2.5" />
+        <path d="M697.5 124.5 l4.5 4.5 l8 -9" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
       </g>
     </svg>
   );

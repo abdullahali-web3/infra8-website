@@ -47,7 +47,7 @@ export function Button({
   return (
     <a
       href={href}
-      className={`group inline-flex min-h-12 items-center justify-between gap-3 rounded-full py-2 pr-2 pl-4 text-left font-mono text-[15px] leading-5 tracking-[-0.03em] uppercase transition-[background-color,box-shadow,transform] duration-300 ease-out active:scale-[0.98] sm:text-base ${VARIANTS[variant]} ${full ? "w-full" : ""} ${className}`}
+      className={`group inline-flex min-h-12 items-center justify-between gap-3 rounded-full py-2 pr-2 pl-4 text-left font-display text-[14px] leading-5 font-medium tracking-[0.03em] uppercase transition-[background-color,box-shadow,transform] duration-300 ease-out active:scale-[0.98] ${VARIANTS[variant]} ${full ? "w-full" : ""} ${className}`}
     >
       <span>{children}</span>
       <ArrowChip tint={variant === "light"} />

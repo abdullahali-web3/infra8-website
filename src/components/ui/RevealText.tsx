@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "motion/react";
+
 const MOTION_TAGS = {
   h1: motion.h1,
   h2: motion.h2,
@@ -17,10 +18,20 @@ const MOTION_TAGS = {
 export type RevealTag = keyof typeof MOTION_TAGS;
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const VIEWPORT = { once: true, margin: "0px 0px -8% 0px" } as const;
 
 const wordVariants: Variants = {
   hidden: { y: "118%" },
-  show: { y: "0%", transition: { duration: 0.9, ease: EASE } },
+  show: { y: "0%", transition: { duration: 0.65, ease: EASE } },
+};
+
+const fadeVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  show: (delay: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut", delay },
+  }),
 };
 
 function parse(text: string) {
@@ -44,8 +55,9 @@ type Props = {
 };
 
 /**
- * Text emerges from below its baseline, word by word, as the element enters
- * the viewport. Use `{{word}}` in `text` to mark serif-italic accent words.
+ * Headings (h1/h2): words emerge from below their baseline as the heading
+ * enters the viewport. Every other text element just fades in.
+ * Use `{{word}}` in `text` to mark serif-italic accent words.
  */
 export function RevealText({
   text,
@@ -53,9 +65,26 @@ export function RevealText({
   className,
   accentClassName = "font-serif-accent italic font-normal text-ink/40 tracking-[-0.01em]",
   delay = 0,
-  stagger = 0.035,
+  stagger = 0.03,
 }: Props) {
   const Tag = MOTION_TAGS[as];
+  const isHeading = as === "h1" || as === "h2";
+
+  if (!isHeading) {
+    return (
+      <Tag
+        className={className}
+        variants={fadeVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={VIEWPORT}
+        custom={delay}
+      >
+        {text.replace(/\{\{|\}\}/g, "")}
+      </Tag>
+    );
+  }
+
   const parentVariants: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: stagger, delayChildren: delay } },
@@ -87,7 +116,7 @@ export function RevealText({
       variants={parentVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+      viewport={VIEWPORT}
     >
       {nodes}
     </Tag>

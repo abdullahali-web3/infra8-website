@@ -72,7 +72,7 @@ export function SectionHeading({
         <RevealText
           text={sub}
           delay={0.15}
-          className={`text-balance text-base leading-7 tracking-[-0.02em] sm:text-lg ${light ? "text-white/80" : "text-ink-soft"} ${center ? "max-w-[722px]" : "max-w-[640px]"}`}
+          className={`text-balance text-base leading-7 tracking-[-0.02em] ${light ? "text-white/80" : "text-ink-soft"} ${center ? "max-w-[722px]" : "max-w-[640px]"}`}
         />
       ) : null}
     </div>

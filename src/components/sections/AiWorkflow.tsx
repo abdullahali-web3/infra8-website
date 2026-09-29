@@ -13,10 +13,10 @@ export function AiWorkflow() {
           title="Faster delivery. Senior engineers stay {{in}} charge."
           sub="We use AI where it saves time and keep humans where it matters. A senior engineer reviews everything before it ships."
         />
-        <div className="mt-14 grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
+        <div className="mt-14 grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
           <Reveal>
-            <div className="rounded-[20px] border border-line bg-surface-2 p-4 sm:p-8">
-              <div className="overflow-x-auto rounded-[14px] bg-white p-4 shadow-[0_18px_40px_-24px_rgba(17,17,17,0.2)] sm:p-6">
+            <div className="rounded-[20px] border border-line bg-surface-2 p-2 sm:p-3">
+              <div className="overflow-x-auto rounded-[14px] bg-[radial-gradient(90%_70%_at_50%_0%,#e4edff_0%,#ffffff_70%)] p-3 shadow-[0_18px_40px_-24px_rgba(17,17,17,0.2)] sm:p-4">
                 <div className="min-w-[520px]">
                   <AiPipeline />
                 </div>

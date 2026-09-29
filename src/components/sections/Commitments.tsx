@@ -5,6 +5,13 @@ import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 import { CommitmentArt } from "@/components/illustrations/CommitmentArt";
 
+const TONES = [
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#ffe9cf_0%,#fff9f0_60%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#d9e6ff_0%,#f5f8ff_60%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#dbe7ff_0%,#f6f9ff_60%,#ffffff_100%)]",
+  "bg-[radial-gradient(110%_100%_at_50%_0%,#e6ecf8_0%,#f8f9fc_60%,#ffffff_100%)]",
+] as const;
+
 export function Commitments() {
   return (
     <section id="commitments" className="py-20 sm:py-28">
@@ -21,7 +28,7 @@ export function Commitments() {
             <RevealText
               text="Whether you're building a first MVP or handing us your cloud, these don't change."
               delay={0.15}
-              className="max-w-[440px] text-base leading-7 tracking-[-0.02em] text-ink-soft sm:text-lg"
+              className="max-w-[440px] text-base leading-7 tracking-[-0.02em] text-ink-soft"
             />
             <div className="flex flex-col items-start gap-3">
               <Reveal delay={0.25}>
@@ -40,8 +47,10 @@ export function Commitments() {
               <li key={c.key} className="flex">
                 <Reveal delay={(i % 2) * 0.1} className="flex w-full">
                   <article className="group flex w-full flex-col gap-6 rounded-[16px] border border-line bg-white p-2 transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-[0_24px_48px_-24px_rgba(6,84,254,0.25)]">
-                    <div className="h-[168px] overflow-hidden rounded-[10px] bg-surface-2 p-3 transition-colors duration-500 group-hover:bg-[#f1f5ff]">
-                      <CommitmentArt kind={c.key} />
+                    <div className={`h-[176px] overflow-hidden rounded-[10px] ring-1 ring-black/[0.04] ${TONES[i % 4]}`}>
+                      <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]">
+                        <CommitmentArt kind={c.key} />
+                      </div>
                     </div>
                     <div className="flex flex-col gap-3 px-4 pb-5">
                       <span className="font-mono text-sm tracking-[-0.03em] text-brand">

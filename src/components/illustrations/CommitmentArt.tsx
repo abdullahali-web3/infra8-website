@@ -1,83 +1,183 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Art, BLUE, INK, LINE, OK, ORANGE, ORIGIN_CENTER, ORIGIN_LEFT, draw, grow, pop, rise } from "./art";
+import { Art, Badge, Bar, Check, Float, Glass, P, Pill, R, F, Txt, BLUE, INK, MUTE, ORANGE, draw } from "./art";
 
-const S = { filter: "url(#card-shadow)" } as const;
+const VB = "0 0 300 168";
 
 function Own() {
   return (
-    <Art viewBox="0 0 200 130">
-      <motion.rect variants={rise} x="30" y="24" width="112" height="76" rx="9" fill="#fff" stroke={LINE} style={S} />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="44" y="40" width="50" height="6" rx="3" fill={INK} opacity="0.85" />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="44" y="54" width="80" height="5" rx="2.5" fill={LINE} />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="44" y="66" width="64" height="5" rx="2.5" fill={LINE} />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="44" y="78" width="72" height="5" rx="2.5" fill={LINE} />
-      <motion.circle variants={pop} style={ORIGIN_CENTER} cx="146" cy="84" r="16" fill={BLUE} />
-      <motion.circle variants={pop} style={ORIGIN_CENTER} cx="146" cy="84" r="5.5" fill="#fff" />
-      <motion.path variants={draw} d="M157 90 L178 111 M170 104 l5 -5 M176 110 l5 -5" stroke={BLUE} strokeWidth="4" strokeLinecap="round" fill="none" />
-      <motion.rect variants={pop} style={ORIGIN_CENTER} x="104" y="30" width="30" height="14" rx="7" fill={ORANGE} />
-      <motion.text variants={rise} x="119" y="40" fontSize="7.5" textAnchor="middle" fill="#fff" fontFamily="var(--font-geist-mono)">YOURS</motion.text>
+    <Art viewBox={VB}>
+      <F>
+        <circle cx="222" cy="112" r="64" fill="url(#gGlowOrange)" />
+        <g fill="none" stroke={BLUE} strokeOpacity="0.1">
+          <circle cx="110" cy="76" r="88" />
+          <circle cx="110" cy="76" r="58" />
+        </g>
+      </F>
+      <R>
+        <Glass x={30} y={22} w={166} h={112} r={16} shadow="fLift" />
+        <Badge cx={54} cy={44} r={12} logo="github" />
+        <Txt x={72} y={47} size={9.5} fill="#4a5568" font="mono" ls={0.3}>your-repo</Txt>
+        {[68, 88, 108].map((y, i) => (
+          <g key={y}>
+            <rect x="46" y={y} width="12" height="12" rx="3.5" fill={i === 0 ? "#e8f0ff" : "#eef1f7"} />
+            <Bar x={66} y={y + 3.5} w={[92, 74, 104][i]} h={5} />
+          </g>
+        ))}
+        <Pill x={140} y={30} w={48} h={16} label="YOURS" tone="orange" size={8} />
+      </R>
+      <P>
+        <Float a={-5} t={6}>
+          <circle cx="212" cy="112" r="22" fill="url(#gBrand)" filter="url(#fLift)" />
+          <circle cx="212" cy="112" r="7" fill="#fff" />
+          <rect x="230" y="108" width="46" height="9" rx="4.5" fill="url(#gBrand)" filter="url(#fSoft)" />
+          <rect x="256" y="115" width="6" height="12" rx="2.5" fill="url(#gBrand)" />
+          <rect x="267" y="115" width="6" height="9" rx="2.5" fill="url(#gBrand)" />
+        </Float>
+      </P>
+      <P>
+        <Check cx={186} cy={26} r={11} />
+      </P>
     </Art>
   );
 }
 
-function Named() {
-  const xs = [48, 100, 152];
+function Avatar({ cx, cy, r, hue = "gOrange" }: { cx: number; cy: number; r: number; hue?: string }) {
   return (
-    <Art viewBox="0 0 200 130">
-      {xs.map((x, i) => (
-        <g key={x}>
-          <motion.circle variants={pop} style={ORIGIN_CENTER} cx={x} cy="48" r="17" fill="#fff" stroke={LINE} />
-          <motion.circle variants={pop} style={ORIGIN_CENTER} cx={x} cy="43" r="6.5" fill={i === 0 ? BLUE : INK} opacity={i === 0 ? 1 : 0.8} />
-          <motion.path variants={draw} d={`M${x - 10} 60 C${x - 8} 51 ${x + 8} 51 ${x + 10} 60`} stroke={i === 0 ? BLUE : INK} strokeOpacity={i === 0 ? 1 : 0.8} strokeWidth="4" strokeLinecap="round" fill="none" />
-          <motion.rect variants={grow} style={ORIGIN_CENTER} x={x - 17} y="78" width="34" height="6" rx="3" fill={INK} opacity="0.85" />
-          <motion.rect variants={grow} style={ORIGIN_CENTER} x={x - 12} y="90" width="24" height="5" rx="2.5" fill={LINE} />
+    <g>
+      <circle cx={cx} cy={cy} r={r} fill={`url(#${hue})`} />
+      <circle cx={cx} cy={cy - r * 0.18} r={r * 0.32} fill="#fff" opacity="0.95" />
+      <path d={`M${cx - r * 0.55} ${cy + r * 0.62} C ${cx - r * 0.5} ${cy + r * 0.12} ${cx + r * 0.5} ${cy + r * 0.12} ${cx + r * 0.55} ${cy + r * 0.62}`} fill="#fff" opacity="0.95" />
+    </g>
+  );
+}
+
+function Named() {
+  return (
+    <Art viewBox={VB}>
+      <F>
+        <circle cx="150" cy="70" r="90" fill="url(#gGlowBlue)" />
+      </F>
+      <R>
+        <Glass x={74} y={10} w={152} h={62} r={14} opacity={0.45} shadow={null} />
+        <Glass x={62} y={22} w={176} h={66} r={14} opacity={0.75} shadow="fTiny" />
+      </R>
+      <R>
+        <Float a={-3}>
+          <Glass x={44} y={36} w={212} h={78} r={16} shadow="fLift" />
+          <Avatar cx={80} cy={76} r={22} />
+          <Bar x={112} y={56} w={78} h={8} c={INK} o={0.85} />
+          <Pill x={112} y={72} w={108} h={17} label="SENIOR ENGINEER" tone="blue" size={8} />
+          <Bar x={112} y={98} w={92} />
+        </Float>
+      </R>
+      <P>
+        <Check cx={248} cy={40} r={10} />
+      </P>
+      <R>
+        <g>
+          {[
+            { x: 98, h: "gBrand" },
+            { x: 124, h: "gOrange" },
+            { x: 150, h: "gGreen" },
+          ].map((a) => (
+            <g key={a.x}>
+              <circle cx={a.x} cy={140} r={15} fill="#fff" />
+              <Avatar cx={a.x} cy={140} r={13} hue={a.h} />
+            </g>
+          ))}
+          <Txt x={178} y={144} size={9.5} fill={MUTE} font="mono" ls={0.3}>YOUR TEAM</Txt>
         </g>
-      ))}
-      <motion.circle variants={pop} style={ORIGIN_CENTER} cx="60" cy="34" r="7" fill={OK} />
-      <motion.path variants={draw} d="M56.5 34 l2.5 2.5 l4.5 -5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </R>
     </Art>
   );
 }
 
 function Scope() {
   return (
-    <Art viewBox="0 0 200 130">
-      <motion.rect variants={rise} x="52" y="14" width="96" height="104" rx="9" fill="#fff" stroke={LINE} style={S} />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="66" y="30" width="46" height="6" rx="3" fill={INK} opacity="0.85" />
-      {[46, 58, 70, 82].map((y, i) => (
-        <motion.rect key={y} variants={grow} style={ORIGIN_LEFT} x="66" y={y} width={i % 2 ? 56 : 68} height="5" rx="2.5" fill={LINE} />
-      ))}
-      <motion.path variants={draw} d="M66 102 L78 102" stroke={BLUE} strokeWidth="2" strokeLinecap="round" />
-      <motion.rect variants={pop} style={ORIGIN_CENTER} x="112" y="84" width="60" height="26" rx="13" fill={BLUE} />
-      <motion.text variants={rise} x="142" y="101" fontSize="10" textAnchor="middle" fill="#fff" fontFamily="var(--font-geist-mono)">$ FIXED</motion.text>
-      <motion.rect variants={pop} style={ORIGIN_CENTER} x="30" y="24" width="30" height="30" rx="8" fill={ORANGE} />
-      <motion.path variants={draw} d="M38 40 l5 5 l9 -11" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    <Art viewBox={VB}>
+      <F>
+        <circle cx="150" cy="80" r="86" fill="url(#gGlowBlue)" />
+      </F>
+      <R>
+        <g transform="rotate(-6 70 100)">
+          <Glass x={30} y={54} w={76} h={62} r={11} opacity={0.85} shadow="fTiny" />
+          <Txt x={40} y={72} size={8} fill={MUTE} font="mono" ls={0.4}>MILESTONES</Txt>
+          {[0, 1, 2].map((i) => (
+            <g key={i}>
+              <circle cx={44} cy={86 + i * 10} r="2.6" fill={i === 0 ? "#00c91e" : "#cfd8ea"} />
+              <Bar x={52} y={84 + i * 10} w={[38, 30, 34][i]} h={4} />
+            </g>
+          ))}
+        </g>
+      </R>
+      <R>
+        <Float a={-3}>
+          <Glass x={90} y={12} w={130} h={138} r={14} shadow="fLift" />
+          <Bar x={104} y={28} w={64} h={7} c={INK} o={0.85} />
+          <Bar x={104} y={42} w={40} h={4} />
+          {[62, 80, 98].map((y, i) => (
+            <g key={y}>
+              <rect x="104" y={y} width="5" height="5" fill={ORANGE} />
+              <Bar x={114} y={y} w={[78, 64, 70][i]} h={5} />
+              <Bar x={114} y={y + 8} w={[54, 72, 46][i]} h={4} />
+            </g>
+          ))}
+          <motion.path variants={draw} d="M104 132 c 6 -14 10 6 16 -4 s 10 -12 14 2 s 8 -4 14 -6" stroke={BLUE} strokeWidth="1.8" fill="none" strokeLinecap="round" />
+          <circle cx="206" cy="30" r="12" fill="url(#gOrange)" filter="url(#fSoft)" />
+          <path d="M200.5 30.5 l4 4 l7 -8" stroke="#fff" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        </Float>
+      </R>
+      <P>
+        <rect x="176" y="128" width="84" height="26" rx="13" fill="url(#gBrand)" filter="url(#fLift)" />
+        <Txt x={218} y={145} size={10.5} fill="#fff" font="display" anchor="middle" ls={0.3}>$ Fixed price</Txt>
+      </P>
     </Art>
   );
 }
 
 function Progress() {
-  const xs = [30, 77, 124, 171];
+  const xs = [58, 116, 174, 232];
   return (
-    <Art viewBox="0 0 200 130">
-      <motion.rect variants={rise} x="34" y="14" width="132" height="58" rx="8" fill="#fff" stroke={LINE} style={S} />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="44" y="24" width="60" height="6" rx="3" fill={INK} opacity="0.85" />
-      <motion.rect variants={grow} style={ORIGIN_LEFT} x="44" y="38" width="112" height="24" rx="5" fill="#f4f6fa" />
-      <motion.circle variants={pop} style={ORIGIN_CENTER} cx="100" cy="50" r="9" fill={BLUE} />
-      <motion.path variants={rise} d="M97.5 45.5 L104.5 50 L97.5 54.5 Z" fill="#fff" />
-      <motion.line variants={draw} x1={xs[0]} y1="98" x2={xs[3]} y2="98" stroke={LINE} strokeWidth="2" />
-      <motion.line variants={draw} x1={xs[0]} y1="98" x2={xs[2]} y2="98" stroke={BLUE} strokeWidth="2" />
+    <Art viewBox={VB}>
+      <F>
+        <circle cx="150" cy="60" r="92" fill="url(#gGlowBlue)" />
+      </F>
+      <R>
+        <Float a={-3}>
+          <Glass x={42} y={10} w={216} h={90} r={14} shadow="fLift" />
+          <circle cx="56" cy="24" r="2.5" fill="#ff8a70" />
+          <circle cx="64" cy="24" r="2.5" fill="#ffc45a" />
+          <circle cx="72" cy="24" r="2.5" fill="#5be36f" />
+          <Bar x={54} y={40} w={84} h={8} c={INK} o={0.85} />
+          <Bar x={54} y={56} w={100} />
+          <Bar x={54} y={66} w={76} />
+          <rect x="54" y="78" width="46" height="14" rx="7" fill="url(#gBrand)" />
+          <rect x="168" y="34" width="80" height="58" rx="9" fill="url(#gImg)" />
+          <circle cx="208" cy="63" r="14" fill="url(#gBrand)" filter="url(#fSoft)" />
+          <path d="M203.5 56.5 L215 63 L203.5 69.5 Z" fill="#fff" />
+        </Float>
+      </R>
+      <motion.line variants={draw} x1={xs[0]} x2={xs[3]} y1="132" y2="132" stroke="#dbe3f3" strokeWidth="3" strokeLinecap="round" />
+      <motion.line variants={draw} x1={xs[0]} x2={xs[2]} y1="132" y2="132" stroke="url(#gLine)" strokeWidth="3" strokeLinecap="round" />
       {xs.map((x, i) => (
         <g key={x}>
-          <motion.circle variants={pop} style={ORIGIN_CENTER} cx={x} cy="98" r="7" fill={i < 3 ? BLUE : "#fff"} stroke={i < 3 ? BLUE : LINE} strokeWidth="1.5" />
-          {i < 3 ? (
-            <motion.path variants={draw} d={`M${x - 3} 98 l2.2 2.2 l4 -4.6`} stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          ) : null}
-          <motion.text variants={rise} x={x} y="118" fontSize="7.5" textAnchor="middle" fill="#7a7a7a" fontFamily="var(--font-geist-mono)">{`W${i + 1}`}</motion.text>
+          <P>
+            {i < 3 ? (
+              <Check cx={x} cy={132} r={10} fill="url(#gBrand)" />
+            ) : (
+              <circle cx={x} cy={132} r="9" fill="#fff" stroke="#c9d5ee" strokeWidth="1.6" />
+            )}
+          </P>
+          <R>
+            <Txt x={x} y={158} size={9.5} fill={i < 3 ? BLUE : MUTE} font="mono" anchor="middle" ls={0.4}>{`WEEK ${i + 1}`}</Txt>
+          </R>
         </g>
       ))}
+      <P>
+        <Pill x={196} y={2} w={70} h={17} label="LIVE DEMO" tone="white" size={8} />
+      </P>
     </Art>
   );
 }

@@ -4,16 +4,28 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { STACK_TABS, CTA } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
+import { Logo } from "@/components/ui/Logo";
 import { Container, SectionHeading } from "@/components/ui/Layout";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
-import { StackLayers } from "@/components/illustrations/StackLayers";
+import { StackLayers, type Layer } from "@/components/illustrations/StackLayers";
 
 type TabKey = keyof typeof STACK_TABS;
 const KEYS = Object.keys(STACK_TABS) as TabKey[];
-const LAYERS: Record<TabKey, readonly string[]> = {
-  product: ["Frontend", "Backend", "Data", "Delivery"],
-  infra: ["Cloud", "Infrastructure as code", "CI/CD", "Monitoring"],
+
+const LAYERS: Record<TabKey, readonly Layer[]> = {
+  product: [
+    { label: "Frontend", logos: ["react", "nextjs", "flutter"] },
+    { label: "Backend", logos: ["nodejs", "python", "django"] },
+    { label: "Data", logos: ["postgresql", "mongodb", "redis"] },
+    { label: "Delivery", logos: ["figma", "github", "vercel"] },
+  ],
+  infra: [
+    { label: "Cloud", logos: ["aws", "googlecloud", "azure"] },
+    { label: "IaC", logos: ["terraform", "pulumi"] },
+    { label: "CI/CD", logos: ["githubactions", "gitlab", "argocd"] },
+    { label: "Monitoring", logos: ["grafana", "prometheus", "datadog"] },
+  ],
 };
 
 export function ToolStack() {
@@ -66,26 +78,27 @@ export function ToolStack() {
               initial={false}
               animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-12 grid items-start gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.3fr)] lg:gap-16"
+              className="mt-12 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] lg:gap-14"
             >
-              <div className="mx-auto w-full max-w-[420px] rounded-[20px] border border-line bg-white p-4 shadow-[0_18px_40px_-28px_rgba(17,17,17,0.25)]">
-                <StackLayers labels={LAYERS[k]} />
+              <div className="mx-auto w-full max-w-[460px] rounded-[20px] border border-line bg-[radial-gradient(100%_80%_at_50%_0%,#e4edff_0%,#ffffff_70%)] p-4 shadow-[0_18px_40px_-28px_rgba(17,17,17,0.25)]">
+                <StackLayers layers={LAYERS[k]} />
               </div>
 
               <div className="flex flex-col gap-8">
                 <dl className="flex flex-col">
                   {tab.groups.map((g) => (
-                    <div key={g.name} className="grid gap-3 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[170px_1fr]">
-                      <dt className="font-mono text-xs uppercase leading-9 text-muted">
-                        <RevealText as="span" text={g.name} />
+                    <div key={g.name} className="grid gap-3 border-t border-line py-5 first:border-t-0 first:pt-0 sm:grid-cols-[150px_1fr]">
+                      <dt className="font-mono text-[11px] uppercase leading-9 tracking-[0.04em] text-muted">
+                        {g.name}
                       </dt>
-                      <dd className="flex flex-wrap gap-2">
+                      <dd className="flex flex-wrap content-start gap-2">
                         {g.items.map((item) => (
                           <span
                             key={item}
-                            className="rounded-lg border border-line bg-white px-3 py-2 text-sm leading-5 tracking-[-0.02em] text-ink transition-[transform,border-color,color,background-color] duration-300 hover:-translate-y-0.5 hover:border-brand/50 hover:bg-[#f1f5ff] hover:text-brand"
+                            className="inline-flex items-center gap-2 rounded-lg border border-line bg-white py-1.5 pr-3 pl-2 text-sm leading-6 tracking-[-0.02em] text-ink transition-[transform,border-color,color,background-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-brand/50 hover:bg-[#f1f5ff] hover:text-brand hover:shadow-[0_8px_20px_-12px_rgba(6,84,254,0.5)]"
                           >
-                            <RevealText as="span" text={item} />
+                            <Logo name={item} size={20} />
+                            {item}
                           </span>
                         ))}
                       </dd>
@@ -93,7 +106,7 @@ export function ToolStack() {
                   ))}
                 </dl>
                 <div className="rounded-[14px] border border-brand/20 bg-[#f1f5ff] p-5">
-                  <span className="font-mono text-xs uppercase text-brand">Why this stack</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.04em] text-brand">Why this stack</span>
                   <RevealText text={tab.why} className="mt-2 text-base leading-6 tracking-[-0.02em] text-ink-soft" />
                 </div>
               </div>
