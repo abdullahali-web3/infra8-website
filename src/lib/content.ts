@@ -14,18 +14,41 @@ export const NAV = [
       { label: "Free infra audit", href: "#get-started" },
     ],
   },
-  { label: "How we work", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Work", href: "#proof" },
+  {
+    label: "Products",
+    href: "#services",
+    children: [
+      { label: "MVP estimate in 24 hrs", href: "#get-started" },
+      { label: "Free infra audit", href: "#get-started" },
+      { label: "Sample deliverables", href: "#proof" },
+    ],
+  },
   {
     label: "Company",
     href: "#commitments",
     children: [
+      { label: "How we work", href: "#how-it-works" },
       { label: "Our commitments", href: "#commitments" },
       { label: "Who it's for", href: "#fit" },
+    ],
+  },
+  {
+    label: "Resources",
+    href: "#pricing",
+    children: [
+      { label: "Pricing", href: "#pricing" },
+      { label: "Our stack", href: "#stack" },
       { label: "FAQ", href: "#faq" },
     ],
   },
+] as const;
+
+export const CLIENTS = [
+  { name: "AlphaWave", file: "alphawave", markW: 37.2, textW: 105.3, gap: 6.3 },
+  { name: "Codecraft_", file: "codecraft", markW: 31.7, textW: 120.3, gap: 7.9 },
+  { name: "Biosynthesis", file: "biosynthesis", markW: 31.7, textW: 129, gap: 7.9 },
+  { name: "Calescence", file: "calescence", markW: 27.4, textW: 116.4, gap: 7.9 },
+  { name: "Clandestine", file: "clandestine", markW: 30.1, textW: 124.3, gap: 6.3 },
 ] as const;
 
 export const STACK_STRIP = [

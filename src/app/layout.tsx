@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Google_Sans_Flex, Inter, Instrument_Serif } from "next/font/google";
+import { Geist_Mono, Google_Sans_Flex, Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
@@ -18,11 +18,12 @@ const googleSansFlex = Google_Sans_Flex({
   display: "swap",
 });
 
-const editorial = Instrument_Serif({
+const editorial = Newsreader({
   variable: "--font-editorial",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  style: ["italic"],
+  weight: "variable",
+  axes: ["opsz"],
   display: "swap",
 });
 

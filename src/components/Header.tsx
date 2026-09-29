@@ -7,7 +7,7 @@ import { NAV, CTA } from "@/lib/content";
 import { Button } from "@/components/ui/Button";
 
 const LINK =
-  "group relative inline-flex items-center gap-1.5 py-2 font-mono text-[12px] tracking-[0.04em] text-[#252525] uppercase transition-colors duration-200 hover:text-brand";
+  "group relative inline-flex items-center gap-1.5 py-2 font-mono text-[16px] leading-6 tracking-[0.01em] text-[#252525] uppercase transition-colors duration-200 hover:text-brand";
 
 function Chevron() {
   return (
@@ -44,7 +44,7 @@ export function Header() {
           : "bg-white"
       }`}
     >
-      <div className="mx-auto flex h-[78px] w-full max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-20">
+      <div className="mx-auto flex h-[78px] w-full lg:h-[108px] max-w-[1440px] items-center justify-between px-5 sm:px-8 lg:px-20">
         <a href="#top" aria-label="Infra8 home" className="shrink-0">
           <Image
             src="/content/icons/infra8-logo.svg"
@@ -85,7 +85,7 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <Button href={CTA.mvp}>Get an estimate</Button>
+          <Button href={CTA.mvp}>Contact Us</Button>
         </nav>
 
         <button
@@ -130,7 +130,7 @@ export function Header() {
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-2 py-3 font-mono text-[13px] tracking-[0.04em] uppercase transition-colors hover:bg-surface-2 hover:text-brand"
+                    className="block rounded-lg px-2 py-3 font-mono text-[14px] tracking-[0.01em] uppercase transition-colors hover:bg-surface-2 hover:text-brand"
                   >
                     {item.label}
                   </a>
@@ -138,7 +138,7 @@ export function Header() {
               ))}
               <li className="pt-3">
                 <Button href={CTA.mvp} full>
-                  Get an estimate
+                  Contact Us
                 </Button>
               </li>
             </ul>

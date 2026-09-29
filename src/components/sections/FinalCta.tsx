@@ -28,7 +28,7 @@ export function FinalCta() {
                   as="h2"
                   text="Tell us where your product is. You'll hear back in 24 hours."
                   delay={0.05}
-                  accentClassName="font-serif-accent italic font-normal text-white/60 tracking-[-0.01em]"
+                  accentClassName="font-serif-accent italic font-extralight text-white/60 tracking-[-0.01em]"
                   className="font-display text-balance text-[34px] leading-[1.1] tracking-[-0.04em] text-white sm:text-[48px] sm:leading-[52px]"
                 />
                 <div className="flex flex-col gap-3 sm:flex-row">

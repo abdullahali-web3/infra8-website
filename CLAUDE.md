@@ -16,8 +16,9 @@
 ## Project
 - Infra8: B2B marketing site for a senior engineering team that builds MVPs (Build) and runs cloud/DevOps/security (Run). Client website.
 - Goal: rank on SEO + GEO + AEO and convert visitors into "Get MVP estimate in 24 hrs" or "Free infra audit" leads.
+- **Start here in a new session: `docs/STATE-CHECKPOINT.md`** (current state, design rules, next steps).
 - Agenda, copy source and execution plan: `docs/PROJECT-BRIEF.md`, `docs/EXECUTION-PLAN.md`.
-- Repo: not created yet. Host: Vercel (to be connected).
+- Repo: https://github.com/abdullahali-web3/infra8-website (private). Host: Vercel, deployed manually with `vercel deploy --prod --yes` (live: https://infra8-website.vercel.app).
 
 ## Stack
 - Next.js (App Router, Turbopack) · React · TypeScript (strict)

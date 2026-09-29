@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
 import { HatchBand } from "@/components/ui/Layout";
 import { Hero } from "@/components/sections/Hero";
-import { StackStrip } from "@/components/sections/StackStrip";
+import { ClientStrip } from "@/components/sections/ClientStrip";
 import { Stages } from "@/components/sections/Stages";
 import { Commitments } from "@/components/sections/Commitments";
 import { HowItWorks } from "@/components/sections/HowItWorks";
@@ -22,7 +22,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <StackStrip />
+        <ClientStrip />
         <Stages />
         <HatchBand />
         <Commitments />

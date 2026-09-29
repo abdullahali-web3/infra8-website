@@ -20,9 +20,11 @@ export function Container({
 export function Eyebrow({
   children,
   light = false,
+  trim = false,
 }: {
   children: string;
   light?: boolean;
+  trim?: boolean;
 }) {
   return (
     <div className="flex items-center gap-2">
@@ -30,7 +32,7 @@ export function Eyebrow({
       <RevealText
         as="span"
         text={children}
-        className={`font-mono text-xs leading-7 uppercase ${light ? "text-white/80" : "text-ink-soft"}`}
+        className={`font-mono text-xs leading-7 uppercase ${trim ? "[text-box:trim-both_cap_alphabetic]" : ""} ${light ? "text-white/80" : "text-ink-soft"}`}
       />
     </div>
   );
@@ -63,7 +65,7 @@ export function SectionHeading({
         delay={0.05}
         accentClassName={
           light
-            ? "font-serif-accent italic font-normal text-white/60 tracking-[-0.01em]"
+            ? "font-serif-accent italic font-extralight text-white/60 tracking-[-0.01em]"
             : undefined
         }
         className={`font-display text-balance text-[34px] leading-[1.1] tracking-[-0.04em] sm:text-[44px] sm:leading-[48px] ${light ? "text-white" : "text-black"} ${center ? "max-w-[972px]" : "max-w-[820px]"}`}

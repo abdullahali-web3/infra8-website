@@ -1,35 +1,28 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "light" | "ghost-light";
 
-const VARIANTS: Record<Variant, string> = {
-  primary:
-    "bg-brand text-[#fafafa] hover:bg-brand-deep hover:shadow-[0_10px_28px_-10px_rgba(6,84,254,0.7)]",
-  secondary: "bg-surface text-ink hover:bg-[#e5e5e5]",
-  light: "bg-white text-ink hover:bg-[#f1f5ff]",
-  "ghost-light":
-    "bg-white/15 text-white ring-1 ring-inset ring-white/30 hover:bg-white/25",
+// Corner-bracket buttons. Primary is filled; secondary is outlined grey.
+const VARIANTS: Record<Variant, { body: string; tick: string }> = {
+  primary: {
+    body: "bg-brand text-white border-brand hover:bg-brand-deep hover:border-brand-deep",
+    tick: "border-brand",
+  },
+  secondary: {
+    body: "bg-white/60 text-ink border-[#cfcfcf] hover:border-[#9a9a9a] hover:bg-[#f6f6f6]",
+    tick: "border-[#8c8c8c] group-hover:border-ink",
+  },
+  light: {
+    body: "bg-white text-ink border-white hover:bg-[#eef3ff] hover:border-[#eef3ff]",
+    tick: "border-white",
+  },
+  "ghost-light": {
+    body: "bg-white/10 text-white border-white/35 hover:border-white/70 hover:bg-white/20",
+    tick: "border-white",
+  },
 };
 
-export function ArrowChip({ tint = false }: { tint?: boolean }) {
-  return (
-    <span
-      className={`grid size-8 shrink-0 place-items-center overflow-hidden rounded-full transition-transform duration-300 ease-out group-hover:scale-110 ${tint ? "bg-[#dfe8ff]" : "bg-white"}`}
-    >
-      <span className="relative block size-4">
-        <Image
-          src="/content/icons/chevron-right.svg"
-          alt=""
-          width={16}
-          height={16}
-          unoptimized
-          className="size-4 transition-transform duration-300 ease-out group-hover:translate-x-[3px]"
-        />
-      </span>
-    </span>
-  );
-}
+const TICK = "pointer-events-none absolute size-[9px] transition-all duration-300 ease-out";
 
 export function Button({
   href,
@@ -44,13 +37,17 @@ export function Button({
   full?: boolean;
   className?: string;
 }) {
+  const v = VARIANTS[variant];
   return (
     <a
       href={href}
-      className={`group inline-flex min-h-12 items-center justify-between gap-3 rounded-full py-2 pr-2 pl-4 text-left font-display text-[14px] leading-5 font-medium tracking-[0.03em] uppercase transition-[background-color,box-shadow,transform] duration-300 ease-out active:scale-[0.98] ${VARIANTS[variant]} ${full ? "w-full" : ""} ${className}`}
+      className={`group relative inline-flex min-h-12 items-center justify-center rounded-[3px] border px-6 py-2 text-center font-display text-[15px] leading-5 font-medium tracking-[-0.01em] transition-[background-color,border-color,box-shadow] duration-300 ease-out active:scale-[0.99] ${v.body} ${full ? "w-full" : ""} ${className}`}
     >
-      <span>{children}</span>
-      <ArrowChip tint={variant === "light"} />
+      <span className={`${TICK} ${v.tick} -top-[4px] -left-[4px] border-t-[1.5px] border-l-[1.5px] group-hover:-top-[6px] group-hover:-left-[6px]`} aria-hidden />
+      <span className={`${TICK} ${v.tick} -top-[4px] -right-[4px] border-t-[1.5px] border-r-[1.5px] group-hover:-top-[6px] group-hover:-right-[6px]`} aria-hidden />
+      <span className={`${TICK} ${v.tick} -bottom-[4px] -left-[4px] border-b-[1.5px] border-l-[1.5px] group-hover:-bottom-[6px] group-hover:-left-[6px]`} aria-hidden />
+      <span className={`${TICK} ${v.tick} -right-[4px] -bottom-[4px] border-r-[1.5px] border-b-[1.5px] group-hover:-right-[6px] group-hover:-bottom-[6px]`} aria-hidden />
+      <span className="relative">{children}</span>
     </a>
   );
 }

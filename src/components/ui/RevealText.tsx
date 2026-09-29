@@ -63,7 +63,7 @@ export function RevealText({
   text,
   as = "p",
   className,
-  accentClassName = "font-serif-accent italic font-normal text-ink/40 tracking-[-0.01em]",
+  accentClassName = "font-serif-accent italic font-extralight text-ink/40 tracking-[-0.01em]",
   delay = 0,
   stagger = 0.03,
 }: Props) {
