@@ -25,18 +25,16 @@ export const NAV = [
   },
   {
     label: "Company",
-    href: "#commitments",
+    href: "#how-it-works",
     children: [
       { label: "How we work", href: "#how-it-works" },
-      { label: "Our commitments", href: "#commitments" },
       { label: "Who it's for", href: "#fit" },
     ],
   },
   {
     label: "Resources",
-    href: "#pricing",
+    href: "#stack",
     children: [
-      { label: "Pricing", href: "#pricing" },
       { label: "Our stack", href: "#stack" },
       { label: "FAQ", href: "#faq" },
     ],
@@ -60,106 +58,76 @@ export const STACK_STRIP = [
   { name: "Docker", tag: "Containers" },
 ] as const;
 
+/** Service cards. Copy, chip text, icon geometry and button labels are taken from Figma node 171:698. */
 export const STAGES = [
   {
     key: "launch",
     label: "Launch",
-    chips: ["Idea phase", "Pre-seed"],
-    title: "Your first MVP",
-    body: "You have the idea, no product yet. We scope it, design it and build it, so you have a working product to show users and investors.",
-    bullets: [
-      "Scope and roadmap before any code is written",
-      "Design, full-stack build and launch",
-      "Clean, documented code that investors and future CTOs won't reject",
-    ],
-    price: "From $10k · 6–10 weeks",
-    primary: "Get MVP estimate in 24 hrs",
+    chips: ["Idea Phase", "Preseed"],
+    title: "Your First MVP Launch",
+    body: "You have the idea and the vision, but no product yet. We scope it, design it and build it, so you have something real to put in front of users and investors.",
+    primary: "Get MVP Estimates In 24 Hours",
     primaryHref: CTA.mvp,
-    secondary: "See how MVP builds work",
-    secondaryHref: "#how-it-works",
+    detailsHref: "#how-it-works",
     image: "/content/images/stage-launch.webp",
     imageClass: "-rotate-45 -scale-y-100",
-    imageSize: 28,
+    imageW: 28,
+    imageH: 25.822,
+    iconBox: 38.058,
+    iconGap: 0,
+    featured: false,
   },
   {
     key: "build",
     label: "Build",
-    chips: ["Live MVP", "Pre-seed to seed"],
-    title: "Already have an MVP",
-    body: "Users are trying it, and now you need to ship faster without a rewrite. Our engineers join your team, build features and fix the foundations before your next round.",
-    bullets: [
-      "Feature roadmap and weekly releases",
-      "2–4 dedicated engineers who work in your tools",
-      "Codebase cleanup so the product can scale",
-    ],
-    price: "From $8k/mo · Scale up or down monthly",
-    primary: "Build with a dedicated squad",
+    chips: ["Live MVP", "Pre-seed to Seed"],
+    title: "Already Have an MVP",
+    body: "Your MVP is out and now you need to ship faster without a rewrite. We embed senior engineers to build features, fix the foundations and get you ready for your next round.",
+    primary: "Build With a Dedicated Team",
     primaryHref: CTA.mvp,
-    secondary: "See squad plans",
-    secondaryHref: "#pricing",
+    detailsHref: "#how-it-works",
     image: "/content/images/stage-build.webp",
     imageClass: "",
-    imageSize: 28,
+    imageW: 28,
+    imageH: 28,
+    iconBox: 28,
+    iconGap: 4,
+    featured: true,
   },
   {
     key: "scale",
     label: "Scale",
     chips: ["Growth-stage", "Seed to Series A+"],
-    title: "Live product at scale",
-    body: "Downtime, breaches and cloud bills now cost real money. We take over your cloud, DevOps and security so your engineers can work on the product.",
-    bullets: [
-      "Cloud architecture, migrations, CI/CD and infrastructure as code",
-      "Security hardening and compliance prep (SOC 2, ISO 27001)",
-      "Managed DevOps with proactive monitoring and cloud cost cuts",
-    ],
-    price: "Retainers from $4k/mo · Start with the audit",
-    primary: "Get a free infra audit",
+    title: "Live Product at Scale",
+    body: "Your product has users and revenue, so downtime, breaches and cloud bills now cost real money. We take over your cloud, DevOps & security so your team can focus on the product.",
+    primary: "Get a Free Infra Audit",
     primaryHref: CTA.audit,
-    secondary: "What the audit covers",
-    secondaryHref: "#how-it-works",
+    detailsHref: "#how-it-works",
     image: "/content/images/stage-scale.webp",
     imageClass: "-rotate-[15deg]",
-    imageSize: 28,
+    imageW: 28,
+    imageH: 28,
+    iconBox: 34.293,
+    iconGap: 0,
+    featured: false,
   },
 ] as const;
 
-export const COMMITMENTS = [
-  {
-    key: "own",
-    title: "You own everything",
-    body: "Code, repos, cloud accounts and documentation are in your name from day one. Revoke our access anytime.",
-  },
-  {
-    key: "named",
-    title: "Named senior engineers",
-    body: "You know who is on your project, and they're the ones doing the work.",
-  },
-  {
-    key: "scope",
-    title: "Written scope and price before we start",
-    body: "No hourly surprises. MVPs are fixed-scope and infra work is scoped after the audit.",
-  },
-  {
-    key: "progress",
-    title: "Visible progress",
-    body: "A working demo every week for MVPs. A monthly report on uptime, cost and risk for infra clients.",
-  },
-] as const;
-
+/** How it works. Product Development copy, tab names and step titles are from Figma node 177:762. */
 export const TRACKS = {
   product: {
     label: "Product Development",
     steps: [
       {
-        title: "Send your idea, get an estimate",
-        body: "A short form, about 5 minutes. You get a price range and timeline within 24 hours.",
+        title: "Get an estimate in 24 hrs",
+        body: "A price range and timeline.",
       },
       {
         title: "Discovery sprint",
-        body: "One to two weeks. Scope, user flows and architecture, written down.",
+        body: "(1–2 weeks). Scope, user flows and architecture, written down.",
       },
       {
-        title: "Build with weekly demos",
+        title: "Weekly demos",
         body: "You see working software every week.",
       },
       {
@@ -167,11 +135,11 @@ export const TRACKS = {
         body: "You get the code, the docs and the accounts.",
       },
     ],
-    cta: "Start MVP estimate",
+    cta: "Start MVP Estimate",
     ctaHref: CTA.mvp,
   },
   infra: {
-    label: "Cloud / DevOps",
+    label: "Cloud/DevOps",
     steps: [
       {
         title: "Free audit",
@@ -190,7 +158,7 @@ export const TRACKS = {
         body: "We run it, with a monthly review of uptime, cost and risk.",
       },
     ],
-    cta: "Book infra audit",
+    cta: "Book Infra Audit",
     ctaHref: CTA.audit,
   },
 } as const;
@@ -214,41 +182,128 @@ export const AI_POINTS = [
   },
 ] as const;
 
-export const STACK_TABS = {
-  product: {
-    label: "MVPs and product teams",
-    groups: [
-      { name: "Frontend and mobile", items: ["React", "Next.js", "React Native", "Flutter"] },
-      { name: "Backend", items: ["Node.js", "Python", "FastAPI", "Django"] },
-      { name: "Data", items: ["PostgreSQL", "MongoDB", "Redis"] },
-      { name: "AI features", items: ["OpenAI", "Anthropic"] },
-      { name: "Design and delivery", items: ["Figma", "GitHub", "Vercel", "AWS"] },
-    ],
-    why: "Popular, hireable technologies, so investors and your future CTO can take the code over without a rewrite.",
-  },
-  infra: {
-    label: "Live products at scale",
-    groups: [
-      { name: "Cloud", items: ["AWS", "Google Cloud", "Azure"] },
-      { name: "Infra as code", items: ["Terraform", "Pulumi"] },
-      { name: "Containers", items: ["Docker", "Kubernetes"] },
-      { name: "CI/CD", items: ["GitHub Actions", "GitLab CI", "ArgoCD"] },
-      { name: "Monitoring", items: ["Grafana", "Prometheus", "Datadog", "Sentry"] },
-      { name: "Security", items: ["Vault", "Snyk", "Trivy"] },
-    ],
-    why: "Everything is defined in code inside your own accounts, so you can audit it, reproduce it or leave us at any time.",
-  },
-} as const;
+/**
+ * Tool stack, drawn as three orbits (see ToolOrbits). Logo names resolve through `src/lib/logos.ts`.
+ * A pill names the group of logos that follows it, so the orbit reads as a labelled list.
+ * Every stat below is derived from this data or from the brief, never typed in by hand.
+ */
+export type OrbitItem =
+  | { logo: string }
+  | { pill: string; tone: "brand" | "ok" | "warn"; tint?: boolean };
 
-export const PRICING = [
-  { group: "Projects", name: "Discovery sprint", min: 2, max: 5, unit: "k", note: "1–2 weeks. Feeds the build quote." },
-  { group: "Projects", name: "Lean MVP (one core flow)", min: 10, max: 25, unit: "k", note: "Fixed scope." },
-  { group: "Projects", name: "Full MVP (multi-role, integrations)", min: 25, max: 60, unit: "k", note: "Fixed scope, milestone-based." },
-  { group: "Projects", name: "Infra audit: initial review", min: 0, max: 0, unit: "free", note: "A short review of your cloud, pipelines and security." },
-  { group: "Projects", name: "Infra audit: deep audit", min: 3, max: 8, unit: "k", note: "Optional, after the free review." },
-  { group: "Retainers", name: "Dedicated squad", min: 8, max: 20, unit: "k/mo", note: "2–4 engineers in your tools." },
-  { group: "Retainers", name: "Managed DevOps", min: 4, max: 20, unit: "k/mo", note: "By environment size and support hours." },
-] as const;
+export type StackOrbit = {
+  label: string;
+  /** Radius as a percentage of the stage width. */
+  radius: number;
+  /** Seconds for one full turn. */
+  seconds: number;
+  reverse: boolean;
+  /** Where the first item starts, in degrees clockwise from the top. */
+  offset: number;
+  items: OrbitItem[];
+};
+
+const STACK_ORBITS: StackOrbit[] = [
+  {
+    label: "Cloud and infrastructure",
+    radius: 20,
+    seconds: 90,
+    reverse: false,
+    offset: -78,
+    items: [
+      { pill: "Cloud", tone: "ok", tint: true },
+      { logo: "AWS" },
+      { logo: "Google Cloud" },
+      { logo: "Azure" },
+      { pill: "Infra as code", tone: "brand" },
+      { logo: "Terraform" },
+      { logo: "Pulumi" },
+      { pill: "Containers", tone: "brand" },
+      { logo: "Docker" },
+      { logo: "Kubernetes" },
+    ],
+  },
+  {
+    label: "Product engineering",
+    radius: 33,
+    seconds: 130,
+    reverse: true,
+    offset: -60,
+    items: [
+      { pill: "Design", tone: "warn" },
+      { logo: "Figma" },
+      { pill: "Frontend", tone: "brand" },
+      { logo: "React" },
+      { logo: "Next.js" },
+      { logo: "Flutter" },
+      { pill: "Backend", tone: "brand" },
+      { logo: "Node.js" },
+      { logo: "Python" },
+      { logo: "FastAPI" },
+      { logo: "Django" },
+      { pill: "Data", tone: "brand" },
+      { logo: "PostgreSQL" },
+      { logo: "MongoDB" },
+      { logo: "Redis" },
+    ],
+  },
+  {
+    label: "Delivery, operations and AI",
+    radius: 46,
+    seconds: 180,
+    reverse: false,
+    offset: -34,
+    items: [
+      { pill: "CI/CD", tone: "brand" },
+      { logo: "GitHub Actions" },
+      { logo: "GitLab CI" },
+      { logo: "ArgoCD" },
+      { logo: "GitHub" },
+      { logo: "Vercel" },
+      { pill: "Monitoring", tone: "ok" },
+      { logo: "Grafana" },
+      { logo: "Prometheus" },
+      { logo: "Datadog" },
+      { logo: "Sentry" },
+      { pill: "Security", tone: "warn" },
+      { logo: "Vault" },
+      { logo: "Snyk" },
+      { logo: "Trivy" },
+      { pill: "AI", tone: "brand" },
+      { logo: "OpenAI" },
+      { logo: "Anthropic" },
+    ],
+  },
+];
+
+const ORBIT_LOGOS = STACK_ORBITS.flatMap((o) => o.items).flatMap((i) => ("logo" in i ? [i.logo] : []));
+const MAJOR_CLOUDS = ["AWS", "Google Cloud", "Azure"].filter((c) => ORBIT_LOGOS.includes(c));
+
+export const STACK = {
+  orbits: STACK_ORBITS,
+  stats: [
+    { value: ORBIT_LOGOS.length, label: "Tools and technologies" },
+    { value: MAJOR_CLOUDS.length, label: "Major cloud platforms" },
+    { value: 24, label: "Hours to MVP estimate" },
+  ],
+  chips: [
+    { label: "Frontend and mobile", logo: "React" },
+    { label: "Backend and data", logo: "PostgreSQL" },
+    { label: "Cloud and infra as code", logo: "Terraform" },
+    { label: "CI/CD and monitoring", logo: "Grafana" },
+    { label: "Security", logo: "Vault" },
+  ],
+  why: [
+    {
+      label: "For MVPs",
+      body: "Popular, hireable technologies, so investors and your future CTO can take the code over without a rewrite.",
+    },
+    {
+      label: "For live products",
+      body: "Everything is defined in code inside your own accounts, so you can audit it, reproduce it or leave us at any time.",
+    },
+  ],
+};
 
 export const PROOF = [
   {
@@ -330,7 +385,6 @@ export const FOOTER = {
       title: "Company",
       links: [
         { label: "How we work", href: "#how-it-works" },
-        { label: "Pricing", href: "#pricing" },
         { label: "Work", href: "#proof" },
         { label: "FAQ", href: "#faq" },
       ],

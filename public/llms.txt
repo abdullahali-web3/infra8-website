@@ -1,17 +1,15 @@
 # Infra8
 
-> Infra8 is a senior engineering team that builds MVPs for founders and runs cloud infrastructure, DevOps and security for live products. Fixed-scope projects, transparent pricing, and clients own all code and infrastructure.
+> Infra8 is a senior engineering team that builds MVPs for founders and runs cloud infrastructure, DevOps and security for live products. Fixed-scope projects, and clients own all code and infrastructure.
 
 ## What we do
 - Build: MVP development for idea-stage and pre-seed founders, and dedicated engineering squads for live MVPs.
 - Run: cloud architecture and migration, CI/CD, infrastructure as code, security hardening, and managed DevOps retainers.
 - AI-native delivery: AI-assisted code review, test generation and infrastructure scans, with senior engineers reviewing everything before it ships.
 
-## Pricing ranges (USD, indicative; an exact estimate is provided within 24 hours)
-- Discovery sprint: TODO
-- MVP build: TODO
-- Dedicated squad: TODO per month
-- Managed DevOps: TODO per month
+## Estimates
+- MVP estimate: a price range and timeline within 24 hours of a request.
+- Infrastructure: a free infra audit, then a written scope for fixes and managed DevOps.
 
 ## Links
 - Site: TODO production URL

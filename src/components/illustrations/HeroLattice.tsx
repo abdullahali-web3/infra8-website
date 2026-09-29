@@ -12,20 +12,22 @@ type Logo = { file: string; x: number; y: number; w: number; h: number };
 type Tile = { x: number; y: number; logo?: Logo };
 
 // Tile centres and logo boxes measured from the Figma hero illustration (771 x 580).
+// The logo PNGs are cut at native resolution from Figma's own 4x render (~4 image pixels per
+// design pixel), so they stay sharp on retina screens. Regenerate with design/crop-logos-4x.mjs.
 const TILES: Tile[] = [
   { x: 293, y: 169 },
-  { x: 498, y: 172, logo: { file: "linux", x: 473, y: 161, w: 43, h: 25 } },
-  { x: 703, y: 174, logo: { file: "nodejs", x: 681, y: 160, w: 47, h: 29 } },
-  { x: 398, y: 230, logo: { file: "github", x: 374, y: 216, w: 47, h: 29 } },
+  { x: 498, y: 172, logo: { file: "linux", x: 473, y: 160.96, w: 42.75, h: 25.53 } },
+  { x: 703, y: 174, logo: { file: "nodejs", x: 681, y: 160.21, w: 46.5, h: 28.54 } },
+  { x: 398, y: 230, logo: { file: "github", x: 373.75, y: 216.03, w: 47, h: 28.79 } },
   { x: 603, y: 232 },
-  { x: 297, y: 288, logo: { file: "python", x: 275, y: 274, w: 44, h: 28 } },
-  { x: 502, y: 290, logo: { file: "react", x: 479, y: 276, w: 46, h: 28 } },
-  { x: 707, y: 292, logo: { file: "docker", x: 684, y: 281, w: 43, h: 22 } },
+  { x: 297, y: 288, logo: { file: "python", x: 275.25, y: 274.85, w: 43.75, h: 27.03 } },
+  { x: 502, y: 290, logo: { file: "react", x: 479.25, y: 276.61, w: 46, h: 28.04 } },
+  { x: 707, y: 292, logo: { file: "docker", x: 684.5, y: 281.36, w: 42.75, h: 21.53 } },
   { x: 402, y: 348 },
   { x: 607, y: 350 },
-  { x: 302, y: 408, logo: { file: "googlecloud", x: 271, y: 392, w: 53, h: 33 } },
-  { x: 506, y: 409, logo: { file: "aws", x: 472, y: 386, w: 73, h: 46 } },
-  { x: 711, y: 411, logo: { file: "azure", x: 681, y: 397, w: 52, h: 33 } },
+  { x: 302, y: 408, logo: { file: "googlecloud", x: 271.25, y: 392.51, w: 53, h: 32.54 } },
+  { x: 506, y: 409, logo: { file: "aws", x: 472.5, y: 386, w: 72.5, h: 45.81 } },
+  { x: 711, y: 411, logo: { file: "azure", x: 680.75, y: 398.01, w: 52.5, h: 32.04 } },
 ];
 
 function rounded(cx: number, cy: number) {

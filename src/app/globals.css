@@ -3,12 +3,15 @@
 @theme {
   --color-ink: #111111;
   --color-ink-soft: rgba(17, 17, 17, 0.8);
+  --color-nav: #252525;
+  --color-paper: #fafafa;
   --color-brand: #0654fe;
   --color-brand-deep: #0442c9;
   --color-accent: #ff9c33;
   --color-line: #e7e7e7;
   --color-surface: #f1f1f1;
   --color-surface-2: #f7f7f7;
+  --color-surface-deep: #e2e2e2;
   --color-muted: #7a7a7a;
   --color-warn: #fa6c00;
   --color-ok: #00c91e;
@@ -53,7 +56,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 3px;
-  border-radius: 6px;
 }
 
 section[id] {
@@ -130,6 +132,108 @@ section[id] {
   }
   50% {
     opacity: 1;
+  }
+}
+
+/*
+ * Tool stack orbits. Each ring turns around the bottom-centre of the stage; every item on it turns
+ * back by the same amount (same duration, opposite direction) so logos stay upright while they
+ * travel. Ring and counter-turn must share --t so they never drift apart. Transform only.
+ * Sizes are container-query units, so the whole dome scales with the width of `.orbit-wrap`.
+ */
+@keyframes orbit-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.orbit-wrap {
+  position: relative;
+  container-type: inline-size;
+}
+
+.orbit-stage {
+  position: relative;
+  height: calc(46cqw + 44px);
+  overflow: hidden;
+}
+
+/* Fade everything out towards the base line. */
+.orbit-fade {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: linear-gradient(to top, transparent 0, transparent 2cqw, #000 15cqw);
+  mask-image: linear-gradient(to top, transparent 0, transparent 2cqw, #000 15cqw);
+}
+
+.orbit-clear {
+  position: absolute;
+  inset: 0;
+}
+
+/* From lg the stats sit inside the dome, so keep a clear pocket for them: no logo passes behind a number. */
+@media (min-width: 1024px) {
+  .orbit-clear {
+    -webkit-mask-image: radial-gradient(ellipse max(33cqw, 310px) max(17cqw, 165px) at 50% 100%, transparent 86%, #000 100%);
+    mask-image: radial-gradient(ellipse max(33cqw, 310px) max(17cqw, 165px) at 50% 100%, transparent 86%, #000 100%);
+  }
+}
+
+.orbit-ring {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  margin-bottom: calc(var(--r) * -1);
+  margin-left: calc(var(--r) * -1);
+  border: 1px solid var(--color-line);
+  border-radius: 9999px;
+  animation: orbit-cw var(--t) linear infinite;
+}
+
+.orbit-ring.orbit-rev {
+  animation-name: orbit-ccw;
+}
+
+.orbit-slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.orbit-arm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(calc(var(--r) * -1));
+}
+
+.orbit-counter {
+  animation: orbit-ccw var(--t) linear infinite;
+}
+
+.orbit-rev .orbit-counter {
+  animation-name: orbit-cw;
+}
+
+.orbit-wrap:hover .orbit-ring,
+.orbit-wrap:hover .orbit-counter {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-counter {
+    animation: none;
   }
 }
 

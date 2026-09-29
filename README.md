@@ -14,7 +14,7 @@ npm run lint
 ```
 
 ## Where things live
-- `src/lib/content.ts` — homepage copy, pricing, FAQ (also feeds the FAQ JSON-LD)
+- `src/lib/content.ts` — homepage copy, tool stack, FAQ (also feeds the FAQ JSON-LD)
 - `src/lib/site.ts` — SEO / GEO / AEO entity data (set `NEXT_PUBLIC_SITE_URL` in production)
 - `src/components/sections/` — one component per homepage section
 - `src/components/illustrations/` — animated SVG illustrations

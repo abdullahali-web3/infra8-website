@@ -1,5 +1,5 @@
 import { CTA } from "@/lib/content";
-import { Button } from "@/components/ui/Button";
+import { PillButton } from "@/components/ui/PillButton";
 import { Container, Eyebrow } from "@/components/ui/Layout";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
@@ -7,7 +7,7 @@ import { HeroLattice } from "@/components/illustrations/HeroLattice";
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pt-10 pb-12 sm:pt-16 lg:pt-[70px] lg:pb-[92px]">
+    <section id="top" className="relative overflow-hidden pt-10 pb-12 sm:pt-16 lg:pt-[70px] lg:pb-[98px]">
       <div className="pointer-events-none absolute top-[-43px] right-0 hidden w-[771px] lg:block">
         <div className="pointer-events-auto">
           <HeroLattice />
@@ -32,10 +32,10 @@ export function Hero() {
           </div>
 
           <Reveal delay={0.4} className="flex flex-wrap items-center gap-3">
-            <Button href={CTA.mvp}>Let&apos;s Discuss Your Project</Button>
-            <Button href={CTA.services} variant="secondary">
+            <PillButton href={CTA.mvp}>Let&rsquo;s Discuss Your Project</PillButton>
+            <PillButton href={CTA.services} variant="secondary">
               See Services
-            </Button>
+            </PillButton>
           </Reveal>
         </div>
 
