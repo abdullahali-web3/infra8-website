@@ -30,7 +30,6 @@ export default function Home() {
           <HowItWorks />
           <SectionGap />
           <AiWorkflow />
-          <SectionGap />
           <ToolStack />
           <SectionGap />
           <Proof />
@@ -38,7 +37,6 @@ export default function Home() {
           <Testimonials />
           <SectionGap />
           <Faq />
-          <SectionGap />
           <FinalCta />
         </BlueprintColumn>
       </main>
