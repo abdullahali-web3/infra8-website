@@ -1,57 +1,57 @@
 import { PROOF, CTA } from "@/lib/content";
-import { Button } from "@/components/ui/Button";
-import { Container, SectionHeading } from "@/components/ui/Layout";
+import { BlockButton } from "@/components/ui/BlockButton";
+import { BP_PAD, BpSection, SlashHeading, Tag } from "@/components/ui/Blueprint";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
-import { ProofArt } from "@/components/illustrations/ProofArt";
+import { DocIso } from "@/components/illustrations/iso/DocIso";
 
-const TONES = [
-  "bg-[radial-gradient(110%_100%_at_50%_0%,#d9e6ff_0%,#f5f8ff_60%,#ffffff_100%)]",
-  "bg-[radial-gradient(110%_100%_at_50%_0%,#e6ecf8_0%,#f8f9fc_60%,#ffffff_100%)]",
-  "bg-[radial-gradient(110%_100%_at_50%_0%,#ffe9cf_0%,#fff9f0_60%,#ffffff_100%)]",
-] as const;
-
+/** "Work": three sample deliverables, each drawn as an isometric document. */
 export function Proof() {
   return (
-    <section id="proof" className="py-20 sm:py-28">
-      <Container>
-        <SectionHeading
-          eyebrow="Work"
-          title="See what you'll get {{before}} you pay"
-          sub="Request a sample deliverable to see exactly what our work looks like, before you commit to anything."
+    <BpSection id="proof" index={5} label="Work">
+      <div className={`mt-10 flex flex-col gap-6 lg:mt-12 lg:flex-row lg:items-end lg:justify-between ${BP_PAD}`}>
+        <SlashHeading title={"See what you'll get\n{{before}} you pay"} />
+        <RevealText
+          text="Request a sample deliverable to see exactly what our work looks like, before you commit to anything."
+          delay={0.15}
+          className="max-w-[400px] text-base leading-7 tracking-[-0.02em] text-ink-soft"
         />
-        <ul className="mt-14 grid gap-4 md:grid-cols-3 lg:gap-2 lg:p-2">
-          {PROOF.map((p, i) => (
-            <li key={p.key} className="flex">
-              <Reveal delay={i * 0.12} className="flex w-full">
-                <article className="group flex w-full flex-col gap-6 rounded-[16px] border border-line bg-white p-2 transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-[0_24px_48px_-24px_rgba(6,84,254,0.25)]">
-                  <div className={`h-[220px] overflow-hidden rounded-[10px] ring-1 ring-black/[0.04] ${TONES[i % 3]}`}>
-                    <div className="h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-                      <ProofArt kind={p.key} />
-                    </div>
+      </div>
+
+      <ul className="mt-12 grid border-t border-line md:grid-cols-3 lg:mt-16">
+        {PROOF.map((p, i) => (
+          <li key={p.key} className="group/card flex border-line max-md:not-first:border-t md:not-first:border-l">
+            <Reveal delay={i * 0.1} className="flex w-full">
+              <article className="flex w-full flex-col">
+                <header className="flex items-center justify-between px-6 pt-6">
+                  <span className="font-mono text-[12px] leading-none text-muted">{`// 00${i + 1}`}</span>
+                  <Tag tone="brand">Sample</Tag>
+                </header>
+                <div className="relative mx-6 mt-4 h-[220px]">
+                  <div
+                    aria-hidden
+                    className="dots absolute inset-0 opacity-0 transition-opacity duration-500 [mask-image:radial-gradient(closest-side,#000,transparent)] group-hover/card:opacity-100"
+                  />
+                  <div className="relative h-full">
+                    <DocIso kind={p.key} />
                   </div>
-                  <div className="flex flex-1 flex-col gap-3 px-4">
-                    <RevealText
-                      as="h3"
-                      text={p.title}
-                      className="font-display text-2xl leading-7 tracking-[-0.03em] text-ink"
-                    />
-                    <RevealText
-                      text={p.body}
-                      className="text-base leading-6 tracking-[-0.02em] text-muted"
-                    />
-                  </div>
-                  <div className="px-4 pb-4">
-                    <Button href={CTA.mvp} variant="secondary" full>
-                      Request the sample
-                    </Button>
-                  </div>
-                </article>
-              </Reveal>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </section>
+                </div>
+                <div className="flex flex-1 flex-col gap-3 px-6 pt-6">
+                  <h3 className="font-display text-[22px] leading-[1.2] tracking-[-0.03em] text-ink transition-colors duration-300 group-hover/card:text-brand">
+                    {p.title}
+                  </h3>
+                  <p className="text-base leading-6 tracking-[-0.02em] text-muted">{p.body}</p>
+                </div>
+                <div className="px-6 pt-8 pb-6">
+                  <BlockButton href={CTA.mvp} variant="outline" full>
+                    Request the sample
+                  </BlockButton>
+                </div>
+              </article>
+            </Reveal>
+          </li>
+        ))}
+      </ul>
+    </BpSection>
   );
 }

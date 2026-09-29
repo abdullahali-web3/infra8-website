@@ -1,111 +1,139 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useRef, useState } from "react";
+import { useInView } from "motion/react";
 import { TRACKS } from "@/lib/content";
-import { PillButton } from "@/components/ui/PillButton";
-import { Container, Eyebrow } from "@/components/ui/Layout";
-import { RevealText } from "@/components/ui/RevealText";
+import { BlockButton } from "@/components/ui/BlockButton";
+import { BP_PAD, BpSection, SlashHeading } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
-import { StepArt } from "@/components/illustrations/StepArt";
+import { StepIso, type StepState } from "@/components/illustrations/iso/StepIso";
 
 type TrackKey = keyof typeof TRACKS;
 
 const KEYS = Object.keys(TRACKS) as TrackKey[];
-const TRIM = "[text-box:trim-both_cap_alphabetic]";
+const STEP_MS = 4500;
 
-/** "How it works": Figma node 177:762 (layout, copy and tab names), with flat product-UI illustrations. */
+const INDEX_TONE: Record<StepState, string> = { done: "text-ink/60", active: "text-brand", next: "text-muted/60" };
+const TITLE_TONE: Record<StepState, string> = { done: "text-ink", active: "text-brand", next: "text-muted" };
+
+/**
+ * "How it works": four step cells per track. The active step's bar fills, then hands over to the
+ * next one (CSS animation + animationend), so the section plays through the process on its own.
+ * Hovering a step jumps to it and holds. Both tracks stay in the DOM for crawlers.
+ */
 export function HowItWorks() {
-  const [active, setActive] = useState<TrackKey>("product");
+  const [track, setTrack] = useState<TrackKey>("product");
+  const [step, setStep] = useState(0);
+  const [held, setHeld] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(gridRef, { amount: 0.35 });
+  const running = inView && !held;
+
+  function chooseTrack(k: TrackKey) {
+    setTrack(k);
+    setStep(0);
+  }
 
   return (
-    <section id="how-it-works" className="py-20 sm:py-28 lg:pt-[60px] lg:pb-[100px]">
-      <Container>
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
-          <div className="flex flex-col gap-7">
-            <Eyebrow trim>How it works</Eyebrow>
-            <RevealText
-              as="h2"
-              text="What Happens After You Contact Us"
-              delay={0.05}
-              className={`font-display text-balance text-[34px] leading-[1.1] tracking-[-0.04em] text-black sm:text-[44px] sm:leading-[48px] ${TRIM}`}
-            />
-          </div>
-          <Reveal delay={0.15}>
-            <div
-              role="tablist"
-              aria-label="Choose a track"
-              className="relative flex w-full gap-0.5 rounded-[9px] bg-surface p-0.5 lg:w-[371px]"
-            >
-              {KEYS.map((k) => (
-                <button
-                  key={k}
-                  role="tab"
-                  type="button"
-                  aria-selected={active === k}
-                  onClick={() => setActive(k)}
-                  className="relative h-9 flex-1 rounded-[8px] px-2 text-sm tracking-[-0.03em] transition-colors duration-200"
-                >
-                  {active === k ? (
-                    <motion.span
-                      layoutId="track-pill"
-                      className="absolute inset-0 rounded-[8px] bg-white"
-                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                    />
-                  ) : null}
-                  <span className={`relative ${active === k ? "text-ink" : "text-[#4a4a4a] hover:text-ink"}`}>
-                    {TRACKS[k].label}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </Reveal>
-        </div>
+    <BpSection id="how-it-works" index={2} label="How it works">
+      <div className={`mt-10 flex flex-col gap-8 lg:mt-12 lg:flex-row lg:items-end lg:justify-between ${BP_PAD}`}>
+        <SlashHeading title={"What Happens After\nYou Contact Us"} />
+        <Reveal delay={0.15}>
+          <BlockButton href={TRACKS[track].ctaHref}>{TRACKS[track].cta}</BlockButton>
+        </Reveal>
+      </div>
 
+      <div className={`mt-10 ${BP_PAD}`}>
+        <div role="tablist" aria-label="Choose a track" className="inline-flex border border-line p-[3px] font-mono text-[12px] uppercase">
+          {KEYS.map((k) => {
+            const on = track === k;
+            return (
+              <button
+                key={k}
+                role="tab"
+                type="button"
+                aria-selected={on}
+                onClick={() => chooseTrack(k)}
+                className={`h-9 px-4 leading-none uppercase transition-colors duration-300 ${on ? "bg-ink text-white" : "text-ink-soft hover:bg-surface-2 hover:text-ink"}`}
+              >
+                {TRACKS[k].label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Ruler: the column dividers run past the cells, as in a drafting sheet. */}
+      <div aria-hidden className="mt-10 hidden h-8 grid-cols-4 lg:grid">
+        {[0, 1, 2, 3].map((i) => (
+          <span key={i} className="border-line not-first:border-l" />
+        ))}
+      </div>
+
+      <div ref={gridRef} onMouseLeave={() => setHeld(false)} className="mt-8 lg:mt-0">
         {KEYS.map((k) => {
-          const isActive = active === k;
+          const isActive = track === k;
           return (
-            <motion.div
+            <ol
               key={k}
               hidden={!isActive}
               role="tabpanel"
               aria-label={TRACKS[k].label}
-              initial={false}
-              animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="grid border-y border-line sm:grid-cols-2 lg:grid-cols-4"
             >
-              <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-[10px] lg:p-2">
-                {TRACKS[k].steps.map((s, i) => (
-                  <li key={s.title} className="flex">
-                    <Reveal delay={i * 0.08} className="flex w-full">
-                      {/* Hover is a flat state change: the card turns white and gains a 1px #e7e7e7 stroke. */}
-                      <article className="flex w-full flex-col gap-6 rounded-[16px] border border-transparent bg-surface-2 p-[23px] transition-[background-color,border-color] duration-300 ease-out hover:border-line hover:bg-white">
-                        <div className="h-[190px] w-full overflow-hidden rounded-[10px] bg-surface">
-                          <StepArt track={k} index={i} />
-                        </div>
-                        <div className="flex flex-col gap-5">
-                          <span className={`font-mono text-[14px] leading-6 tracking-[-0.03em] text-brand ${TRIM}`}>
-                            STEP {i + 1}
-                          </span>
-                          <div className="flex flex-col gap-3">
-                            <h3 className={`font-display text-[22px] leading-[1.15] tracking-[-0.03em] text-ink ${TRIM}`}>
-                              {s.title}
-                            </h3>
-                            <p className={`text-base leading-6 tracking-[-0.02em] text-muted ${TRIM}`}>{s.body}</p>
-                          </div>
-                        </div>
-                      </article>
-                    </Reveal>
+              {TRACKS[k].steps.map((s, i) => {
+                const state: StepState = !isActive || i > step ? "next" : i === step ? "active" : "done";
+                return (
+                  <li
+                    key={s.title}
+                    onMouseEnter={() => {
+                      setStep(i);
+                      setHeld(true);
+                    }}
+                    className="relative flex min-h-[320px] flex-col border-line max-sm:not-first:border-t sm:max-lg:nth-[n+3]:border-t sm:max-lg:even:border-l lg:not-first:border-l"
+                  >
+                    <div className="flex min-h-[110px] flex-col gap-3 px-5 pt-5">
+                      <span className={`font-mono text-[12px] leading-none transition-colors duration-500 ${INDEX_TONE[state]}`}>
+                        {`// 00${i + 1}`}
+                      </span>
+                      <p className="max-w-[240px] text-sm leading-5 tracking-[-0.01em] text-muted">{s.body}</p>
+                    </div>
+
+                    <div className="relative h-[3px] w-full bg-transparent">
+                      {state === "done" ? <span className="absolute inset-0 bg-brand" /> : null}
+                      {state === "active" ? (
+                        <span
+                          key={`${k}-${step}`}
+                          className="bp-progress absolute inset-0 bg-brand"
+                          style={{ ["--bp-dur" as string]: `${STEP_MS}ms`, animationPlayState: running ? "running" : "paused" }}
+                          onAnimationEnd={() => setStep((n) => (n + 1) % TRACKS[k].steps.length)}
+                        />
+                      ) : null}
+                    </div>
+
+                    <h3
+                      className={`px-5 pt-5 font-display text-[22px] leading-[1.15] tracking-[-0.03em] transition-colors duration-500 ${TITLE_TONE[state]}`}
+                    >
+                      {s.title}
+                    </h3>
+                    <div className="mt-auto flex justify-end px-4 pt-4 pb-4">
+                      <div className="h-[112px] w-[136px]">
+                        <StepIso track={k} index={i} state={state} />
+                      </div>
+                    </div>
                   </li>
-                ))}
-              </ol>
-              <div className="mt-8 flex justify-center">
-                <PillButton href={TRACKS[k].ctaHref}>{TRACKS[k].cta}</PillButton>
-              </div>
-            </motion.div>
+                );
+              })}
+            </ol>
           );
         })}
-      </Container>
-    </section>
+      </div>
+
+      <div aria-hidden className="hidden h-8 grid-cols-4 lg:grid">
+        {[0, 1, 2, 3].map((i) => (
+          <span key={i} className="border-line not-first:border-l" />
+        ))}
+      </div>
+    </BpSection>
   );
 }

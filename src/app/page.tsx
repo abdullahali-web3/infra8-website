@@ -1,9 +1,10 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
-import { HatchBand } from "@/components/ui/Layout";
+import { BlueprintColumn } from "@/components/ui/Blueprint";
 import { Hero } from "@/components/sections/Hero";
 import { ClientStrip } from "@/components/sections/ClientStrip";
+import { FlowTicker } from "@/components/sections/FlowTicker";
 import { Stages } from "@/components/sections/Stages";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { AiWorkflow } from "@/components/sections/AiWorkflow";
@@ -21,15 +22,18 @@ export default function Home() {
       <main>
         <Hero />
         <ClientStrip />
-        <Stages />
-        <HatchBand />
-        <HowItWorks />
-        <AiWorkflow />
-        <ToolStack />
-        <Proof />
-        <Fit />
-        <Faq />
-        <FinalCta />
+        {/* Blueprint theme: everything below the strip sits in one railed column. */}
+        <BlueprintColumn>
+          <FlowTicker />
+          <Stages />
+          <HowItWorks />
+          <AiWorkflow />
+          <ToolStack />
+          <Proof />
+          <Fit />
+          <Faq />
+          <FinalCta />
+        </BlueprintColumn>
       </main>
       <Footer />
     </>

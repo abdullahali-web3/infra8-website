@@ -16,6 +16,19 @@
   --color-warn: #fa6c00;
   --color-ok: #00c91e;
 
+  /* Blueprint theme */
+  --color-dot: #d2d2d2;
+  --color-brand-tint: #eaf0ff;
+  --color-brand-mid: #2e6dff;
+  --color-iso-muted: #bdbdbd;
+  --color-code: #121212;
+  --color-code-bar: #1b1b1b;
+  --color-code-line: #2a2a2a;
+  --color-code-dim: #6f6f6f;
+  --color-code-text: #e8e8e8;
+  --color-code-key: #7fa8ff;
+  --color-code-str: #ffb35c;
+
   --radius-card: 16px;
   --radius-pill: 999px;
 
@@ -74,6 +87,138 @@ section[id] {
 
 @utility text-balance {
   text-wrap: balance;
+}
+
+/* Blueprint dot field (gutters, panels, hovered cells). */
+@utility dots {
+  background-image: radial-gradient(circle, var(--color-dot) 0.9px, transparent 1.2px);
+  background-size: 10px 10px;
+  background-position: 5px 5px;
+}
+
+/* Step progress: fills its track once, then fires animationend so the next step starts. */
+@keyframes bp-progress {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@keyframes bp-progress-y {
+  from {
+    scale: 1 0;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+.bp-progress {
+  transform-origin: left center;
+  animation: bp-progress var(--bp-dur, 4.5s) linear forwards;
+}
+
+.bp-progress-y {
+  transform-origin: center top;
+  animation: bp-progress-y var(--bp-dur, 5s) linear forwards;
+}
+
+@keyframes bp-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.bp-caret {
+  animation: bp-caret 1s steps(1) infinite;
+}
+
+/* Code lines type in one after another (delay set per line). */
+@keyframes bp-line {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.bp-line {
+  animation: bp-line 0.5s steps(24, end) both;
+}
+
+/* Isometric illustration loops. Transform/opacity only. */
+@keyframes iso-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes iso-drop {
+  0%,
+  8% {
+    translate: 0 -34px;
+    opacity: 0;
+  }
+  26%,
+  82% {
+    translate: 0 0;
+    opacity: 1;
+  }
+  100% {
+    translate: 0 0;
+    opacity: 0;
+  }
+}
+
+@keyframes iso-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+}
+
+.iso-bob {
+  animation: iso-bob 4s ease-in-out infinite;
+}
+
+.iso-drop {
+  animation: iso-drop 5.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.iso-blink {
+  animation: iso-blink 1.6s ease-in-out infinite;
+}
+
+.iso-march {
+  animation: dash-flow 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-progress,
+  .bp-progress-y,
+  .bp-caret,
+  .bp-line,
+  .iso-bob,
+  .iso-drop,
+  .iso-blink,
+  .iso-march {
+    animation: none !important;
+  }
 }
 
 @keyframes dash-flow {

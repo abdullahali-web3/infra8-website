@@ -79,6 +79,31 @@ export function SvgDefs() {
           <stop offset="0" stopColor="#ffffff" stopOpacity="0.55" />
           <stop offset="1" stopColor="#ffffff" stopOpacity="0" />
         </radialGradient>
+        {/* Blueprint isometric fills: hatching that runs along each side face, and blue pixel dither. */}
+        <pattern id="isoHatchL" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(30)">
+          <rect width="4" height="4" fill="#ffffff" />
+          <line x1="0" y1="0.5" x2="4" y2="0.5" stroke="#111111" strokeOpacity="0.5" strokeWidth="0.7" />
+        </pattern>
+        <pattern id="isoHatchR" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
+          <rect width="6" height="6" fill="#ffffff" />
+          <line x1="0" y1="0.5" x2="6" y2="0.5" stroke="#111111" strokeOpacity="0.28" strokeWidth="0.6" />
+        </pattern>
+        <pattern id="isoHatchMuted" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(30)">
+          <rect width="4" height="4" fill="#ffffff" />
+          <line x1="0" y1="0.5" x2="4" y2="0.5" stroke="#bdbdbd" strokeOpacity="0.8" strokeWidth="0.7" />
+        </pattern>
+        <pattern id="isoDither" width="3" height="3" patternUnits="userSpaceOnUse">
+          <rect width="3" height="3" fill="#ffffff" />
+          <rect width="1.5" height="1.5" fill="#0654fe" />
+        </pattern>
+        <pattern id="isoDitherDense" width="2" height="2" patternUnits="userSpaceOnUse">
+          <rect width="2" height="2" fill="#dbe6ff" />
+          <rect width="1" height="1" fill="#0654fe" />
+          <rect x="1" y="1" width="1" height="1" fill="#0654fe" />
+        </pattern>
+        <pattern id="isoFloor" width="8" height="8" patternUnits="userSpaceOnUse">
+          <circle cx="4" cy="4" r="0.7" fill="#b9b9b9" />
+        </pattern>
         <filter id="fSoft" x="-30%" y="-30%" width="160%" height="175%">
           <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#12307a" floodOpacity="0.13" />
         </filter>

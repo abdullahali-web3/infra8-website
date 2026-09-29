@@ -52,6 +52,10 @@ type Props = {
   accentClassName?: string;
   delay?: number;
   stagger?: number;
+  /** Decorative marks (e.g. the blueprint "/") drawn before the first and after the last word. Hidden from assistive tech. */
+  before?: string;
+  after?: string;
+  markClassName?: string;
 };
 
 /**
@@ -66,6 +70,9 @@ export function RevealText({
   accentClassName = "font-serif-accent italic font-normal text-ink/40 tracking-[-0.01em]",
   delay = 0,
   stagger = 0.03,
+  before,
+  after,
+  markClassName = "text-ink/20",
 }: Props) {
   const Tag = MOTION_TAGS[as];
   const isHeading = as === "h1" || as === "h2";
@@ -80,7 +87,7 @@ export function RevealText({
         viewport={VIEWPORT}
         custom={delay}
       >
-        {text.replace(/\{\{|\}\}/g, "")}
+        {text.replace(/\{\{|\}\}/g, "").replace(/\s*\n\s*/g, " ")}
       </Tag>
     );
   }
@@ -93,6 +100,8 @@ export function RevealText({
   const nodes = parse(text).flatMap((seg, segIndex) =>
     seg.text.split(/(\s+)/).map((token, tokenIndex) => {
       if (token === "") return null;
+      // A newline in the text is a forced line break (the blueprint headings are set in two lines).
+      if (/\n/.test(token)) return <br key={`${segIndex}-${tokenIndex}`} />;
       if (/^\s+$/.test(token)) return " ";
       return (
         <span
@@ -110,6 +119,18 @@ export function RevealText({
     }),
   );
 
+  const mark = (m: string, key: string) => (
+    <span
+      key={key}
+      aria-hidden
+      className="-mr-[0.08em] -mb-[0.18em] -ml-[0.05em] inline-block overflow-hidden pr-[0.08em] pb-[0.18em] pl-[0.05em] align-top"
+    >
+      <motion.span variants={wordVariants} className={`inline-block ${markClassName}`}>
+        {m}
+      </motion.span>
+    </span>
+  );
+
   return (
     <Tag
       className={className}
@@ -118,7 +139,9 @@ export function RevealText({
       whileInView="show"
       viewport={VIEWPORT}
     >
+      {before ? [mark(before, "before"), " "] : null}
       {nodes}
+      {after ? [" ", mark(after, "after")] : null}
     </Tag>
   );
 }

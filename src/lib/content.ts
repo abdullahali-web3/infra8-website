@@ -49,6 +49,13 @@ export const CLIENTS = [
   { name: "Clandestine", file: "clandestine", markW: 30.1, textW: 124.3, gap: 6.3 },
 ] as const;
 
+/** Blueprint ticker under the client strip (typed one phrase at a time). */
+export const TICKER = [
+  "Build → your MVP, estimated in 24 hrs",
+  "Run → cloud, DevOps and security",
+  "Own → every repo and cloud account",
+] as const;
+
 export const STACK_STRIP = [
   { name: "AWS", tag: "Cloud" },
   { name: "Google Cloud", tag: "Cloud" },
@@ -304,6 +311,56 @@ export const STACK = {
     },
   ],
 };
+
+/**
+ * Blueprint theme: the stack as five layers, top (what users see) to bottom (where it runs).
+ * Same 32 tools as the orbits; stats are derived from this list, never typed in.
+ */
+export const STACK_LAYERS = [
+  {
+    key: "interface",
+    label: "Interface",
+    title: "Product and interface",
+    body: "Product design and frontends for web and mobile.",
+    tools: ["Figma", "React", "Next.js", "Flutter"],
+  },
+  {
+    key: "services",
+    label: "Services & APIs",
+    title: "Backend and APIs",
+    body: "The business logic, integrations and APIs your product runs on.",
+    tools: ["Node.js", "Python", "FastAPI", "Django"],
+  },
+  {
+    key: "data",
+    label: "Data & AI",
+    title: "Data and AI",
+    body: "Databases, caching and AI features on the major model providers.",
+    tools: ["PostgreSQL", "MongoDB", "Redis", "OpenAI", "Anthropic"],
+  },
+  {
+    key: "delivery",
+    label: "Delivery",
+    title: "Delivery and monitoring",
+    body: "CI/CD pipelines, deploys, dashboards and error tracking.",
+    tools: ["GitHub", "GitHub Actions", "GitLab CI", "ArgoCD", "Vercel", "Grafana", "Prometheus", "Datadog", "Sentry"],
+  },
+  {
+    key: "cloud",
+    label: "Cloud & security",
+    title: "Cloud and security",
+    body: "Infrastructure as code on AWS, Google Cloud or Azure, hardened and scanned.",
+    tools: ["AWS", "Google Cloud", "Azure", "Terraform", "Pulumi", "Docker", "Kubernetes", "Vault", "Snyk", "Trivy"],
+  },
+] as const;
+
+const LAYER_TOOLS: readonly string[] = STACK_LAYERS.flatMap((l) => l.tools);
+
+export const LAYER_STATS = [
+  { value: LAYER_TOOLS.length, label: "Tools and technologies" },
+  { value: ["AWS", "Google Cloud", "Azure"].filter((c) => LAYER_TOOLS.includes(c)).length, label: "Major cloud platforms" },
+  { value: 24, label: "Hours to MVP estimate" },
+] as const;
 
 export const PROOF = [
   {
