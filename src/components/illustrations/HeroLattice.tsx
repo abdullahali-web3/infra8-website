@@ -1,19 +1,20 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "motion/react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 
 const HW = 88;
 const HH = 51;
 const R = 11;
+const LIFT = 12;
+const CYCLE_MS = 2200;
 
 type Logo = { file: string; x: number; y: number; w: number; h: number };
 type Tile = { x: number; y: number; logo?: Logo };
 
-// Tile centres and logo boxes measured from the Figma hero illustration (771 x 580).
-// The logo PNGs are cut at native resolution from Figma's own 4x render (~4 image pixels per
-// design pixel), so they stay sharp on retina screens. Regenerate with design/crop-logos-4x.mjs.
+// Tile centres and logo boxes measured from the Figma hero illustration (node 115:32214, 771 x 580).
+// The logo PNGs are cut at native resolution from Figma's own 4x render, so they lie on the
+// isometric plane exactly as in Figma and stay sharp on retina screens (design/crop-logos-4x.mjs).
 const TILES: Tile[] = [
   { x: 293, y: 169 },
   { x: 498, y: 172, logo: { file: "linux", x: 473, y: 160.96, w: 42.75, h: 25.53 } },
@@ -29,6 +30,9 @@ const TILES: Tile[] = [
   { x: 506, y: 409, logo: { file: "aws", x: 472.5, y: 386, w: 72.5, h: 45.81 } },
   { x: 711, y: 411, logo: { file: "azure", x: 680.75, y: 398.01, w: 52.5, h: 32.04 } },
 ];
+
+// Tiles that take a turn lifting: the logo tiles, in a path that wanders across the board.
+const ORDER = [6, 11, 3, 7, 10, 1, 5, 12, 2];
 
 function rounded(cx: number, cy: number) {
   const pts: [number, number][] = [
@@ -56,27 +60,24 @@ function rounded(cx: number, cy: number) {
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/**
+ * Hero illustration, after the Figma design: flat rounded tiles on an isometric grid with the tool
+ * logos lying on them. The board settles in on load; then one logo tile at a time lifts off its
+ * dashed footprint and outlines in blue. Hovering a tile lifts that one and holds the cycle.
+ */
 export function HeroLattice() {
   const root = useRef<HTMLDivElement>(null);
+  const inView = useInView(root, { margin: "0px 0px -10% 0px" });
+  const reduce = useReducedMotion();
+  const [step, setStep] = useState(0);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const active = hovered ?? (reduce ? null : ORDER[step % ORDER.length]);
 
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<SVGGElement>(".lt-float").forEach((el, i) => {
-          gsap.to(el, {
-            y: i % 2 ? -4 : 4,
-            duration: 2.8 + (i % 4) * 0.35,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-            delay: i * 0.18,
-          });
-        });
-      });
-    },
-    { scope: root },
-  );
+  useEffect(() => {
+    if (!inView || reduce || hovered !== null) return;
+    const id = window.setInterval(() => setStep((s) => s + 1), CYCLE_MS);
+    return () => window.clearInterval(id);
+  }, [inView, reduce, hovered]);
 
   return (
     <div ref={root} className="w-full select-none">
@@ -86,20 +87,30 @@ export function HeroLattice() {
         role="img"
         aria-label="Isometric tiles showing the engineering and cloud tools Infra8 works with: Linux, Node.js, GitHub, Python, React, Docker, Google Cloud, AWS and Azure"
       >
-        {TILES.map((t, i) => (
-          <motion.g
-            key={`${t.x}-${t.y}`}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.1 + i * 0.05 }}
-            whileHover={{ y: -8 }}
-          >
-            <g className="lt-float">
-              <g className="group">
+        {TILES.map((t, i) => {
+          const on = active === i;
+          return (
+            <motion.g
+              key={`${t.x}-${t.y}`}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: EASE, delay: 0.25 + ((t.x + t.y) / 1100) * 0.6 }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {/* The footprint the tile lifts off. */}
+              <path
+                d={rounded(t.x, t.y)}
+                fill="none"
+                strokeWidth={1}
+                strokeDasharray="3 4"
+                className={`stroke-brand/50 transition-opacity duration-500 ${on ? "opacity-100" : "opacity-0"}`}
+              />
+              <g className={`transition-[translate] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${on ? "-translate-y-3" : ""}`}>
                 <path
                   d={rounded(t.x, t.y)}
-                  className="fill-white stroke-[#e1e1e1] transition-[stroke,fill] duration-300 group-hover:fill-[#f6f9ff] group-hover:stroke-brand/40"
                   strokeWidth={1}
+                  className={`transition-[stroke,fill] duration-500 ${on ? "fill-white stroke-brand" : "fill-white stroke-[#e1e1e1]"}`}
                 />
                 {t.logo ? (
                   <image
@@ -112,9 +123,15 @@ export function HeroLattice() {
                   />
                 ) : null}
               </g>
-            </g>
-          </motion.g>
-        ))}
+              {/* Short drop lines from the lifted tile's side corners to its footprint. */}
+              <g className={`stroke-brand/40 transition-opacity duration-500 ${on ? "opacity-100" : "opacity-0"}`} strokeWidth={1}>
+                <line x1={t.x - HW + 3} y1={t.y - LIFT} x2={t.x - HW + 3} y2={t.y} />
+                <line x1={t.x + HW - 3} y1={t.y - LIFT} x2={t.x + HW - 3} y2={t.y} />
+                <line x1={t.x} y1={t.y + HH - LIFT - 1} x2={t.x} y2={t.y + HH - 1} />
+              </g>
+            </motion.g>
+          );
+        })}
       </svg>
     </div>
   );

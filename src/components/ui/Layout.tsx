@@ -81,11 +81,6 @@ export function SectionHeading({
         as={as}
         text={title}
         delay={0.05}
-        accentClassName={
-          light
-            ? "font-serif-accent italic font-normal text-white/60 tracking-[-0.01em]"
-            : undefined
-        }
         className={`font-display text-balance text-[34px] leading-[1.1] tracking-[-0.04em] sm:text-[44px] sm:leading-[48px] ${figma ? `${TRIM} lg:pt-[3.5px]` : ""} ${light ? "text-white" : "text-black"} ${center ? "max-w-[972px]" : "max-w-[820px]"}`}
       />
       {sub ? (

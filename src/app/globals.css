@@ -17,7 +17,7 @@
   --color-ok: #00c91e;
 
   /* Blueprint theme */
-  --color-dot: #d2d2d2;
+  --color-dot: #dddddd;
   --color-brand-tint: #eaf0ff;
   --color-brand-mid: #2e6dff;
   --color-iso-muted: #bdbdbd;
@@ -38,7 +38,6 @@
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-gsf), var(--font-inter), ui-sans-serif, sans-serif;
-  --font-serif-accent: var(--font-editorial), ui-serif, Georgia, serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 

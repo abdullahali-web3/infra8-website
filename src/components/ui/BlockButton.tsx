@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
+import { ChevronRight } from "lucide-react";
 
-type Variant = "ink" | "brand" | "outline";
+// "card" is ink at rest and turns brand blue while its `group/card` parent is hovered.
+type Variant = "ink" | "brand" | "outline" | "card";
 
 // Blueprint button: square corners, a small square marker and a mono caps label.
 // Hover: a second colour wipes in from the left and leaves to the right, and the marker turns
@@ -8,6 +10,12 @@ type Variant = "ink" | "brand" | "outline";
 const VARIANTS: Record<Variant, { body: string; wipe: string; mark: string; hover: string }> = {
   ink: { body: "bg-ink text-white", wipe: "bg-brand", mark: "bg-white", hover: "" },
   brand: { body: "bg-brand text-white", wipe: "bg-ink", mark: "bg-white", hover: "" },
+  card: {
+    body: "bg-ink text-white transition-colors duration-500 group-hover/card:bg-brand",
+    wipe: "bg-brand-deep",
+    mark: "bg-white",
+    hover: "",
+  },
   outline: {
     body: "bg-white text-ink shadow-[inset_0_0_0_1px_var(--color-line)]",
     wipe: "bg-ink",
@@ -50,7 +58,7 @@ export function BlockButton({
       </span>
       {full ? (
         <span aria-hidden className={`transition-[translate,color] duration-300 group-hover/blk:translate-x-0.5 ${v.hover}`}>
-          →
+          <ChevronRight className="size-4" strokeWidth={1.75} />
         </span>
       ) : null}
     </a>

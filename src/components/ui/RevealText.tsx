@@ -61,13 +61,13 @@ type Props = {
 /**
  * Headings (h1/h2): words emerge from below their baseline as the heading
  * enters the viewport. Every other text element just fades in.
- * Use `{{word}}` in `text` to mark serif-italic accent words.
+ * `{{word}}` in `text` wraps a word in `accentClassName` (unused by default: the site uses one font).
  */
 export function RevealText({
   text,
   as = "p",
   className,
-  accentClassName = "font-serif-accent italic font-normal text-ink/40 tracking-[-0.01em]",
+  accentClassName = "",
   delay = 0,
   stagger = 0.03,
   before,

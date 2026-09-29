@@ -1,11 +1,13 @@
 import type { ReactNode, SVGProps } from "react";
 import { boxFaces, onTop, points, type P3 } from "@/lib/iso";
+import { logoSrc } from "@/lib/logos";
 
 /**
  * Blueprint isometric kit. Everything is 1px hairline (non-scaling) over white or pattern
  * fills defined once in `SvgDefs` (isoHatchL/R, isoDither, isoDitherDense, isoFloor).
  */
-export type IsoTone = "paper" | "muted" | "brand" | "solid" | "ghost";
+/** `accent` / `accentSolid` are paper at rest and turn blue while their `group/card` parent is hovered. */
+export type IsoTone = "paper" | "muted" | "brand" | "solid" | "ghost" | "accent" | "accentSolid";
 
 const TONES: Record<IsoTone, { top: string; left: string; right: string; line: string }> = {
   paper: { top: "fill-white", left: "fill-[url(#isoHatchL)]", right: "fill-[url(#isoHatchR)]", line: "stroke-ink" },
@@ -13,6 +15,18 @@ const TONES: Record<IsoTone, { top: string; left: string; right: string; line: s
   brand: { top: "fill-brand-tint", left: "fill-[url(#isoDitherDense)]", right: "fill-[url(#isoDither)]", line: "stroke-brand" },
   solid: { top: "fill-brand", left: "fill-brand-deep", right: "fill-brand-mid", line: "stroke-brand-deep" },
   ghost: { top: "fill-transparent", left: "fill-transparent", right: "fill-transparent", line: "stroke-ink/40" },
+  accent: {
+    top: "fill-white group-hover/card:fill-brand-tint",
+    left: "fill-[url(#isoHatchL)] group-hover/card:fill-[url(#isoDitherDense)]",
+    right: "fill-[url(#isoHatchR)] group-hover/card:fill-[url(#isoDither)]",
+    line: "stroke-ink group-hover/card:stroke-brand",
+  },
+  accentSolid: {
+    top: "fill-white group-hover/card:fill-brand",
+    left: "fill-[url(#isoHatchL)] group-hover/card:fill-brand-deep",
+    right: "fill-[url(#isoHatchR)] group-hover/card:fill-brand-mid",
+    line: "stroke-ink group-hover/card:stroke-brand-deep",
+  },
 };
 
 export const LINE = { vectorEffect: "non-scaling-stroke", strokeWidth: 1, strokeLinejoin: "round" } as const;
@@ -102,5 +116,24 @@ export function IsoSvg({
     >
       <g transform={`translate(${origin[0]} ${origin[1]})`}>{children}</g>
     </svg>
+  );
+}
+
+/**
+ * A real tool logo lying flat on a top face, centred (pass it as an `IsoBox` child). It is skewed
+ * onto the plane with the face, like the logos on the hero tiles.
+ */
+export function FaceLogo({ name, w, d, size }: { name: string; w: number; d: number; size: number }) {
+  const src = logoSrc(name);
+  if (!src) return null;
+  return <image href={src} x={(w - size) / 2} y={(d - size) / 2} width={size} height={size} />;
+}
+
+/** A thin tile carrying one logo: a tool "placed" on the floor of a scene. */
+export function LogoTile({ name, x, y, z = 0, size = 30 }: { name: string; x: number; y: number; z?: number; size?: number }) {
+  return (
+    <IsoBox x={x} y={y} z={z} w={size} d={size} h={3}>
+      <FaceLogo name={name} w={size} d={size} size={size * 0.62} />
+    </IsoBox>
   );
 }

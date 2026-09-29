@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { useInView } from "motion/react";
 import { TRACKS } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
-import { BP_PAD, BpSection, SlashHeading } from "@/components/ui/Blueprint";
+import { BP_PAD, BpSection, SectionHead } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
 import { StepIso, type StepState } from "@/components/illustrations/iso/StepIso";
 
@@ -12,6 +12,7 @@ type TrackKey = keyof typeof TRACKS;
 
 const KEYS = Object.keys(TRACKS) as TrackKey[];
 const STEP_MS = 4500;
+const HOLD_FILL_MS = 450;
 
 const INDEX_TONE: Record<StepState, string> = { done: "text-ink/60", active: "text-brand", next: "text-muted/60" };
 const TITLE_TONE: Record<StepState, string> = { done: "text-ink", active: "text-brand", next: "text-muted" };
@@ -35,13 +36,16 @@ export function HowItWorks() {
   }
 
   return (
-    <BpSection id="how-it-works" index={2} label="How it works">
-      <div className={`mt-10 flex flex-col gap-8 lg:mt-12 lg:flex-row lg:items-end lg:justify-between ${BP_PAD}`}>
-        <SlashHeading title={"What Happens After\nYou Contact Us"} />
-        <Reveal delay={0.15}>
-          <BlockButton href={TRACKS[track].ctaHref}>{TRACKS[track].cta}</BlockButton>
-        </Reveal>
-      </div>
+    <BpSection id="how-it-works">
+      <SectionHead
+        eyebrow="How it works"
+        title={"What Happens After\nYou Contact Us"}
+        aside={
+          <Reveal delay={0.15}>
+            <BlockButton href={TRACKS[track].ctaHref}>{TRACKS[track].cta}</BlockButton>
+          </Reveal>
+        }
+      />
 
       <div className={`mt-10 ${BP_PAD}`}>
         <div role="tablist" aria-label="Choose a track" className="inline-flex border border-line p-[3px] font-mono text-[12px] uppercase">
@@ -63,14 +67,8 @@ export function HowItWorks() {
         </div>
       </div>
 
-      {/* Ruler: the column dividers run past the cells, as in a drafting sheet. */}
-      <div aria-hidden className="mt-10 hidden h-8 grid-cols-4 lg:grid">
-        {[0, 1, 2, 3].map((i) => (
-          <span key={i} className="border-line not-first:border-l" />
-        ))}
-      </div>
 
-      <div ref={gridRef} onMouseLeave={() => setHeld(false)} className="mt-8 lg:mt-0">
+      <div ref={gridRef} onMouseLeave={() => setHeld(false)} className="mt-10 lg:mt-12">
         {KEYS.map((k) => {
           const isActive = track === k;
           return (
@@ -79,7 +77,7 @@ export function HowItWorks() {
               hidden={!isActive}
               role="tabpanel"
               aria-label={TRACKS[k].label}
-              className="grid border-y border-line sm:grid-cols-2 lg:grid-cols-4"
+              className="grid border-t border-line sm:grid-cols-2 lg:grid-cols-4"
             >
               {TRACKS[k].steps.map((s, i) => {
                 const state: StepState = !isActive || i > step ? "next" : i === step ? "active" : "done";
@@ -103,10 +101,18 @@ export function HowItWorks() {
                       {state === "done" ? <span className="absolute inset-0 bg-brand" /> : null}
                       {state === "active" ? (
                         <span
-                          key={`${k}-${step}`}
+                          // A hovered step fills its bar quickly and holds; otherwise the bar runs on the timer.
+                          // The key includes `held`, so leaving the step restarts a fresh timed fill.
+                          key={`${k}-${step}-${held}`}
                           className="bp-progress absolute inset-0 bg-brand"
-                          style={{ ["--bp-dur" as string]: `${STEP_MS}ms`, animationPlayState: running ? "running" : "paused" }}
-                          onAnimationEnd={() => setStep((n) => (n + 1) % TRACKS[k].steps.length)}
+                          style={{
+                            ["--bp-dur" as string]: held ? `${HOLD_FILL_MS}ms` : `${STEP_MS}ms`,
+                            animationTimingFunction: held ? "cubic-bezier(0.22, 1, 0.36, 1)" : "linear",
+                            animationPlayState: held || running ? "running" : "paused",
+                          }}
+                          onAnimationEnd={() => {
+                            if (!held) setStep((n) => (n + 1) % TRACKS[k].steps.length);
+                          }}
                         />
                       ) : null}
                     </div>
@@ -129,11 +135,6 @@ export function HowItWorks() {
         })}
       </div>
 
-      <div aria-hidden className="hidden h-8 grid-cols-4 lg:grid">
-        {[0, 1, 2, 3].map((i) => (
-          <span key={i} className="border-line not-first:border-l" />
-        ))}
-      </div>
     </BpSection>
   );
 }

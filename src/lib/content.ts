@@ -4,39 +4,74 @@ export const CTA = {
   services: "#services",
 } as const;
 
+/**
+ * Site map. Pages are not built yet (only the homepage exists); these are their final URLs.
+ * `intro` and each child's `body` feed the full-width mega menu.
+ */
+export const ROUTES = {
+  services: "/services",
+  productDevelopment: "/services/product-development",
+  mvpDevelopment: "/services/mvp-development",
+  cloudDevops: "/services/cloud-devops-management",
+  products: "/products",
+  company: "/company",
+  about: "/company/about",
+  team: "/company/team",
+  portfolio: "/company/portfolio",
+  resources: "/resources",
+  insights: "/resources/insights",
+  careers: "/resources/careers",
+  privacy: "/privacy-policy",
+  terms: "/terms-of-service",
+  cookies: "/cookie-policy",
+} as const;
+
 export const NAV = [
   {
     label: "Services",
-    href: "#services",
+    href: ROUTES.services,
+    intro: {
+      title: "Build it, then run it",
+      body: "One senior team for your product and the cloud it runs on.",
+    },
     children: [
-      { label: "Product development", href: "#services" },
-      { label: "Cloud and DevOps", href: "#services" },
-      { label: "Free infra audit", href: "#get-started" },
+      { label: "Product development", href: ROUTES.productDevelopment, body: "Dedicated engineers who ship features every week." },
+      { label: "MVP development", href: ROUTES.mvpDevelopment, body: "From idea to a launched MVP, with an estimate in 24 hours." },
+      { label: "Cloud/DevOps management", href: ROUTES.cloudDevops, body: "Cloud, CI/CD and security, run for you. Starts with a free audit." },
     ],
   },
   {
     label: "Products",
-    href: "#services",
-    children: [
-      { label: "MVP estimate in 24 hrs", href: "#get-started" },
-      { label: "Free infra audit", href: "#get-started" },
-      { label: "Sample deliverables", href: "#proof" },
-    ],
+    href: ROUTES.products,
+    intro: {
+      title: "Our products",
+      body: "SaaS products we have built and run ourselves.",
+    },
+    children: [{ label: "All products", href: ROUTES.products, body: "Browse every product we have built." }],
   },
   {
     label: "Company",
-    href: "#how-it-works",
+    href: ROUTES.company,
+    intro: {
+      title: "The team behind Infra8",
+      body: "Who we are, who you will work with and what we have shipped.",
+    },
     children: [
-      { label: "How we work", href: "#how-it-works" },
-      { label: "Who it's for", href: "#fit" },
+      { label: "About", href: ROUTES.about, body: "How we work and what we believe." },
+      { label: "Team", href: ROUTES.team, body: "The senior engineers on your project." },
+      { label: "Portfolio", href: ROUTES.portfolio, body: "Products we have built and run." },
     ],
   },
   {
     label: "Resources",
-    href: "#stack",
+    href: ROUTES.resources,
+    intro: {
+      title: "Learn and join",
+      body: "Notes from the work, and open roles.",
+    },
     children: [
-      { label: "Our stack", href: "#stack" },
-      { label: "FAQ", href: "#faq" },
+      { label: "Insights", href: ROUTES.insights, body: "Articles on building and running software." },
+      { label: "Careers", href: ROUTES.careers, body: "Open roles on the team." },
     ],
   },
 ] as const;
@@ -51,9 +86,9 @@ export const CLIENTS = [
 
 /** Blueprint ticker under the client strip (typed one phrase at a time). */
 export const TICKER = [
-  "Build → your MVP, estimated in 24 hrs",
-  "Run → cloud, DevOps and security",
-  "Own → every repo and cloud account",
+  "Build your MVP, estimated in 24 hrs",
+  "Run your cloud, DevOps and security",
+  "Own every repo and cloud account",
 ] as const;
 
 export const STACK_STRIP = [
@@ -73,7 +108,7 @@ export const STAGES = [
     chips: ["Idea Phase", "Preseed"],
     title: "Your First MVP Launch",
     body: "You have the idea and the vision, but no product yet. We scope it, design it and build it, so you have something real to put in front of users and investors.",
-    primary: "Get MVP Estimates In 24 Hours",
+    primary: "Get MVP estimate in 24 hours",
     primaryHref: CTA.mvp,
     detailsHref: "#how-it-works",
     image: "/content/images/stage-launch.webp",
@@ -82,7 +117,6 @@ export const STAGES = [
     imageH: 25.822,
     iconBox: 38.058,
     iconGap: 0,
-    featured: false,
   },
   {
     key: "build",
@@ -90,7 +124,7 @@ export const STAGES = [
     chips: ["Live MVP", "Pre-seed to Seed"],
     title: "Already Have an MVP",
     body: "Your MVP is out and now you need to ship faster without a rewrite. We embed senior engineers to build features, fix the foundations and get you ready for your next round.",
-    primary: "Build With a Dedicated Team",
+    primary: "Build with a dedicated team",
     primaryHref: CTA.mvp,
     detailsHref: "#how-it-works",
     image: "/content/images/stage-build.webp",
@@ -99,7 +133,6 @@ export const STAGES = [
     imageH: 28,
     iconBox: 28,
     iconGap: 4,
-    featured: true,
   },
   {
     key: "scale",
@@ -107,7 +140,7 @@ export const STAGES = [
     chips: ["Growth-stage", "Seed to Series A+"],
     title: "Live Product at Scale",
     body: "Your product has users and revenue, so downtime, breaches and cloud bills now cost real money. We take over your cloud, DevOps & security so your team can focus on the product.",
-    primary: "Get a Free Infra Audit",
+    primary: "Get a free infra audit",
     primaryHref: CTA.audit,
     detailsHref: "#how-it-works",
     image: "/content/images/stage-scale.webp",
@@ -116,14 +149,13 @@ export const STAGES = [
     imageH: 28,
     iconBox: 34.293,
     iconGap: 0,
-    featured: false,
   },
 ] as const;
 
 /** How it works. Product Development copy, tab names and step titles are from Figma node 177:762. */
 export const TRACKS = {
   product: {
-    label: "Product Development",
+    label: "Product development",
     steps: [
       {
         title: "Get an estimate in 24 hrs",
@@ -142,7 +174,7 @@ export const TRACKS = {
         body: "You get the code, the docs and the accounts.",
       },
     ],
-    cta: "Start MVP Estimate",
+    cta: "Start MVP estimate",
     ctaHref: CTA.mvp,
   },
   infra: {
@@ -165,7 +197,7 @@ export const TRACKS = {
         body: "We run it, with a monthly review of uptime, cost and risk.",
       },
     ],
-    cta: "Book Infra Audit",
+    cta: "Book infra audit",
     ctaHref: CTA.audit,
   },
 } as const;
@@ -356,11 +388,6 @@ export const STACK_LAYERS = [
 
 const LAYER_TOOLS: readonly string[] = STACK_LAYERS.flatMap((l) => l.tools);
 
-export const LAYER_STATS = [
-  { value: LAYER_TOOLS.length, label: "Tools and technologies" },
-  { value: ["AWS", "Google Cloud", "Azure"].filter((c) => LAYER_TOOLS.includes(c)).length, label: "Major cloud platforms" },
-  { value: 24, label: "Hours to MVP estimate" },
-] as const;
 
 export const PROOF = [
   {
@@ -380,18 +407,36 @@ export const PROOF = [
   },
 ] as const;
 
-export const FIT = {
-  yes: [
-    "You're a pre-seed or seed founder with a defined idea and budget to build it",
-    "You have a live MVP and need engineers who ship weekly",
-    "You run a product with real users and need someone accountable for cloud, uptime and security",
-  ],
-  no: [
-    "You want the cheapest possible build",
-    "You need a 24/7 operations center with 15-minute response guarantees",
-    "There's no defined user or problem yet (talk to us after you've validated it)",
-  ],
-} as const;
+/** Stats: every number restates a fact already on the page (estimate, discovery, ownership, stack). */
+export const STATS = [
+  { value: 24, suffix: "hrs", label: "From your first message to an MVP estimate" },
+  { value: 2, prefix: "1–", suffix: "wks", label: "Discovery sprint before any build starts" },
+  { value: 100, suffix: "%", label: "Of the code and cloud accounts stay in your name" },
+  { value: LAYER_TOOLS.length, suffix: "", label: "Mainstream tools across product and cloud" },
+] as const;
+
+/**
+ * PLACEHOLDER testimonials. These are sample quotes written to show the layout, NOT real clients.
+ * Replace every entry with a real, approved quote (name, role, company) before this ships.
+ * Do not add Review/AggregateRating schema for them.
+ */
+export const TESTIMONIALS = [
+  {
+    quote: "We had an idea and a deadline. Two weeks later we had a scoped plan, and the MVP was in front of investors on time.",
+    name: "Client name",
+    role: "Founder, pre-seed startup",
+  },
+  {
+    quote: "They took over our AWS account and pipelines without slowing the team down. Our cloud bill went down and the pager went quiet.",
+    name: "Client name",
+    role: "CTO, Series A SaaS",
+  },
+  {
+    quote: "Weekly demos meant we always knew where the product stood. We own every repo, and nothing felt like a black box.",
+    name: "Client name",
+    role: "Co-founder, seed-stage marketplace",
+  },
+] as const;
 
 export const FAQ = [
   {
@@ -433,18 +478,32 @@ export const FOOTER = {
     {
       title: "Services",
       links: [
-        { label: "Product development", href: "#services" },
-        { label: "Cloud and DevOps", href: "#services" },
-        { label: "Free infra audit", href: "#get-started" },
+        { label: "Product development", href: ROUTES.productDevelopment },
+        { label: "MVP development", href: ROUTES.mvpDevelopment },
+        { label: "Cloud/DevOps management", href: ROUTES.cloudDevops },
       ],
     },
     {
       title: "Company",
       links: [
-        { label: "How we work", href: "#how-it-works" },
-        { label: "Work", href: "#proof" },
+        { label: "About", href: ROUTES.about },
+        { label: "Team", href: ROUTES.team },
+        { label: "Portfolio", href: ROUTES.portfolio },
+        { label: "Products", href: ROUTES.products },
+      ],
+    },
+    {
+      title: "Resources",
+      links: [
+        { label: "Insights", href: ROUTES.insights },
+        { label: "Careers", href: ROUTES.careers },
         { label: "FAQ", href: "#faq" },
       ],
     },
+  ],
+  legal: [
+    { label: "Privacy policy", href: ROUTES.privacy },
+    { label: "Terms of service", href: ROUTES.terms },
+    { label: "Cookie policy", href: ROUTES.cookies },
   ],
 } as const;

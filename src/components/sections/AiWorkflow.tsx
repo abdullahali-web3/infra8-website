@@ -4,11 +4,11 @@ import { useRef, useState, type ReactNode } from "react";
 import { useInView } from "motion/react";
 import { AI_POINTS, CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
-import { BpSection, CornerTicks, SlashHeading } from "@/components/ui/Blueprint";
-import { RevealText } from "@/components/ui/RevealText";
+import { BpSection, SectionHead } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
 
 const TAB_MS = 6000;
+const HOLD_FILL_MS = 450;
 
 /** Illustrative snippets, one per AI point (same order as AI_POINTS). Sample code, not client output. */
 const SNIPPETS: { file: string; lines: string[] }[] = [
@@ -127,10 +127,14 @@ export function AiWorkflow() {
   }
 
   return (
-    <BpSection id="ai-workflow" index={3} label="AI-native workflow">
-      <div ref={ref} className="mt-10 grid grid-cols-[minmax(0,1fr)] border-t border-line lg:mt-12 lg:grid-cols-2">
+    <BpSection id="ai-workflow">
+      <SectionHead
+        eyebrow="AI-native workflow"
+        title={"Faster Delivery. Senior\nEngineers Stay in Charge."}
+        sub="We use AI where it saves time and keep humans where it matters. A senior engineer reviews everything before it ships."
+      />
+      <div ref={ref} className="mt-12 grid grid-cols-[minmax(0,1fr)] border-t border-line lg:mt-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
         <div className="dots relative flex flex-col justify-center border-line px-4 py-10 sm:px-8 lg:border-r lg:px-12 lg:py-14">
-          <CornerTicks />
           <Reveal y={16}>
             <div className="overflow-hidden rounded-[4px] bg-code font-mono text-[12px] leading-[22px] text-code-text sm:text-[13px]">
               <div className="flex items-center justify-between gap-4 border-b border-code-line bg-code-bar px-4 py-2.5">
@@ -166,21 +170,8 @@ export function AiWorkflow() {
           </Reveal>
         </div>
 
-        <div className="flex flex-col gap-8 px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
-          <SlashHeading
-            title={"Faster delivery.\nSenior engineers stay {{in}} charge."}
-            className="lg:text-[32px] lg:leading-[38px] xl:text-[38px] xl:leading-[44px]"
-          />
-          <RevealText
-            text="We use AI where it saves time and keep humans where it matters. A senior engineer reviews everything before it ships."
-            delay={0.15}
-            className="max-w-[460px] text-base leading-7 tracking-[-0.02em] text-ink-soft"
-          />
-          <Reveal delay={0.2}>
-            <BlockButton href={CTA.mvp}>Start MVP estimate</BlockButton>
-          </Reveal>
-
-          <ul className="mt-2 flex flex-col border-l border-line" onMouseLeave={() => setHeld(false)}>
+        <div className="flex flex-col justify-center gap-8 px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
+          <ul className="flex flex-col border-l border-line" onMouseLeave={() => setHeld(false)}>
             {AI_POINTS.map((p, i) => {
               const on = i === active;
               return (
@@ -194,11 +185,18 @@ export function AiWorkflow() {
                 >
                   {on ? (
                     <span
-                      key={active}
+                      // A hovered tab fills its rail quickly and holds; otherwise it runs on the timer.
+                      key={`${active}-${held}`}
                       aria-hidden
                       className="bp-progress-y absolute top-0 -left-px h-full w-0.5 bg-brand"
-                      style={{ ["--bp-dur" as string]: `${TAB_MS}ms`, animationPlayState: inView && !held ? "running" : "paused" }}
-                      onAnimationEnd={() => setActive((n) => (n + 1) % AI_POINTS.length)}
+                      style={{
+                        ["--bp-dur" as string]: held ? `${HOLD_FILL_MS}ms` : `${TAB_MS}ms`,
+                        animationTimingFunction: held ? "cubic-bezier(0.22, 1, 0.36, 1)" : "linear",
+                        animationPlayState: held || inView ? "running" : "paused",
+                      }}
+                      onAnimationEnd={() => {
+                        if (!held) setActive((n) => (n + 1) % AI_POINTS.length);
+                      }}
                     />
                   ) : null}
                   <h3>
@@ -222,6 +220,9 @@ export function AiWorkflow() {
               );
             })}
           </ul>
+          <Reveal delay={0.2}>
+            <BlockButton href={CTA.mvp}>Start MVP estimate</BlockButton>
+          </Reveal>
         </div>
       </div>
     </BpSection>

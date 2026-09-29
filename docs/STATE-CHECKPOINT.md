@@ -121,3 +121,26 @@ The client asked for a second, livelier design for everything below the client s
   - New primitives: `ui/Blueprint.tsx`, `ui/BlockButton.tsx`, `ui/ScrambleText.tsx`, `ui/Typewriter.tsx`; `RevealText` gained `before`/`after` marks and `\n` line breaks. Layer data: `STACK_LAYERS`, `LAYER_STATS`, `TICKER` in `content.ts`.
   - The classic-only files (`StepArt`, `AiPipeline`, `ProofArt`, `FinalArt`, `ToolOrbits`, `Button`, orbit CSS) are unused on this branch but left in place so the branches diff cleanly; delete them once a theme is chosen.
   - Illustration code snippets and numbers are illustrative sample content, not client claims.
+
+### Blueprint round 2 (2026-09-29): declutter for conversions + site map
+- Client feedback: "too cluttered and geometric, will kill conversions". Removed the long `[ N.xx/08 ] —— > LABEL` index rows, registration crosses, corner ticks, drafting rulers, card hover dot fields and the FAQ dotted box. Each section now opens with a compact `Eyebrow` (blue square + mono label) right above its heading (`SectionHead` in `ui/Blueprint.tsx`). Dot field lightened.
+- **All H1/H2 are sentence case and share one style** (`HEADING` / `SlashHeading`); card H3s also sentence case.
+- Services: no featured card. All three are neutral; hovering a card gives it the blue treatment (top line, title, iso art via the `accent` tone, `BlockButton variant="card"`). Proof cards follow the same hover.
+- Tool stack: logos beside the plates are 28px tiles (5 per row, wrap to 2 rows); cell logos 20px in 36px tiles. Its stats row moved to the new stats band.
+- "Who it's for" removed; new `Testimonials` section = stats band (facts already on the page) + three **PLACEHOLDER quotes** tagged "Sample quote" on screen. Real quotes needed before shipping; no Review schema.
+- Site map (not built, homepage only): `ROUTES` in `content.ts`. Services → product development, MVP development, Cloud/DevOps management; Products; Company → about, team, portfolio; Resources → insights, careers; legal → privacy, terms, cookies. Header has a full-width mega menu (intro + link cards, aligned to the column); mobile menu groups the same links; footer lists all pages plus legal. These links 404 until the pages are built.
+
+### Blueprint round 3 (2026-09-29)
+- Headings back to **Title Case** (H1, all H2s, service card titles); serif accent words and the Newsreader font removed (one heading font).
+- Hero illustration: back to the Figma lattice (`HeroLattice.tsx`, node 115:32214 geometry and Figma logo cut-outs), inside the railed column. New motion: tiles settle in on load, then one logo tile at a time lifts off a dashed blue footprint (hover lifts that tile and holds). Side by side from xl (55% wide, 60% from 1400px); below xl it sits under the copy. `HeroIso.tsx` is no longer used.
+- How it works / AI tabs: hovering a step or tab now fills its progress bar quickly and holds; leaving restarts the timed fill.
+- `lucide-react` added: `ChevronRight` replaces every "→" in buttons, links and the mega menu; final CTA benefits are a list with green `CircleCheck` ticks. Ticker phrases reworded without arrows.
+- `BpSection` gained `flush` (no top padding) for FAQ and the final CTA.
+
+### Blueprint round 4 (2026-09-29)
+- `SectionGap` (dotted band framed by hairlines, 48px / 80px on lg) between every pair of sections, so no section butts against the next (client flagged Testimonials→FAQ and Stack→Work as too tight).
+- Illustrations carry real tool logos lying on their top faces (`FaceLogo`, `LogoTile` in `iso/Iso.tsx`):
+  - Services: Launch = React inside the scope cube, with Figma, Next.js and Vercel tiles around it. Build = PostgreSQL, React and Node.js blocks, with GitHub dropping in. Scale = racks topped with AWS (hub), Google Cloud, Azure, Kubernetes, Docker, Terraform and Grafana.
+  - Work: Figma on the scope sheet. Architecture nodes are React, Node.js (hub), Redis, PostgreSQL and AWS. The audit sheet is headed by AWS.
+  - Final CTA: Node.js/Next.js, React and Figma on the build side; AWS, Kubernetes, Docker and Terraform racks on the run side.
+- Stairs step DOWN towards the viewer (tallest at the back) so no block hides another's logo.

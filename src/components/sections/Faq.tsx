@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FAQ, CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
-import { BpSection, CornerTicks, SlashHeading } from "@/components/ui/Blueprint";
+import { BpSection, Eyebrow, SlashHeading } from "@/components/ui/Blueprint";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 
@@ -12,11 +12,12 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <BpSection id="faq" index={7} label="FAQ">
-      <div className="mt-10 grid border-t border-line lg:mt-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
-        <div className="border-line px-5 py-10 sm:px-8 lg:border-r lg:px-10 lg:py-12">
+    <BpSection id="faq" flush>
+      <div className="grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)]">
+        <div className="border-line px-5 py-16 sm:px-8 lg:border-r lg:px-12 lg:py-24">
           <div className="flex flex-col gap-7 lg:sticky lg:top-28">
-            <SlashHeading title={"Questions\n{{we}} hear first"} />
+            <Eyebrow>FAQ</Eyebrow>
+            <SlashHeading title={"Questions\nWe Hear First"} />
             <RevealText
               text="Ownership, security, time zones and what happens if it goes wrong."
               delay={0.15}
@@ -27,12 +28,6 @@ export function Faq() {
                 Ask us directly
               </BlockButton>
             </Reveal>
-            <div className="dots relative mt-4 hidden h-[120px] items-center justify-center lg:flex">
-              <CornerTicks />
-              <span className="bg-white px-2 font-mono text-[12px] leading-none text-muted uppercase">
-                {`${FAQ.length} answers · reply in 24 hrs`}
-              </span>
-            </div>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Google_Sans_Flex, Inter, Newsreader } from "next/font/google";
+import { Geist_Mono, Google_Sans_Flex, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
@@ -15,15 +15,6 @@ const inter = Inter({
 const googleSansFlex = Google_Sans_Flex({
   variable: "--font-gsf",
   subsets: ["latin"],
-  display: "swap",
-});
-
-const editorial = Newsreader({
-  variable: "--font-editorial",
-  subsets: ["latin"],
-  style: ["italic"],
-  weight: "variable",
-  axes: ["opsz"],
   display: "swap",
 });
 
@@ -71,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${googleSansFlex.variable} ${editorial.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${googleSansFlex.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-screen flex-col bg-white text-ink">
         <JsonLd />

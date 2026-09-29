@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { HomeJsonLd } from "@/components/HomeJsonLd";
-import { BlueprintColumn } from "@/components/ui/Blueprint";
+import { BlueprintColumn, SectionGap } from "@/components/ui/Blueprint";
 import { Hero } from "@/components/sections/Hero";
 import { ClientStrip } from "@/components/sections/ClientStrip";
 import { FlowTicker } from "@/components/sections/FlowTicker";
@@ -10,7 +10,7 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { AiWorkflow } from "@/components/sections/AiWorkflow";
 import { ToolStack } from "@/components/sections/ToolStack";
 import { Proof } from "@/components/sections/Proof";
-import { Fit } from "@/components/sections/Fit";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { Faq } from "@/components/sections/Faq";
 import { FinalCta } from "@/components/sections/FinalCta";
 
@@ -26,12 +26,19 @@ export default function Home() {
         <BlueprintColumn>
           <FlowTicker />
           <Stages />
+          <SectionGap />
           <HowItWorks />
+          <SectionGap />
           <AiWorkflow />
+          <SectionGap />
           <ToolStack />
+          <SectionGap />
           <Proof />
-          <Fit />
+          <SectionGap />
+          <Testimonials />
+          <SectionGap />
           <Faq />
+          <SectionGap />
           <FinalCta />
         </BlueprintColumn>
       </main>

@@ -2,12 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
-import { CTA, LAYER_STATS, STACK, STACK_LAYERS } from "@/lib/content";
+import { CTA, STACK, STACK_LAYERS } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
-import { BP_PAD, BpSection, SlashHeading } from "@/components/ui/Blueprint";
-import { CountUp } from "@/components/ui/CountUp";
+import { BpSection, SectionHead } from "@/components/ui/Blueprint";
 import { Logo } from "@/components/ui/Logo";
-import { RevealText } from "@/components/ui/RevealText";
 import { LayerStack } from "@/components/illustrations/iso/LayerStack";
 
 const CYCLE_MS = 2800;
@@ -36,27 +34,12 @@ export function ToolStack() {
   };
 
   return (
-    <BpSection id="stack" index={4} label="Our stack">
-      <div className={`mt-10 flex flex-col gap-8 lg:mt-12 lg:flex-row lg:items-end lg:justify-between ${BP_PAD}`}>
-        <SlashHeading title={"The Stack Behind\nWhat We Build {{and}} Run"} />
-        <div className="flex max-w-[440px] flex-col gap-6">
-          <RevealText
-            text="Mainstream, well-documented tools your next engineer already knows. No proprietary frameworks, no lock-in to us."
-            delay={0.15}
-            className="text-base leading-7 tracking-[-0.02em] text-ink-soft"
-          />
-          <dl className="grid grid-cols-3 border-y border-line">
-            {LAYER_STATS.map((s) => (
-              <div key={s.label} className="flex flex-col gap-1.5 border-line py-3 not-first:border-l not-first:pl-4">
-                <dt className="order-2 font-mono text-[10px] leading-3 tracking-[0.02em] text-muted uppercase">{s.label}</dt>
-                <dd className="order-1 font-display text-[28px] leading-none tracking-[-0.04em] text-ink">
-                  <CountUp to={s.value} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
+    <BpSection id="stack">
+      <SectionHead
+        eyebrow="Our stack"
+        title={"The Stack Behind\nWhat We Build and Run"}
+        sub="Mainstream, well-documented tools your next engineer already knows. No proprietary frameworks, no lock-in to us."
+      />
 
       <div ref={ref} className="mt-12 lg:mt-16" onMouseLeave={() => setHeld(false)}>
         <div className="relative border-t border-line px-5 py-12 lg:py-16">
@@ -84,14 +67,14 @@ export function ToolStack() {
                 </span>
                 <h3 className="font-display text-[20px] leading-6 tracking-[-0.03em] text-ink">{layer.title}</h3>
                 <p className="text-sm leading-5 tracking-[-0.01em] text-muted">{layer.body}</p>
-                <ul className="mt-auto flex flex-wrap gap-1.5 pt-2" aria-label={`${layer.title} tools`}>
+                <ul className="mt-auto flex flex-wrap gap-2 pt-3" aria-label={`${layer.title} tools`}>
                   {layer.tools.map((t) => (
                     <li
                       key={t}
                       title={t}
-                      className="grid size-7 place-items-center border border-line bg-white"
+                      className="grid size-9 place-items-center border border-line bg-white"
                     >
-                      <Logo name={t} size={15} />
+                      <Logo name={t} size={20} />
                       <span className="sr-only">{t}</span>
                     </li>
                   ))}

@@ -14,6 +14,10 @@ const SPREAD = 72;
 const COLLAPSED = 16;
 const EDGE = SIZE * COS30;
 const MID_Y = SIZE / 2 - THICK;
+/** Logo tiles beside each plate. */
+const TILE_SIZE = 28;
+const TILE_PITCH = 32;
+const PER_ROW = 5;
 
 type PlateState = "above" | "active" | "below";
 
@@ -185,9 +189,17 @@ export function LayerStack({ active, onSelect }: { active: number; onSelect: (i:
                     <g className={`transition-[opacity,filter] duration-500 ${s === "active" ? "opacity-100" : "opacity-35 grayscale"}`}>
                       {layer.tools.map((tool, j) => {
                         const src = logoSrc(tool);
-                        return src ? (
-                          <image key={tool} href={src} x={EDGE + 64 + j * 22} y={MID_Y - 4} width={16} height={16} />
-                        ) : null;
+                        if (!src) return null;
+                        // Logo tiles, five per row; a second row sits just under the first.
+                        const rows = Math.ceil(layer.tools.length / PER_ROW);
+                        const x = EDGE + 64 + (j % PER_ROW) * TILE_PITCH;
+                        const y = MID_Y + 4 - (rows * TILE_PITCH - 6) / 2 + Math.floor(j / PER_ROW) * TILE_PITCH;
+                        return (
+                          <g key={tool}>
+                            <rect x={x} y={y} width={TILE_SIZE} height={TILE_SIZE} className="fill-white stroke-line" {...LINE} />
+                            <image href={src} x={x + 5} y={y + 5} width={TILE_SIZE - 10} height={TILE_SIZE - 10} />
+                          </g>
+                        );
                       })}
                     </g>
                   </g>

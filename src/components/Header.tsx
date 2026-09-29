@@ -1,17 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { ChevronRight } from "lucide-react";
 import { NAV, CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+const CLOSE_DELAY_MS = 140;
+
 const LINK =
-  "group relative inline-flex items-center gap-1.5 py-2 font-sans text-[14px] leading-6 tracking-[-0.03em] text-nav transition-colors duration-200 hover:text-brand";
+  "group relative inline-flex items-center gap-1.5 py-2 font-sans text-[14px] leading-6 tracking-[-0.03em] transition-colors duration-200";
 
 // Figma lays this vector out in a 6x3 box but draws it at its native 7.2x4.2 (stroke included),
 // so the image overflows the layout box by 0.6px on every side.
-function Chevron() {
+function Chevron({ open }: { open: boolean }) {
   return (
     <Image
       src="/content/icons/chevron-down.svg"
@@ -19,14 +23,61 @@ function Chevron() {
       width={7}
       height={4}
       unoptimized
-      className="m-[-0.6px] h-[4.2px] w-[7.2px] max-w-none shrink-0 transition-[rotate] duration-300 group-hover/item:rotate-180"
+      className={`m-[-0.6px] h-[4.2px] w-[7.2px] max-w-none shrink-0 transition-[rotate] duration-300 ${open ? "rotate-180" : ""}`}
     />
+  );
+}
+
+type NavItem = (typeof NAV)[number];
+
+/** Full-width mega menu panel for one nav item: an intro on the left, link cards on the right. */
+function MegaPanel({ item }: { item: NavItem }) {
+  return (
+    <div className="mx-auto grid w-full max-w-[1280px] grid-cols-[300px_minmax(0,1fr)] border-x border-line bg-white lg:w-[calc(100%-160px)]">
+      <div className="flex flex-col gap-3 border-r border-line p-8">
+        <span className="inline-flex items-center gap-2 font-mono text-[12px] leading-none text-muted uppercase">
+          <span aria-hidden className="size-1.5 bg-brand" />
+          {item.label}
+        </span>
+        <p className="font-display text-[24px] leading-[1.2] tracking-[-0.03em] text-ink">{item.intro.title}</p>
+        <p className="text-sm leading-5 tracking-[-0.01em] text-muted">{item.intro.body}</p>
+        <a
+          href={item.href}
+          className="group/all mt-auto inline-flex items-center gap-2 pt-6 font-mono text-[12px] leading-none text-ink uppercase transition-colors hover:text-brand"
+        >
+          {`All ${item.label.toLowerCase()}`}
+          <span aria-hidden className="transition-[translate] duration-300 group-hover/all:translate-x-1">
+            <ChevronRight className="size-4" strokeWidth={1.75} />
+          </span>
+        </a>
+      </div>
+      <ul className="grid grid-cols-3 gap-2 p-4">
+        {item.children.map((c) => (
+          <li key={c.label}>
+            <a
+              href={c.href}
+              className="group/mi flex h-full flex-col gap-2 p-4 transition-colors duration-200 hover:bg-surface-2"
+            >
+              <span className="flex items-center justify-between gap-3 font-display text-[17px] leading-6 tracking-[-0.02em] text-ink transition-colors group-hover/mi:text-brand">
+                {c.label}
+                <span aria-hidden className="text-muted transition-[translate,color] duration-300 group-hover/mi:translate-x-1 group-hover/mi:text-brand">
+                  <ChevronRight className="size-4" strokeWidth={1.75} />
+                </span>
+              </span>
+              <span className="text-sm leading-5 tracking-[-0.01em] text-muted">{c.body}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState<number | null>(null);
+  const closeTimer = useRef(0);
   // An open mobile menu always hangs off the full-height bar, so it never floats detached.
   const compact = scrolled && !open;
 
@@ -37,6 +88,25 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (menu === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenu(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menu]);
+
+  function openMenu(i: number) {
+    window.clearTimeout(closeTimer.current);
+    setMenu(i);
+  }
+
+  function scheduleClose() {
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setMenu(null), CLOSE_DELAY_MS);
+  }
+
   // The header keeps one fixed height so the page never shifts. "Compact" only moves
   // and scales two layers (transform-only, per the motion rules): the backdrop squashes
   // from the top (108 -> 64px desktop, 78 -> 56px mobile) and the content rides up to
@@ -45,7 +115,7 @@ export function Header() {
     <motion.header
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, ease: EASE }}
       className="pointer-events-none sticky top-0 z-50 h-[78px] lg:h-[108px]"
     >
       <div
@@ -81,36 +151,29 @@ export function Header() {
         </a>
 
         <nav aria-label="Primary" className="pointer-events-auto hidden items-center gap-10 lg:flex">
-          <ul className="flex items-center gap-8">
-            {NAV.map((item) => (
-              <li key={item.label} className="group/item relative">
-                <a href={item.href} className={LINK}>
-                  <span className="[text-box:trim-both_cap_alphabetic]">{item.label}</span>
-                  {"children" in item ? <Chevron /> : null}
-                  <span className="absolute bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-brand transition-transform duration-300 ease-out group-hover:scale-x-100" />
-                </a>
-                {"children" in item ? (
-                  <div className="invisible absolute top-full left-1/2 z-10 w-56 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-focus-within/item:visible group-focus-within/item:translate-y-0 group-focus-within/item:opacity-100 group-hover/item:visible group-hover/item:translate-y-0 group-hover/item:opacity-100">
-                    <ul className="border border-line bg-white p-1.5 shadow-[0_24px_48px_-24px_rgba(17,17,17,0.2)]">
-                      {item.children.map((c) => (
-                        <li key={c.label}>
-                          <a
-                            href={c.href}
-                            className="block px-3 py-2.5 font-display text-[14px] tracking-[-0.01em] text-ink transition-colors hover:bg-surface-2 hover:text-brand"
-                          >
-                            {c.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </li>
-            ))}
+          <ul className="flex items-center gap-8" onMouseLeave={scheduleClose}>
+            {NAV.map((item, i) => {
+              const isOpen = menu === i;
+              return (
+                <li key={item.label} onMouseEnter={() => openMenu(i)}>
+                  <a
+                    href={item.href}
+                    aria-expanded={isOpen}
+                    aria-haspopup="true"
+                    onFocus={() => openMenu(i)}
+                    className={`${LINK} ${isOpen ? "text-brand" : "text-nav hover:text-brand"}`}
+                  >
+                    <span className="[text-box:trim-both_cap_alphabetic]">{item.label}</span>
+                    <Chevron open={isOpen} />
+                    <span
+                      className={`absolute bottom-0.5 left-0 h-px w-full origin-left bg-brand transition-[scale] duration-300 ease-out ${isOpen ? "scale-x-100" : "scale-x-0"}`}
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
-          <div
-            className={`origin-right transition-[scale] duration-300 ease-out ${compact ? "scale-90" : ""}`}
-          >
+          <div className={`origin-right transition-[scale] duration-300 ease-out ${compact ? "scale-90" : ""}`}>
             <BlockButton href={CTA.mvp} variant="brand">
               Contact Us
             </BlockButton>
@@ -138,6 +201,39 @@ export function Header() {
         </button>
       </div>
 
+      {/* Desktop mega menu: full width, hung off whichever height the bar currently has. */}
+      <AnimatePresence>
+        {menu !== null ? (
+          <motion.div
+            key="mega"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: EASE }}
+            onMouseEnter={() => openMenu(menu)}
+            onMouseLeave={scheduleClose}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) scheduleClose();
+            }}
+            className={`pointer-events-auto absolute inset-x-0 hidden border-y border-line bg-white shadow-[0_32px_64px_-40px_rgba(17,17,17,0.35)] lg:block ${
+              compact ? "top-16" : "top-[108px]"
+            }`}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={menu}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <MegaPanel item={NAV[menu]} />
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -145,27 +241,41 @@ export function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="pointer-events-auto absolute inset-x-0 top-full overflow-hidden border-t border-line bg-white shadow-[0_24px_48px_-24px_rgba(17,17,17,0.25)] lg:hidden"
+            transition={{ duration: 0.4, ease: EASE }}
+            className="pointer-events-auto absolute inset-x-0 top-full max-h-[calc(100dvh-78px)] overflow-y-auto border-t border-line bg-white shadow-[0_24px_48px_-24px_rgba(17,17,17,0.25)] lg:hidden"
           >
-            <ul className="flex flex-col gap-1 px-5 py-4 sm:px-8">
+            <ul className="flex flex-col px-5 py-4 sm:px-8">
               {NAV.map((item, i) => (
                 <motion.li
                   key={item.label}
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 * i + 0.1, duration: 0.4 }}
+                  className="border-b border-line py-4"
                 >
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-2 py-3 font-sans text-[14px] tracking-[-0.03em] text-nav transition-colors hover:bg-surface-2 hover:text-brand"
+                    className="font-mono text-[12px] leading-none text-muted uppercase"
                   >
                     {item.label}
                   </a>
+                  <ul className="mt-3 flex flex-col">
+                    {item.children.map((c) => (
+                      <li key={c.label}>
+                        <a
+                          href={c.href}
+                          onClick={() => setOpen(false)}
+                          className="block py-2 font-sans text-[15px] tracking-[-0.02em] text-nav transition-colors hover:text-brand"
+                        >
+                          {c.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </motion.li>
               ))}
-              <li className="pt-3">
+              <li className="pt-5">
                 <BlockButton href={CTA.mvp} variant="brand" full>
                   Contact Us
                 </BlockButton>
