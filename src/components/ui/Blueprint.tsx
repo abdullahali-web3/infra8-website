@@ -53,7 +53,7 @@ export function IndexRow({ index, label }: { index: number; label: string }) {
     <div className={`flex items-center gap-3 font-mono text-[12px] leading-none uppercase ${BP_PAD}`}>
       <ScrambleText text={`[ N.${n}/${total} ]`} className="shrink-0 text-muted" />
       <span aria-hidden className="w-8 shrink-0 border-t border-dashed border-ink/30" />
-      <ScrambleText text={`> ${label}`} className="shrink-0 text-ink" />
+      <ScrambleText text={`> ${label}`} className="min-w-0 leading-4 text-ink" />
       <span aria-hidden className="h-px flex-1 bg-line" />
     </div>
   );

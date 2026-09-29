@@ -192,6 +192,22 @@ section[id] {
   }
 }
 
+/* One-shot entrance for illustration pieces (the hero board drops in tile by tile). */
+@keyframes iso-in {
+  from {
+    translate: 0 -36px;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+.iso-in {
+  animation: iso-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 .iso-bob {
   animation: iso-bob 4s ease-in-out infinite;
 }
@@ -213,6 +229,7 @@ section[id] {
   .bp-progress-y,
   .bp-caret,
   .bp-line,
+  .iso-in,
   .iso-bob,
   .iso-drop,
   .iso-blink,

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { NAV, CTA } from "@/lib/content";
-import { PillButton } from "@/components/ui/PillButton";
+import { BlockButton } from "@/components/ui/BlockButton";
 
 const LINK =
   "group relative inline-flex items-center gap-1.5 py-2 font-sans text-[14px] leading-6 tracking-[-0.03em] text-nav transition-colors duration-200 hover:text-brand";
@@ -91,12 +91,12 @@ export function Header() {
                 </a>
                 {"children" in item ? (
                   <div className="invisible absolute top-full left-1/2 z-10 w-56 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-focus-within/item:visible group-focus-within/item:translate-y-0 group-focus-within/item:opacity-100 group-hover/item:visible group-hover/item:translate-y-0 group-hover/item:opacity-100">
-                    <ul className="rounded-2xl border border-line bg-white p-2 shadow-[0_24px_48px_-20px_rgba(17,17,17,0.25)]">
+                    <ul className="border border-line bg-white p-1.5 shadow-[0_24px_48px_-24px_rgba(17,17,17,0.2)]">
                       {item.children.map((c) => (
                         <li key={c.label}>
                           <a
                             href={c.href}
-                            className="block rounded-lg px-3 py-2.5 font-display text-[14px] tracking-[-0.01em] text-ink transition-colors hover:bg-surface-2 hover:text-brand"
+                            className="block px-3 py-2.5 font-display text-[14px] tracking-[-0.01em] text-ink transition-colors hover:bg-surface-2 hover:text-brand"
                           >
                             {c.label}
                           </a>
@@ -111,7 +111,9 @@ export function Header() {
           <div
             className={`origin-right transition-[scale] duration-300 ease-out ${compact ? "scale-90" : ""}`}
           >
-            <PillButton href={CTA.mvp}>Contact Us</PillButton>
+            <BlockButton href={CTA.mvp} variant="brand">
+              Contact Us
+            </BlockButton>
           </div>
         </nav>
 
@@ -120,7 +122,7 @@ export function Header() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="pointer-events-auto grid size-11 place-items-center rounded-full bg-surface transition-colors hover:bg-[#e5e5e5] lg:hidden"
+          className="pointer-events-auto grid size-11 place-items-center border border-line bg-white transition-colors hover:border-ink lg:hidden"
         >
           <span className="relative block h-3 w-5">
             <span
@@ -164,9 +166,9 @@ export function Header() {
                 </motion.li>
               ))}
               <li className="pt-3">
-                <PillButton href={CTA.mvp} full>
+                <BlockButton href={CTA.mvp} variant="brand" full>
                   Contact Us
-                </PillButton>
+                </BlockButton>
               </li>
             </ul>
           </motion.div>
