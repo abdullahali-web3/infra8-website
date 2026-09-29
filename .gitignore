@@ -46,3 +46,6 @@ CLAUDE.local.md
 
 # local design references + verification scratch (not shipped)
 /design/
+
+.vercel
+.env*
