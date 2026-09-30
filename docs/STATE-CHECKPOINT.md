@@ -1,7 +1,11 @@
 # State Checkpoint: Infra8 website (start a new session here)
 
-Last updated: 2026-09-30. Live: https://infra8-website.vercel.app (production, deployed from branch `theme/blueprint`).
-Repo: https://github.com/abdullahali-web3/infra8-website (private). Nothing has been pushed to GitHub yet; all work is local commits.
+Last updated: 2026-09-30. Live: https://infra8-website.vercel.app (production, deployed from local branch `theme/blueprint`, latest commit `ec6ef97`).
+Repo: https://github.com/abdullahali-web3/infra8-website (private).
+
+**GitHub is NOT up to date.** `origin/main` is still `86bdab5` (pre-redesign). Nine local commits have never been pushed: the classic-theme snapshot on local `main` (`6a71a5c`) and every `theme/blueprint` commit. Pushing needs the user's go-ahead. The likely step is `git push -u origin theme/blueprint` (and `git push origin main` for the classic snapshot); merging the blueprint branch into `main` is a separate decision.
+
+**Session status at handover:** all pages below are live, and every button leads to a real page. The one blocker for real leads is that **the contact form has no delivery channel** (section 6). Until one is set, submissions show a "couldn't send" message. The user was told and chose to deploy anyway.
 
 ## 1. Goal
 A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** for founders and **runs cloud, DevOps and security** for live products ("build it, then run it"). It must rank (SEO), be quoted by answer engines (AEO) and cited by AI assistants (GEO), and turn visitors into two leads: "Get MVP estimate in 24 hours" and "Free infra audit". The client (the user) reviews each round, sends screenshots, and asks to deploy when happy. Copy is written by us ("manage content by yourself"), within the no-unbacked-claims rule.
@@ -9,8 +13,8 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 ## 2. Where things stand
 
 ### Branches
-- `theme/blueprint`: **the live site and the working branch.** It has not been merged into `main`; ask before merging.
-- `main`: the old "classic" theme (snapshot `6a71a5c`), kept for reference only.
+- `theme/blueprint`: **the live site and the working branch** (local only, not on GitHub). It has not been merged into `main`; ask before merging.
+- `main` (local): the old "classic" theme (snapshot `6a71a5c`, one commit ahead of `origin/main`), kept for reference only.
 - On the blueprint branch, the classic-only files (`StepArt`, `AiPipeline`, `ProofArt`, `FinalArt`, `ToolOrbits`, `ui/Button`, `ui/PillButton`, orbit CSS, `SvgDefs` gradients) are unused. Delete them once the client confirms the theme is final.
 
 ### Pages (all static)
@@ -30,7 +34,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 | Custom 404 (`app/not-found.tsx`) | Every unmatched URL and every `notFound()` call: "This Page Doesn't Exist", new `NotFoundIso` (missing tile), popular links, noindex. Returns HTTP 404 |
 
 ### Next likely asks
-Real products, real legal details once the LLC exists, connecting lead delivery (section 6), analytics (then update the privacy and cookie policies), OG images, production domain.
+**Push to GitHub** (ask first), **connect lead delivery** (section 6: Resend key + inbox, or a webhook), real products, real legal details once the LLC exists, analytics (then update the privacy and cookie policies), OG images, production domain.
 
 ## 3. Design system ("blueprint" theme)
 - **Frame:**
