@@ -1,7 +1,27 @@
+import type { ReactNode } from "react";
 import { headingId, type Block } from "@/lib/insights";
 
-/** Renders an article's blocks with the site's typography. H2s get ids for the table of contents. */
-export function ArticleBody({ blocks }: { blocks: Block[] }) {
+/** Highlights [bracketed placeholders] so unfinished legal details can't pass as final. */
+function withPlaceholders(text: string): ReactNode {
+  const parts = text.split(/(\[[^\]]+\])/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) =>
+    part.startsWith("[") && part.endsWith("]") ? (
+      <mark key={i} className="bg-warn/10 px-0.5 text-warn decoration-warn/40 underline decoration-dashed underline-offset-4">
+        {part}
+      </mark>
+    ) : (
+      part
+    ),
+  );
+}
+
+/**
+ * Renders an article's blocks with the site's typography. H2s get ids for the table of contents.
+ * `placeholders` turns on the highlight for bracketed text (used by the legal pages).
+ */
+export function ArticleBody({ blocks, placeholders = false }: { blocks: Block[]; placeholders?: boolean }) {
+  const t = (text: string) => (placeholders ? withPlaceholders(text) : text);
   return (
     <div className="flex flex-col gap-6">
       {blocks.map((b, i) => {
@@ -19,7 +39,7 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
           case "p":
             return (
               <p key={i} className="text-[17px] leading-8 tracking-[-0.01em] text-ink-soft">
-                {b.text}
+                {t(b.text)}
               </p>
             );
           case "ul":
@@ -28,7 +48,7 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
                 {b.items.map((it) => (
                   <li key={it} className="flex gap-3 text-[17px] leading-8 tracking-[-0.01em] text-ink-soft">
                     <span aria-hidden className="mt-[13px] size-1.5 shrink-0 bg-brand" />
-                    {it}
+                    <span>{t(it)}</span>
                   </li>
                 ))}
               </ul>
@@ -39,7 +59,7 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
                 {b.items.map((it, n) => (
                   <li key={it} className="flex gap-4 text-[17px] leading-8 tracking-[-0.01em] text-ink-soft">
                     <span className="mt-[7px] shrink-0 font-mono text-[12px] leading-5 text-brand">{`0${n + 1}`}</span>
-                    {it}
+                    <span>{t(it)}</span>
                   </li>
                 ))}
               </ol>
@@ -71,7 +91,7 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
                             </th>
                           ) : (
                             <td key={m} className="border-b border-l border-line px-4 py-3 align-top text-[15px] leading-6 text-ink-soft">
-                              {c}
+                              {t(c)}
                             </td>
                           ),
                         )}
@@ -85,7 +105,7 @@ export function ArticleBody({ blocks }: { blocks: Block[] }) {
             return (
               <aside key={i} className="flex flex-col gap-2 border-l-2 border-brand bg-brand-tint/50 px-6 py-5">
                 <p className="font-mono text-[12px] leading-none text-brand uppercase">{b.title}</p>
-                <p className="text-[16px] leading-7 tracking-[-0.01em] text-ink">{b.text}</p>
+                <p className="text-[16px] leading-7 tracking-[-0.01em] text-ink">{t(b.text)}</p>
               </aside>
             );
         }

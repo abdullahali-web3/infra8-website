@@ -44,6 +44,8 @@ export const NAV = [
     label: "Products",
     href: ROUTES.products,
     allLabel: "All products",
+    /** Desktop mega menu shows the featured products (src/lib/products.ts) instead of `children`. */
+    showFeatured: true,
     intro: {
       title: "Our products",
       body: "SaaS products we have built and run ourselves.",

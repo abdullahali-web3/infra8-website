@@ -8,6 +8,9 @@ import { ChevronRight } from "lucide-react";
 import { NAV, CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { StageIso } from "@/components/illustrations/iso/StageIso";
+import { FEATURED_PRODUCTS } from "@/lib/products";
+import { ProductLauncher } from "@/components/products/ProductLauncher";
+import { ProductThumb } from "@/components/products/ProductThumb";
 
 // Link cards per row in a mega panel, by how many links it has (literal classes for Tailwind).
 const COLS: Record<number, string> = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3" };
@@ -35,6 +38,38 @@ function Chevron({ open }: { open: boolean }) {
 
 type NavItem = (typeof NAV)[number];
 
+/** Products panel: the featured products, each opening the leave-site dialog. */
+function FeaturedProducts() {
+  return (
+    <ul className="grid grid-cols-3 gap-2 p-4">
+      {FEATURED_PRODUCTS.map((p) => (
+        <li key={p.slug}>
+          <ProductLauncher
+            product={p}
+            className="group/mi flex h-full w-full cursor-pointer flex-col gap-2 p-3 text-left transition-colors duration-200 hover:bg-surface-2"
+          >
+            <span className="relative mb-2 block h-[128px] overflow-hidden border border-line bg-white">
+              <span className="block h-full w-full origin-top transition-[scale] duration-700 ease-out group-hover/mi:scale-[1.04]">
+                <ProductThumb product={p} />
+              </span>
+              {p.sample ? (
+                <span className="absolute right-2 bottom-2 bg-white px-1.5 py-1 font-mono text-[10px] leading-none text-muted uppercase">
+                  Sample
+                </span>
+              ) : null}
+            </span>
+            <span className="flex items-center justify-between gap-3 px-1 font-display text-[17px] leading-6 tracking-[-0.02em] text-ink transition-colors group-hover/mi:text-brand">
+              {p.name}
+              <span aria-hidden className="font-mono text-[10px] leading-none text-muted uppercase">{p.category}</span>
+            </span>
+            <span className="px-1 text-sm leading-5 tracking-[-0.01em] text-muted">{p.tagline}</span>
+          </ProductLauncher>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** Full-width mega menu panel for one nav item: an intro on the left, link cards on the right. */
 function MegaPanel({ item }: { item: NavItem }) {
   return (
@@ -56,35 +91,39 @@ function MegaPanel({ item }: { item: NavItem }) {
           </span>
         </Link>
       </div>
-      <ul className={`grid gap-2 p-4 ${COLS[item.children.length] ?? "grid-cols-3"}`}>
-        {item.children.map((c) => {
-          return (
-            <li key={c.label}>
-              <Link
-                href={c.href}
-                className="group/mi group/card flex h-full flex-col gap-2 p-3 transition-colors duration-200 hover:bg-surface-2"
-              >
-                {/* Only the service links carry a visual: that service's stage scene. */}
-                {"art" in c ? (
-                  <span className="relative mb-2 flex h-[128px] items-center justify-center overflow-hidden border border-line bg-white">
-                    <span aria-hidden className="dots absolute inset-0 [mask-image:radial-gradient(closest-side,#000_30%,transparent)]" />
-                    <span className="relative block h-full w-full p-2">
-                      <StageIso stage={c.art} />
+      {"showFeatured" in item ? (
+        <FeaturedProducts />
+      ) : (
+        <ul className={`grid gap-2 p-4 ${COLS[item.children.length] ?? "grid-cols-3"}`}>
+          {item.children.map((c) => {
+            return (
+              <li key={c.label}>
+                <Link
+                  href={c.href}
+                  className="group/mi group/card flex h-full flex-col gap-2 p-3 transition-colors duration-200 hover:bg-surface-2"
+                >
+                  {/* Only the service links carry a visual: that service's stage scene. */}
+                  {"art" in c ? (
+                    <span className="relative mb-2 flex h-[128px] items-center justify-center overflow-hidden border border-line bg-white">
+                      <span aria-hidden className="dots absolute inset-0 [mask-image:radial-gradient(closest-side,#000_30%,transparent)]" />
+                      <span className="relative block h-full w-full p-2">
+                        <StageIso stage={c.art} />
+                      </span>
+                    </span>
+                  ) : null}
+                  <span className="flex items-center justify-between gap-3 px-1 font-display text-[17px] leading-6 tracking-[-0.02em] text-ink transition-colors group-hover/mi:text-brand">
+                    {c.label}
+                    <span aria-hidden className="text-muted transition-[translate,color] duration-300 group-hover/mi:translate-x-1 group-hover/mi:text-brand">
+                      <ChevronRight className="size-4" strokeWidth={1.75} />
                     </span>
                   </span>
-                ) : null}
-                <span className="flex items-center justify-between gap-3 px-1 font-display text-[17px] leading-6 tracking-[-0.02em] text-ink transition-colors group-hover/mi:text-brand">
-                  {c.label}
-                  <span aria-hidden className="text-muted transition-[translate,color] duration-300 group-hover/mi:translate-x-1 group-hover/mi:text-brand">
-                    <ChevronRight className="size-4" strokeWidth={1.75} />
-                  </span>
-                </span>
-                <span className="px-1 text-sm leading-5 tracking-[-0.01em] text-muted">{c.body}</span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                  <span className="px-1 text-sm leading-5 tracking-[-0.01em] text-muted">{c.body}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 }

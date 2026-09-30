@@ -191,6 +191,20 @@ section[id] {
   }
 }
 
+/* Confirm dialogs (products leaving the site). */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
 /* AI page: a commit travelling 220 world units along +x (screen: 220·cos30, 220·0.5). */
 @keyframes iso-conveyor {
   0% {

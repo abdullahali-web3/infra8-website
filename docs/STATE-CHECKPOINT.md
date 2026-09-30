@@ -24,10 +24,12 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 | `/resources/insights` + 8 articles at `/resources/insights/[slug]` | Text-only cards with a category filter; articles have a short answer, takeaways, TOC, tables, callouts, related service and articles |
 | `/resources/careers` | How we work, roles we hire for (not open postings), hiring steps, apply CTA |
 | `/company` and `/resources` | 307 redirects to About and Insights (`next.config.ts`) |
-| **Still 404** | `/products`, `/privacy-policy`, `/terms-of-service`, `/cookie-policy` (linked from nav and footer) |
+| `/products` | Catalogue of our own SaaS products (`src/lib/products.ts`): SVG thumbnail per product (`ProductThumb`), a card that opens a leave-site confirm `<dialog>` (`ProductLauncher`), then the product site in a new tab; a "Your product could be next" cell; why we build our own. Featured products (3) also appear in the Products mega menu |
+| `/privacy-policy`, `/terms-of-service`, `/cookie-policy` | Template policies for the future **Wyoming LLC** (`src/lib/legal.ts`, template `LegalPage`). Every entity detail is a highlighted `[placeholder]` and a Draft notice shows while `LEGAL_DRAFT = true`. Checklist: `docs/LEGAL-PLACEHOLDERS.md`. They describe the site as it is today (Vercel hosting, no analytics or ad cookies) and must be updated when forms or analytics are added. Not legal advice: needs lawyer review |
+| Custom 404 (`app/not-found.tsx`) | Every unmatched URL and every `notFound()` call: "This Page Doesn't Exist", new `NotFoundIso` (missing tile), popular links, noindex. Returns HTTP 404 |
 
 ### Next likely asks
-Products page, policy pages, forms and lead routing (every CTA currently scrolls to `#get-started`), OG images, analytics, production domain.
+Real products, real legal details once the LLC exists, forms and lead routing (every CTA currently scrolls to `#get-started`), OG images, analytics, production domain.
 
 ## 3. Design system ("blueprint" theme)
 - **Frame:**
@@ -56,7 +58,7 @@ Products page, policy pages, forms and lead routing (every CTA currently scrolls
     - `AiGateIso` (AI page only)
   - Hero = `HeroLattice` (the Figma lattice, lifting tiles).
   - **Do not reuse a scene on a new page** (the final CTA is the exception).
-- **Mega menu:** full width, aligned to the column. Only the Services cards have visuals (their stage scenes). Company, Products and Resources are text-only (the client disliked icons there).
+- **Mega menu:** full width, aligned to the column. Services cards show their stage scenes, and Products shows the 3 featured products with thumbnails (clicking opens the leave-site dialog). Company and Resources are text-only (the client disliked icons there).
 - **Insights cards:** text only (the client disliked repeated illustrations).
 - **Motion:**
   - Only H1/H2 words reveal from below; other text fades in.
@@ -77,10 +79,11 @@ Products page, policy pages, forms and lead routing (every CTA currently scrolls
 
 ## 5. Unconfirmed facts: the client must sign off before a real launch
 1. **Minimum prices** (live now): MVP from $10,000, dedicated team from $8,000/month, managed DevOps retainer from $4,000/month. These are the brief's bracketed "from" values. They appear on the service pages, in 3 articles and in llms.txt.
-2. **Testimonials** are sample quotes with "Client name" and a visible "Sample quote" tag. **Team** profiles are placeholders (`/content/team/placeholder.svg`, tagged). The client-strip logos are Figma template placeholders.
+2. **Products** are 5 invented samples (Tallyloop, Driftguard, Shipnote, Quotewell, Formpilot) linking to example.com, each tagged "Sample"; no product schema until real. **Testimonials** are sample quotes with "Client name" and a visible "Sample quote" tag. **Team** profiles are placeholders (`/content/team/placeholder.svg`, tagged). The client-strip logos are Figma template placeholders.
 3. **AI policies** on the AI page: tools used on business terms that don't train on client code, no secrets or customer data in prompts, AI has no production access, human approval on every deploy, opt-out on request. Also confirm the tool list.
 4. Retainers month-to-month after an initial 3 months; a 4–6 hour time-zone overlap with US East/EU; the hiring steps on Careers; a careers email or ATS link (apply currently goes to `/#get-started`).
-5. The production domain and email, and real impact numbers (years, projects shipped) if wanted.
+5. **Legal**: the 17 placeholders in `docs/LEGAL-PLACEHOLDERS.md` (LLC name, Wyoming addresses, emails, effective date, court county, providers, retention periods, liability cap).
+6. The production domain and email, and real impact numbers (years, projects shipped) if wanted.
 
 ## 6. Technical notes and gotchas
 - Stack: Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind v4 (`@theme` tokens in `globals.css`), Motion, GSAP (plugins registered only in `src/lib/gsap.ts`), lucide-react.
