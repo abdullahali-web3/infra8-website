@@ -3,7 +3,7 @@
 Last updated: 2026-09-30. Live: https://infra8-website.vercel.app (production, deployed from local branch `theme/blueprint`, latest commit `ec6ef97`).
 Repo: https://github.com/abdullahali-web3/infra8-website (private).
 
-**GitHub is NOT up to date.** `origin/main` is still `86bdab5` (pre-redesign). Nine local commits have never been pushed: the classic-theme snapshot on local `main` (`6a71a5c`) and every `theme/blueprint` commit. Pushing needs the user's go-ahead. The likely step is `git push -u origin theme/blueprint` (and `git push origin main` for the classic snapshot); merging the blueprint branch into `main` is a separate decision.
+**GitHub is up to date (pushed 2026-09-30).** `main` and `theme/blueprint` point to the same commit, locally and on GitHub: the blueprint theme was fast-forwarded into `main` at the client's request ("I don't want my old design"). The classic theme survives only in git history (snapshot `6a71a5c`).
 
 **Session status at handover:** all pages below are live, and every button leads to a real page. The one blocker for real leads is that **the contact form has no delivery channel** (section 6). Until one is set, submissions show a "couldn't send" message. The user was told and chose to deploy anyway.
 
@@ -13,9 +13,9 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 ## 2. Where things stand
 
 ### Branches
-- `theme/blueprint`: **the live site and the working branch** (local only, not on GitHub). It has not been merged into `main`; ask before merging.
-- `main` (local): the old "classic" theme (snapshot `6a71a5c`, one commit ahead of `origin/main`), kept for reference only.
-- On the blueprint branch, the classic-only files (`StepArt`, `AiPipeline`, `ProofArt`, `FinalArt`, `ToolOrbits`, `ui/Button`, `ui/PillButton`, orbit CSS, `SvgDefs` gradients) are unused. Delete them once the client confirms the theme is final.
+- `theme/blueprint`: **the live site and the working branch**, tracked on GitHub.
+- `main`: identical to `theme/blueprint` (fast-forwarded 2026-09-30). The blueprint theme is the only design; the client confirmed it and does not want the classic one.
+- The classic-only files (`StepArt`, `AiPipeline`, `ProofArt`, `FinalArt`, `ToolOrbits`, `ui/Button`, `ui/PillButton`, orbit CSS, `SvgDefs` gradients) are unused and still in the tree. The client has now confirmed the theme, so they can be deleted: ask first, then build to verify nothing imports them.
 
 ### Pages (all static)
 | Route | What it is |
@@ -34,7 +34,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 | Custom 404 (`app/not-found.tsx`) | Every unmatched URL and every `notFound()` call: "This Page Doesn't Exist", new `NotFoundIso` (missing tile), popular links, noindex. Returns HTTP 404 |
 
 ### Next likely asks
-**Push to GitHub** (ask first), **connect lead delivery** (section 6: Resend key + inbox, or a webhook), real products, real legal details once the LLC exists, analytics (then update the privacy and cookie policies), OG images, production domain.
+**Connect lead delivery** (section 6: Resend key + inbox, or a webhook), real products, real legal details once the LLC exists, analytics (then update the privacy and cookie policies), OG images, production domain.
 
 ## 3. Design system ("blueprint" theme)
 - **Frame:**
@@ -109,7 +109,7 @@ Both can be set; a lead counts as delivered if either accepts it. With neither, 
 - The auto-mode command checker sometimes fails transiently; retry once or use the file tools.
 
 ## 8. Working rules from the client
-- Deploy only when asked. Commits happen on `theme/blueprint` as part of each deploy. Never push or merge without asking.
+- Deploy only when asked. Commits happen on `theme/blueprint` as part of each deploy. Never push or merge without asking; when a push is approved, fast-forward `main` to match so GitHub's default branch shows the current site.
 - Verify every change in the browser (desktop plus 360–1024 widths, overflow check) before reporting.
 - Keep the design conversion-first and uncluttered; the client rejected "too geometric" details before.
 - No invented numbers, clients, people, certifications or job openings. Placeholders must be visibly marked.
