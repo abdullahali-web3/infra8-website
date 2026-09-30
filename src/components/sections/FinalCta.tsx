@@ -1,11 +1,9 @@
-import { CircleCheck } from "lucide-react";
 import { CTA } from "@/lib/content";
+import { Benefits } from "@/components/ui/Benefits";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BpSection, Eyebrow, SlashHeading } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
 import { CtaIso } from "@/components/illustrations/iso/CtaIso";
-
-const BENEFITS = ["Fixed scope", "You own everything", "NDA on request"] as const;
 
 export function FinalCta() {
   return (
@@ -26,14 +24,7 @@ export function FinalCta() {
               </BlockButton>
             </Reveal>
             <Reveal delay={0.3}>
-              <ul className="flex flex-wrap gap-x-6 gap-y-3 bg-white py-1 pr-2">
-                {BENEFITS.map((b) => (
-                  <li key={b} className="flex items-center gap-2 text-[15px] leading-5 tracking-[-0.02em] text-ink-soft">
-                    <CircleCheck aria-hidden className="size-[18px] shrink-0 text-ok" strokeWidth={2} />
-                    {b}
-                  </li>
-                ))}
-              </ul>
+              <Benefits className="bg-white py-1 pr-2" />
             </Reveal>
           </div>
           <Reveal y={16} className="mx-auto w-full max-w-[520px]">

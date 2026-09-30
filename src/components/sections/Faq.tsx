@@ -7,8 +7,21 @@ import { BpSection, Eyebrow, SlashHeading } from "@/components/ui/Blueprint";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 
-/** FAQ: sticky heading on the left, ruled accordion on the right. Text matches the FAQPage JSON-LD. */
-export function Faq() {
+type FaqItem = { readonly q: string; readonly a: string };
+
+/**
+ * FAQ: sticky heading on the left, ruled accordion on the right. Defaults to the homepage FAQ;
+ * service pages pass their own. The text must match the page's FAQPage JSON-LD.
+ */
+export function Faq({
+  items = FAQ,
+  title = "Questions\nWe Hear First",
+  sub = "Ownership, security, time zones and what happens if it goes wrong.",
+}: {
+  items?: readonly FaqItem[];
+  title?: string;
+  sub?: string;
+}) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
@@ -17,9 +30,9 @@ export function Faq() {
         <div className="border-line px-5 py-16 sm:px-8 lg:border-r lg:px-12 lg:py-24">
           <div className="flex flex-col gap-7 lg:sticky lg:top-28">
             <Eyebrow>FAQ</Eyebrow>
-            <SlashHeading title={"Questions\nWe Hear First"} />
+            <SlashHeading title={title} />
             <RevealText
-              text="Ownership, security, time zones and what happens if it goes wrong."
+              text={sub}
               delay={0.15}
               className="max-w-[360px] text-base leading-7 tracking-[-0.02em] text-ink-soft"
             />
@@ -32,7 +45,7 @@ export function Faq() {
         </div>
 
         <ul className="flex flex-col">
-          {FAQ.map((item, i) => {
+          {items.map((item, i) => {
             const isOpen = open === i;
             return (
               <li key={item.q} className="relative border-line not-first:border-t">

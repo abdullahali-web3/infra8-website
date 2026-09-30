@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CTA, FOOTER } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BlueprintColumn } from "@/components/ui/Blueprint";
@@ -39,9 +40,9 @@ export function Footer() {
                 <ul className="flex flex-col gap-3">
                   {col.links.map((l) => (
                     <li key={l.label}>
-                      <a href={l.href} className={LINK}>
+                      <Link href={l.href} className={LINK}>
                         {l.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -56,9 +57,9 @@ export function Footer() {
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
               {FOOTER.legal.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="transition-colors hover:text-brand">
+                  <Link href={l.href} className="transition-colors hover:text-brand">
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

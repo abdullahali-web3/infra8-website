@@ -1,11 +1,38 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronRight } from "lucide-react";
+import {
+  Boxes,
+  Building2,
+  ChevronRight,
+  Cloud,
+  FolderKanban,
+  Newspaper,
+  Rocket,
+  UserPlus,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
 import { NAV, CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
+import { StageIso } from "@/components/illustrations/iso/StageIso";
+
+const MENU_ICONS: Record<(typeof NAV)[number]["children"][number]["icon"], LucideIcon> = {
+  users: Users,
+  rocket: Rocket,
+  cloud: Cloud,
+  boxes: Boxes,
+  building: Building2,
+  folder: FolderKanban,
+  newspaper: Newspaper,
+  userPlus: UserPlus,
+};
+
+// Link cards per row in a mega panel, by how many links it has (literal classes for Tailwind).
+const COLS: Record<number, string> = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3" };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const CLOSE_DELAY_MS = 140;
@@ -41,33 +68,49 @@ function MegaPanel({ item }: { item: NavItem }) {
         </span>
         <p className="font-display text-[24px] leading-[1.2] tracking-[-0.03em] text-ink">{item.intro.title}</p>
         <p className="text-sm leading-5 tracking-[-0.01em] text-muted">{item.intro.body}</p>
-        <a
+        <Link
           href={item.href}
           className="group/all mt-auto inline-flex items-center gap-2 pt-6 font-mono text-[12px] leading-none text-ink uppercase transition-colors hover:text-brand"
         >
-          {`All ${item.label.toLowerCase()}`}
+          {item.allLabel}
           <span aria-hidden className="transition-[translate] duration-300 group-hover/all:translate-x-1">
             <ChevronRight className="size-4" strokeWidth={1.75} />
           </span>
-        </a>
+        </Link>
       </div>
-      <ul className="grid grid-cols-3 gap-2 p-4">
-        {item.children.map((c) => (
-          <li key={c.label}>
-            <a
-              href={c.href}
-              className="group/mi flex h-full flex-col gap-2 p-4 transition-colors duration-200 hover:bg-surface-2"
-            >
-              <span className="flex items-center justify-between gap-3 font-display text-[17px] leading-6 tracking-[-0.02em] text-ink transition-colors group-hover/mi:text-brand">
-                {c.label}
-                <span aria-hidden className="text-muted transition-[translate,color] duration-300 group-hover/mi:translate-x-1 group-hover/mi:text-brand">
-                  <ChevronRight className="size-4" strokeWidth={1.75} />
+      <ul className={`grid gap-2 p-4 ${COLS[item.children.length] ?? "grid-cols-3"}`}>
+        {item.children.map((c) => {
+          const Icon = MENU_ICONS[c.icon];
+          return (
+            <li key={c.label}>
+              <Link
+                href={c.href}
+                className="group/mi group/card flex h-full flex-col gap-2 p-3 transition-colors duration-200 hover:bg-surface-2"
+              >
+                {/* Visual: the service's stage scene, or a large icon on a dotted panel. */}
+                <span className="relative mb-2 flex h-[128px] items-center justify-center overflow-hidden border border-line bg-white">
+                  <span aria-hidden className="dots absolute inset-0 [mask-image:radial-gradient(closest-side,#000_30%,transparent)]" />
+                  {"art" in c ? (
+                    <span className="relative block h-full w-full p-2">
+                      <StageIso stage={c.art} />
+                    </span>
+                  ) : (
+                    <span className="relative grid size-16 place-items-center border border-line bg-white text-brand transition-colors duration-300 group-hover/mi:border-brand group-hover/mi:bg-brand group-hover/mi:text-white">
+                      <Icon aria-hidden className="size-7" strokeWidth={1.5} />
+                    </span>
+                  )}
                 </span>
-              </span>
-              <span className="text-sm leading-5 tracking-[-0.01em] text-muted">{c.body}</span>
-            </a>
-          </li>
-        ))}
+                <span className="flex items-center justify-between gap-3 px-1 font-display text-[17px] leading-6 tracking-[-0.02em] text-ink transition-colors group-hover/mi:text-brand">
+                  {c.label}
+                  <span aria-hidden className="text-muted transition-[translate,color] duration-300 group-hover/mi:translate-x-1 group-hover/mi:text-brand">
+                    <ChevronRight className="size-4" strokeWidth={1.75} />
+                  </span>
+                </span>
+                <span className="px-1 text-sm leading-5 tracking-[-0.01em] text-muted">{c.body}</span>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
@@ -138,7 +181,7 @@ export function Header() {
           compact ? "-translate-y-[11px] lg:-translate-y-[22px]" : ""
         }`}
       >
-        <a href="#top" aria-label="Infra8 home" className="pointer-events-auto shrink-0">
+        <Link href="/" aria-label="Infra8 home" className="pointer-events-auto shrink-0">
           <Image
             src="/content/icons/infra8-logo.svg"
             alt="Infra8"
@@ -148,7 +191,7 @@ export function Header() {
             priority
             className="h-6 w-[85px]"
           />
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="pointer-events-auto hidden items-center gap-10 lg:flex">
           <ul className="flex items-center gap-8" onMouseLeave={scheduleClose}>
@@ -156,7 +199,7 @@ export function Header() {
               const isOpen = menu === i;
               return (
                 <li key={item.label} onMouseEnter={() => openMenu(i)}>
-                  <a
+                  <Link
                     href={item.href}
                     aria-expanded={isOpen}
                     aria-haspopup="true"
@@ -168,7 +211,7 @@ export function Header() {
                     <span
                       className={`absolute bottom-0.5 left-0 h-px w-full origin-left bg-brand transition-[scale] duration-300 ease-out ${isOpen ? "scale-x-100" : "scale-x-0"}`}
                     />
-                  </a>
+                  </Link>
                 </li>
               );
             })}
@@ -253,23 +296,23 @@ export function Header() {
                   transition={{ delay: 0.05 * i + 0.1, duration: 0.4 }}
                   className="border-b border-line py-4"
                 >
-                  <a
+                  <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
                     className="font-mono text-[12px] leading-none text-muted uppercase"
                   >
                     {item.label}
-                  </a>
+                  </Link>
                   <ul className="mt-3 flex flex-col">
                     {item.children.map((c) => (
                       <li key={c.label}>
-                        <a
+                        <Link
                           href={c.href}
                           onClick={() => setOpen(false)}
                           className="block py-2 font-sans text-[15px] tracking-[-0.02em] text-nav transition-colors hover:text-brand"
                         >
                           {c.label}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

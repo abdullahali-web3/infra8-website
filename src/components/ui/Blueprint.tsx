@@ -54,6 +54,10 @@ export function BpSection({
   );
 }
 
+/** Page H1 (hero of every page). */
+export const HEADING_H1 =
+  "[text-box:trim-both_cap_alphabetic] font-display text-[36px] leading-[1.08] tracking-[-0.04em] text-black sm:text-[52px] sm:leading-[58px]";
+
 /** The one heading style for every H1/H2 on the page: two lines between light slashes. */
 export const HEADING =
   "font-display text-[32px] leading-[1.12] tracking-[-0.04em] text-ink sm:text-[44px] sm:leading-[50px]";

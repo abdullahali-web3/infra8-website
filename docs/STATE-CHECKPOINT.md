@@ -144,3 +144,25 @@ The client asked for a second, livelier design for everything below the client s
   - Work: Figma on the scope sheet. Architecture nodes are React, Node.js (hub), Redis, PostgreSQL and AWS. The audit sheet is headed by AWS.
   - Final CTA: Node.js/Next.js, React and Figma on the build side; AWS, Kubernetes, Docker and Terraform racks on the run side.
 - Stairs step DOWN towards the viewer (tallest at the back) so no block hides another's logo.
+- Client removed the gaps before Our stack and before Get started (deployed, `f044524`).
+
+## 7. Service pages (2026-09-30)
+Client asked for the service pages with copy written by us (no client copy exists). Built on `theme/blueprint`:
+- Routes: `/services` (hub), `/services/mvp-development`, `/services/product-development`, `/services/cloud-devops-management`. Static folders, each a tiny `page.tsx` with its own `metadata` (via `pageMetadata` in `src/lib/metadata.ts`: title, description, canonical, OG).
+- All copy and data live in `src/lib/services.ts` (one typed `Service` record each + `SERVICES_HUB`). Template: `src/components/service/ServicePage.tsx`; sections in `ServiceSections.tsx`; hub cards and the comparison `<table>` in `ServicesHub.tsx`.
+- Page order: hero (breadcrumbs, H1 with primary keyword, CTAs, ticks, the matching homepage stage illustration) → "In short" AEO answer (question H2 + 40–60 word answer) → who it's for / not a fit → six deliverables (Lucide icons) → four-step process → tools (real logos + names) → pricing model (no numbers: what moves the price, how you pay) → service FAQ → related services ("Build It, Then Run It") → shared final CTA.
+- JSON-LD per page (`ServiceJsonLd`): BreadcrumbList, Service (provider = organization), FAQPage matching the visible FAQ. Hub lists all three Services + the homepage FAQ.
+- Primary keywords: MVP development for startups; dedicated development team; managed DevOps services; hub = software development and DevOps services.
+- Copy rules followed: no prices, no build durations beyond the published 1–2 week discovery, no response-time guarantees, no named engineers; retainer terms and time-zone overlap reuse the (still unconfirmed) homepage FAQ wording.
+- Wiring: homepage "View service details" links go to the three pages; header logo → `/`; footer FAQ → `/#faq`; sitemap and `llms.txt` list the four routes. `Faq` takes `items`/`title`/`sub` props; `Benefits` (green ticks) is shared.
+- Still 404: Products, Company (about, team, portfolio), Resources (insights, careers) and the policy pages.
+
+## 8. Round 2026-09-30: pricing floor, mega menu visuals, scroll fix, Insights and Careers
+- Service heroes: no eyebrow above the H1, breadcrumbs only (service pages and /services).
+- Pricing sections show a quiet minimum engagement (`pricing.minimum` in `src/lib/services.ts`): MVP from $10,000 per build, dedicated team from $8,000/month, managed DevOps retainer from $4,000/month (audit free), with "below this the maths don't work". Figures are the brief's bracketed "from" values: **client must confirm**. Also listed in `public/llms.txt` and cited in three articles.
+- Mega menu cards have a visual panel: the stage illustration for each service, a Lucide icon on a dotted panel for the rest (`icon`/`art` on NAV children, `allLabel` per panel).
+- Scroll: Next 16 no longer overrides a global `scroll-behavior: smooth` on navigation. Fixed with `data-scroll-behavior="smooth"` on `<html>` plus `ScrollReset` (resets to 0 on pathname change unless there's a hash). Verified: pages open at y=0; `/#faq` still lands on the FAQ.
+- Insights: `/resources/insights` (category filter, all cards in the HTML) and 8 articles at `/resources/insights/[slug]` (SSG, `dynamicParams = false`). Content in `src/lib/insights.ts` (typed blocks: h2, p, ul, ol, table, callout). Each article: short answer (AEO), key takeaways, TOC, body, related service, 3 related articles; BlogPosting + BreadcrumbList JSON-LD; author = the organization (no invented people). Published 2026-09-30.
+- Careers: `/resources/careers` (`src/lib/careers.ts`). No open positions were given, so roles are "the roles we hire for" (no JobPosting schema). Apply links go to `/#get-started` until a careers email or ATS exists (TODO client).
+- `/resources` redirects (307) to `/resources/insights` (`next.config.ts`). Sitemap and llms.txt list all new routes.
+- Still 404: /products, /company (about, team, portfolio) and the three policy pages.

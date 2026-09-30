@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { JsonLd } from "@/components/JsonLd";
 import { MotionProvider } from "@/components/MotionProvider";
+import { ScrollReset } from "@/components/ScrollReset";
 import { SvgDefs } from "@/components/illustrations/SvgDefs";
 
 const inter = Inter({
@@ -62,11 +63,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${googleSansFlex.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-screen flex-col bg-white text-ink">
         <JsonLd />
         <SvgDefs />
+        <ScrollReset />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

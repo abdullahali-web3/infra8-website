@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { STAGES } from "@/lib/content";
 import { ChevronRight } from "lucide-react";
 import { BlockButton } from "@/components/ui/BlockButton";
@@ -53,7 +54,7 @@ export function Stages() {
                   <BlockButton href={s.primaryHref} variant="card" full>
                     {s.primary}
                   </BlockButton>
-                  <a
+                  <Link
                     href={s.detailsHref}
                     className="group/link inline-flex items-center gap-2 self-start font-mono text-[12px] leading-none text-ink-soft uppercase transition-colors hover:text-brand"
                   >
@@ -61,7 +62,7 @@ export function Stages() {
                     <span aria-hidden className="transition-[translate] duration-300 group-hover/link:translate-x-1">
                       <ChevronRight className="size-4" strokeWidth={1.75} />
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </article>
             </Reveal>

@@ -11,5 +11,28 @@
 - MVP estimate: a price range and timeline within 24 hours of a request.
 - Infrastructure: a free infra audit, then a written scope for fixes and managed DevOps.
 
+## Services
+- [Services overview](/services): the three services compared by fit, stage, starting point, billing and outcome.
+- [MVP development](/services/mvp-development): fixed-scope MVP builds for founders. Estimate in 24 hours, a one to two week discovery sprint, weekly demos, and a launch with code, docs and accounts in the client's name. Paid by milestone.
+- [Product development](/services/product-development): dedicated teams of senior engineers embedded in a live product, shipping features weekly. Billed monthly by team size.
+- [Cloud/DevOps management](/services/cloud-devops-management): managed DevOps services on AWS, Google Cloud or Azure. Free audit, findings report, fixes, then a monthly retainer, with everything defined as code in the client's own accounts.
+
+## Minimum engagements
+- MVP builds start at $10,000. Dedicated teams start at $8,000 per month. Managed DevOps retainers start at $4,000 per month; the infrastructure audit is free.
+
+## Insights
+- [Insights](/resources/insights): guides for founders and CTOs.
+- [How Much Does It Cost to Build an MVP?](/resources/insights/how-much-does-it-cost-to-build-an-mvp)
+- [How Long Does It Take to Build an MVP?](/resources/insights/how-long-does-it-take-to-build-an-mvp)
+- [The MVP Checklist: What to Decide Before You Hire a Dev Team](/resources/insights/mvp-checklist-before-hiring-a-development-team)
+- [Dedicated Team vs Freelancers vs In-House](/resources/insights/dedicated-development-team-vs-freelancers-vs-in-house)
+- [AI in Software Development: Where It Helps](/resources/insights/ai-in-software-development-where-it-helps)
+- [Managed DevOps vs Hiring a DevOps Engineer](/resources/insights/managed-devops-vs-hiring-a-devops-engineer)
+- [How to Reduce Your AWS Bill Without Slowing Down](/resources/insights/how-to-reduce-aws-costs)
+- [SOC 2 Readiness for Startups](/resources/insights/soc-2-readiness-for-startups)
+
+## Company
+- [Careers](/resources/careers): how the team works and the roles it hires for.
+
 ## Links
 - Site: TODO production URL
