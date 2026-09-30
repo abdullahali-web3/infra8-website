@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 // "card" is ink at rest and turns brand blue while its `group/card` parent is hovered.
@@ -38,8 +39,10 @@ export function BlockButton({
   className?: string;
 }) {
   const v = VARIANTS[variant];
+  // Internal pages go through next/link (client-side navigation); #anchors and external URLs stay <a>.
+  const Tag = href.startsWith("/") ? Link : "a";
   return (
-    <a
+    <Tag
       href={href}
       className={`group/blk relative isolate inline-flex h-11 items-center gap-3 overflow-hidden px-4 font-mono text-[12px] leading-none tracking-[0.01em] uppercase ${
         full ? "w-full justify-between" : "justify-center whitespace-nowrap"
@@ -61,6 +64,6 @@ export function BlockButton({
           <ChevronRight className="size-4" strokeWidth={1.75} />
         </span>
       ) : null}
-    </a>
+    </Tag>
   );
 }

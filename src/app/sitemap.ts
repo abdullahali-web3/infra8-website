@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page(ROUTES.services, 0.9),
     ...SERVICE_ORDER.map((k) => page(SERVICES[k].path, 0.9)),
     page(ROUTES.products, 0.7),
+    page(ROUTES.contact, 0.8),
     page(ROUTES.insights, 0.7),
     ...INSIGHTS.map((i) => ({
       url: `${siteConfig.url}${ROUTES.insights}/${i.slug}`,

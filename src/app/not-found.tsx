@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { ROUTES } from "@/lib/content";
+import { CTA, ROUTES } from "@/lib/content";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BlockButton } from "@/components/ui/BlockButton";
@@ -54,7 +54,7 @@ export default function NotFound() {
                   <BlockButton href="/" variant="brand">
                     Back to Home
                   </BlockButton>
-                  <BlockButton href="/#get-started" variant="outline">
+                  <BlockButton href={CTA.contact} variant="outline">
                     Contact Us
                   </BlockButton>
                 </Reveal>

@@ -1,11 +1,15 @@
+/** Every estimate, audit and contact button leads to /contact, preselecting the right topic. */
 export const CTA = {
-  mvp: "#get-started",
-  audit: "#get-started",
+  mvp: "/contact?topic=mvp",
+  team: "/contact?topic=team",
+  audit: "/contact?topic=audit",
+  contact: "/contact?topic=other",
+  careers: "/contact?topic=careers",
   services: "#services",
 } as const;
 
 /**
- * Site map. Pages are not built yet (only the homepage exists); these are their final URLs.
+ * Site map: every page's URL, in one place.
  * `intro` and each child's `body` feed the full-width mega menu.
  */
 export const ROUTES = {
@@ -23,6 +27,7 @@ export const ROUTES = {
   privacy: "/privacy-policy",
   terms: "/terms-of-service",
   cookies: "/cookie-policy",
+  contact: "/contact",
 } as const;
 
 export const NAV = [
@@ -129,7 +134,7 @@ export const STAGES = [
     title: "Already Have an MVP",
     body: "Your MVP is out and now you need to ship faster without a rewrite. We embed senior engineers to build features, fix the foundations and get you ready for your next round.",
     primary: "Build with a dedicated team",
-    primaryHref: CTA.mvp,
+    primaryHref: CTA.team,
     detailsHref: ROUTES.productDevelopment,
     image: "/content/images/stage-build.webp",
     imageClass: "",

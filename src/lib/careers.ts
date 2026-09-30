@@ -3,7 +3,7 @@ import type { ServiceIcon } from "./services";
 /**
  * Careers page copy. There are no confirmed open positions, so roles are framed as the roles we
  * hire for when client work needs them (no JobPosting schema, no locations, salaries or dates).
- * TODO(client): replace `applyHref` with a careers email or ATS link, and confirm the hiring steps.
+ * TODO(client): confirm the hiring steps; swap `applyHref` for an ATS link if one is adopted.
  */
 export const CAREERS = {
   meta: {
@@ -15,8 +15,8 @@ export const CAREERS = {
     title: "Build Products and Run Clouds With a Senior Team",
     sub: "Infra8 is a senior engineering team. We build MVPs for founders and run cloud infrastructure for live products, with AI in the workflow and engineers in charge.",
   },
-  /** Until a careers inbox exists, applications go to the general contact section. */
-  applyHref: "/#get-started",
+  /** Applications go through the contact form, with "Joining the team" preselected. */
+  applyHref: "/contact?topic=careers",
   principles: [
     {
       icon: "users" as ServiceIcon,

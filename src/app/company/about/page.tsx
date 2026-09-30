@@ -1,4 +1,4 @@
-import { ROUTES } from "@/lib/content";
+import { CTA, ROUTES } from "@/lib/content";
 import { ABOUT } from "@/lib/company";
 import { pageMetadata } from "@/lib/metadata";
 import { SERVICE_ORDER, SERVICES } from "@/lib/services";
@@ -56,7 +56,7 @@ export default function AboutPage() {
             sub={ABOUT.hero.sub}
             actions={
               <div className="flex flex-wrap gap-3">
-                <BlockButton href="#get-started" variant="brand">
+                <BlockButton href={CTA.mvp} variant="brand">
                   Get MVP Estimate in 24 Hours
                 </BlockButton>
                 <BlockButton href={ROUTES.ai} variant="outline">

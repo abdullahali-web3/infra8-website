@@ -39,5 +39,8 @@
 - [How we integrate AI](/company/how-we-integrate-ai): AI is used for first passes in development and CloudOps (scoping, code review, tests, infrastructure scans, cost checks). A senior engineer approves every change, secrets and customer data never go into AI tools, AI has no production access, and clients can opt out.
 - [Careers](/resources/careers): how the team works and the roles it hires for.
 
+## Contact
+- [Contact](/contact): one form for MVP estimates, dedicated team proposals, free infrastructure audits, general questions and job applications. Replies within 24 hours on business days.
+
 ## Links
 - Site: TODO production URL

@@ -37,7 +37,7 @@ export function Faq({
               className="max-w-[360px] text-base leading-7 tracking-[-0.02em] text-ink-soft"
             />
             <Reveal delay={0.2}>
-              <BlockButton href={CTA.mvp} variant="outline">
+              <BlockButton href={CTA.contact} variant="outline">
                 Ask us directly
               </BlockButton>
             </Reveal>

@@ -38,7 +38,7 @@ export function Proof() {
                   <p className="text-base leading-6 tracking-[-0.02em] text-muted">{p.body}</p>
                 </div>
                 <div className="px-6 pt-8 pb-6">
-                  <BlockButton href={CTA.mvp} variant="outline" full>
+                  <BlockButton href={CTA.contact} variant="outline" full>
                     Request the sample
                   </BlockButton>
                 </div>

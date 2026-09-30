@@ -1,5 +1,5 @@
 import { FlaskConical, Server, ShieldCheck, type LucideIcon } from "lucide-react";
-import { ROUTES } from "@/lib/content";
+import { CTA, ROUTES } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { PRODUCTS } from "@/lib/products";
 import { siteConfig } from "@/lib/site";
@@ -78,7 +78,7 @@ export default function ProductsPage() {
             title="Products We Build and Run Ourselves"
             sub="Alongside client work, we build and run our own SaaS products. Each one is a proving ground for the stack, the process and the AI tooling we bring to every project."
             actions={
-              <BlockButton href="#get-started" variant="brand">
+              <BlockButton href={CTA.mvp} variant="brand">
                 Build Your Product With Us
               </BlockButton>
             }

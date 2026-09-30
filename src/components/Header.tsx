@@ -229,7 +229,7 @@ export function Header() {
             })}
           </ul>
           <div className={`origin-right transition-[scale] duration-300 ease-out ${compact ? "scale-90" : ""}`}>
-            <BlockButton href={CTA.mvp} variant="brand">
+            <BlockButton href={CTA.contact} variant="brand">
               Contact Us
             </BlockButton>
           </div>
@@ -331,7 +331,7 @@ export function Header() {
                 </motion.li>
               ))}
               <li className="pt-5">
-                <BlockButton href={CTA.mvp} variant="brand" full>
+                <BlockButton href={CTA.contact} variant="brand" full>
                   Contact Us
                 </BlockButton>
               </li>

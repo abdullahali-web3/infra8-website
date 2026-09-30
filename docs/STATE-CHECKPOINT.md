@@ -26,10 +26,11 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 | `/company` and `/resources` | 307 redirects to About and Insights (`next.config.ts`) |
 | `/products` | Catalogue of our own SaaS products (`src/lib/products.ts`): SVG thumbnail per product (`ProductThumb`), a card that opens a leave-site confirm `<dialog>` (`ProductLauncher`), then the product site in a new tab; a "Your product could be next" cell; why we build our own. Featured products (3) also appear in the Products mega menu |
 | `/privacy-policy`, `/terms-of-service`, `/cookie-policy` | Template policies for the future **Wyoming LLC** (`src/lib/legal.ts`, template `LegalPage`). Every entity detail is a highlighted `[placeholder]` and a Draft notice shows while `LEGAL_DRAFT = true`. Checklist: `docs/LEGAL-PLACEHOLDERS.md`. They describe the site as it is today (Vercel hosting, no analytics or ad cookies) and must be updated when forms or analytics are added. Not legal advice: needs lawyer review |
+| `/contact` | The one destination for every estimate, audit and contact button (`CTA` in `content.ts` sets `?topic=mvp/team/audit/other/careers`, which preselects the topic). Form: Server Action `app/contact/actions.ts` (server-side validation, honeypot + 3-second bot check, keeps values on error) and a client form (`components/contact/ContactForm.tsx`, `useActionState`, focus moves to the error summary). Aside: what happens next. FAQ below |
 | Custom 404 (`app/not-found.tsx`) | Every unmatched URL and every `notFound()` call: "This Page Doesn't Exist", new `NotFoundIso` (missing tile), popular links, noindex. Returns HTTP 404 |
 
 ### Next likely asks
-Real products, real legal details once the LLC exists, forms and lead routing (every CTA currently scrolls to `#get-started`), OG images, analytics, production domain.
+Real products, real legal details once the LLC exists, connecting lead delivery (section 6), analytics (then update the privacy and cookie policies), OG images, production domain.
 
 ## 3. Design system ("blueprint" theme)
 - **Frame:**
@@ -81,11 +82,18 @@ Real products, real legal details once the LLC exists, forms and lead routing (e
 1. **Minimum prices** (live now): MVP from $10,000, dedicated team from $8,000/month, managed DevOps retainer from $4,000/month. These are the brief's bracketed "from" values. They appear on the service pages, in 3 articles and in llms.txt.
 2. **Products** are 5 invented samples (Tallyloop, Driftguard, Shipnote, Quotewell, Formpilot) linking to example.com, each tagged "Sample"; no product schema until real. **Testimonials** are sample quotes with "Client name" and a visible "Sample quote" tag. **Team** profiles are placeholders (`/content/team/placeholder.svg`, tagged). The client-strip logos are Figma template placeholders.
 3. **AI policies** on the AI page: tools used on business terms that don't train on client code, no secrets or customer data in prompts, AI has no production access, human approval on every deploy, opt-out on request. Also confirm the tool list.
-4. Retainers month-to-month after an initial 3 months; a 4–6 hour time-zone overlap with US East/EU; the hiring steps on Careers; a careers email or ATS link (apply currently goes to `/#get-started`).
+4. Retainers month-to-month after an initial 3 months; a 4–6 hour time-zone overlap with US East/EU; the hiring steps on Careers; an ATS link if wanted (applications currently come through `/contact?topic=careers`).
 5. **Legal**: the 17 placeholders in `docs/LEGAL-PLACEHOLDERS.md` (LLC name, Wyoming addresses, emails, effective date, court county, providers, retention periods, liability cap).
 6. The production domain and email, and real impact numbers (years, projects shipped) if wanted.
 
-## 6. Technical notes and gotchas
+## 6. Lead delivery (must be set before leads can arrive)
+The contact form sends nothing until one of these is set in Vercel (Project → Settings → Environment Variables → Production):
+- **Email via Resend:** `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, and optionally `CONTACT_FROM_EMAIL` (needs a verified sending domain; without it Resend's test sender is used).
+- **Webhook:** `CONTACT_WEBHOOK_URL` for Slack, Zapier, Make or a CRM. It receives JSON with the lead fields plus a Slack-style `text` summary.
+
+Both can be set; a lead counts as delivered if either accepts it. With neither, visitors see "We couldn't send your message just now" (their text is kept) and the server logs a warning. Tested end to end locally with a webhook receiver on 2026-09-30.
+
+## 7. Technical notes and gotchas
 - Stack: Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind v4 (`@theme` tokens in `globals.css`), Motion, GSAP (plugins registered only in `src/lib/gsap.ts`), lucide-react.
 - Commands: `npm run dev -- -p 3100`, `npm run build`, `npm run lint` (the only warnings are in the git-ignored `design/` scripts).
 - Deploy: `vercel deploy --prod --yes` from the project root (CLI account `mabdullahaliofficial-9377`). There is no Git auto-deploy. A one-off "Not authorized" response was transient; retrying worked.
@@ -96,7 +104,7 @@ Real products, real legal details once the LLC exists, forms and lead routing (e
 - Editing via Python heredocs: use `chr(92)+'n'` for a literal `\n` inside JS strings, or the Edit tool.
 - The auto-mode command checker sometimes fails transiently; retry once or use the file tools.
 
-## 7. Working rules from the client
+## 8. Working rules from the client
 - Deploy only when asked. Commits happen on `theme/blueprint` as part of each deploy. Never push or merge without asking.
 - Verify every change in the browser (desktop plus 360–1024 widths, overflow check) before reporting.
 - Keep the design conversion-first and uncluttered; the client rejected "too geometric" details before.

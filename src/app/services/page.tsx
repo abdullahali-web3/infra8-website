@@ -1,4 +1,4 @@
-import { FAQ, ROUTES } from "@/lib/content";
+import { CTA, FAQ, ROUTES } from "@/lib/content";
 import { SERVICE_ORDER, SERVICES, SERVICES_HUB } from "@/lib/services";
 import { pageMetadata } from "@/lib/metadata";
 import { Header } from "@/components/Header";
@@ -34,7 +34,7 @@ export default function ServicesPage() {
             crumbs={CRUMBS}
             title={SERVICES_HUB.hero.title}
             sub={SERVICES_HUB.hero.sub}
-            cta={{ label: "Get MVP Estimate in 24 Hours", href: "#get-started" }}
+            cta={{ label: "Get MVP Estimate in 24 Hours", href: CTA.mvp }}
             secondary={{ label: "Compare Services", href: "#compare" }}
             art={<CtaIso />}
           />

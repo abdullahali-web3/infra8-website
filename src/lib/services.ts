@@ -1,4 +1,4 @@
-import { ROUTES } from "./content";
+import { CTA, ROUTES } from "./content";
 
 /**
  * Service pages: one record per service, rendered by `ServicePage`.
@@ -67,7 +67,6 @@ export type Service = {
   summary: string;
 };
 
-const ESTIMATE = "#get-started";
 
 export const SERVICES: Record<ServiceKey, Service> = {
   mvp: {
@@ -83,7 +82,7 @@ export const SERVICES: Record<ServiceKey, Service> = {
     hero: {
       title: "MVP Development for Startups, Built by Senior Engineers",
       sub: "You have the idea and the vision. We turn it into a launched product: scoped in a one to two week discovery sprint, built with weekly demos, and handed over with the code, the docs and the accounts in your name.",
-      cta: { label: "Get MVP Estimate in 24 Hours", href: ESTIMATE },
+      cta: { label: "Get MVP Estimate in 24 Hours", href: CTA.mvp },
     },
     answer: {
       question: "What Is MVP Development at Infra8?",
@@ -233,7 +232,7 @@ export const SERVICES: Record<ServiceKey, Service> = {
     hero: {
       title: "A Dedicated Development Team That Ships Every Week",
       sub: "Your MVP is live and the roadmap is growing faster than your team. We embed senior engineers who work in your repos and your tools, ship features every week and fix the foundations without a rewrite.",
-      cta: { label: "Build With a Dedicated Team", href: ESTIMATE },
+      cta: { label: "Build With a Dedicated Team", href: CTA.team },
     },
     answer: {
       question: "What Is a Dedicated Development Team?",
@@ -383,7 +382,7 @@ export const SERVICES: Record<ServiceKey, Service> = {
     hero: {
       title: "Managed DevOps Services for Products Live at Scale",
       sub: "Your product has users and revenue, so downtime, breaches and cloud bills now cost real money. We take over your cloud, CI/CD and security, define it all in code in your own accounts, and review uptime, cost and risk with you every month.",
-      cta: { label: "Get a Free Infra Audit", href: ESTIMATE },
+      cta: { label: "Get a Free Infra Audit", href: CTA.audit },
     },
     answer: {
       question: "What Are Managed DevOps Services?",
