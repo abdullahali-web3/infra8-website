@@ -16,8 +16,7 @@ export const ROUTES = {
   products: "/products",
   company: "/company",
   about: "/company/about",
-  team: "/company/team",
-  portfolio: "/company/portfolio",
+  ai: "/company/how-we-integrate-ai",
   resources: "/resources",
   insights: "/resources/insights",
   careers: "/resources/careers",
@@ -36,9 +35,9 @@ export const NAV = [
       body: "One senior team for your product and the cloud it runs on.",
     },
     children: [
-      { label: "Product development", href: ROUTES.productDevelopment, body: "Dedicated engineers who ship features every week.", icon: "users", art: "build" },
-      { label: "MVP development", href: ROUTES.mvpDevelopment, body: "From idea to a launched MVP, with an estimate in 24 hours.", icon: "rocket", art: "launch" },
-      { label: "Cloud/DevOps management", href: ROUTES.cloudDevops, body: "Cloud, CI/CD and security, run for you. Starts with a free audit.", icon: "cloud", art: "scale" },
+      { label: "Product development", href: ROUTES.productDevelopment, body: "Dedicated engineers who ship features every week.", art: "build" },
+      { label: "MVP development", href: ROUTES.mvpDevelopment, body: "From idea to a launched MVP, with an estimate in 24 hours.", art: "launch" },
+      { label: "Cloud/DevOps management", href: ROUTES.cloudDevops, body: "Cloud, CI/CD and security, run for you. Starts with a free audit.", art: "scale" },
     ],
   },
   {
@@ -49,7 +48,7 @@ export const NAV = [
       title: "Our products",
       body: "SaaS products we have built and run ourselves.",
     },
-    children: [{ label: "All products", href: ROUTES.products, body: "Browse every product we have built.", icon: "boxes" }],
+    children: [{ label: "All products", href: ROUTES.products, body: "Browse every product we have built." }],
   },
   {
     label: "Company",
@@ -57,12 +56,11 @@ export const NAV = [
     allLabel: "About Infra8",
     intro: {
       title: "The team behind Infra8",
-      body: "Who we are, who you will work with and what we have shipped.",
+      body: "Who we are, what we believe, and how we use AI without giving up control.",
     },
     children: [
-      { label: "About", href: ROUTES.about, body: "How we work and what we believe.", icon: "building" },
-      { label: "Team", href: ROUTES.team, body: "The senior engineers on your project.", icon: "users" },
-      { label: "Portfolio", href: ROUTES.portfolio, body: "Products we have built and run.", icon: "folder" },
+      { label: "About", href: ROUTES.about, body: "Who we are, what we believe and the team behind the work." },
+      { label: "How we integrate AI", href: ROUTES.ai, body: "AI-augmented development and CloudOps, with your data and workflows kept under control." },
     ],
   },
   {
@@ -71,11 +69,11 @@ export const NAV = [
     allLabel: "All resources",
     intro: {
       title: "Learn and join",
-      body: "Notes from the work, and open roles.",
+      body: "Guides from the work, and how to join the team.",
     },
     children: [
-      { label: "Insights", href: ROUTES.insights, body: "Articles on building and running software.", icon: "newspaper" },
-      { label: "Careers", href: ROUTES.careers, body: "How we hire and the roles we hire for.", icon: "userPlus" },
+      { label: "Insights", href: ROUTES.insights, body: "Articles on building and running software." },
+      { label: "Careers", href: ROUTES.careers, body: "How we hire and the roles we hire for." },
     ],
   },
 ] as const;
@@ -491,8 +489,7 @@ export const FOOTER = {
       title: "Company",
       links: [
         { label: "About", href: ROUTES.about },
-        { label: "Team", href: ROUTES.team },
-        { label: "Portfolio", href: ROUTES.portfolio },
+        { label: "How we integrate AI", href: ROUTES.ai },
         { label: "Products", href: ROUTES.products },
       ],
     },

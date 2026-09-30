@@ -23,6 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly" as const,
       priority: 0.6,
     })),
+    page(ROUTES.about, 0.6),
+    page(ROUTES.ai, 0.6),
     page(ROUTES.careers, 0.4),
   ];
 }

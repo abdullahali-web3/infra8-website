@@ -146,7 +146,7 @@ export default async function InsightPage({ params }: Props) {
             <ul className="mt-12 grid border-t border-line lg:mt-16 lg:grid-cols-3">
               {related.map((r) => (
                 <li key={r.slug} className="border-line not-first:border-t lg:not-first:border-t-0 lg:not-first:border-l">
-                  <InsightCard insight={r} as="h3" />
+                  <InsightCard insight={r} index={INSIGHTS.indexOf(r) + 1} as="h3" />
                 </li>
               ))}
             </ul>

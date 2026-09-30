@@ -32,7 +32,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
 
-const ICONS: Record<ServiceIcon, LucideIcon> = {
+export const ICONS: Record<ServiceIcon, LucideIcon> = {
   fileText: FileText,
   penTool: PenTool,
   code: Code,
@@ -315,10 +315,18 @@ export function ServicePricing({ pricing, cta }: { pricing: Service["pricing"]; 
 }
 
 /** Links to the other services, so every page leads to the next stage ("build it, then run it"). */
-export function RelatedServices({ services }: { services: Pick<Service, "path" | "name" | "summary">[] }) {
+export function RelatedServices({
+  services,
+  eyebrow = "Related services",
+  title = "Build It,\nThen Run It",
+}: {
+  services: Pick<Service, "path" | "name" | "summary">[];
+  eyebrow?: string;
+  title?: string;
+}) {
   return (
     <BpSection>
-      <SectionHead eyebrow="Related services" title={"Build It,\nThen Run It"} />
+      <SectionHead eyebrow={eyebrow} title={title} />
       <ul className={`mt-12 grid border-t border-line lg:mt-16 ${services.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"}`}>
         {services.map((s) => (
           <li key={s.path} className={`${CELL} not-first:border-t lg:not-first:border-t-0 lg:not-first:border-l`}>

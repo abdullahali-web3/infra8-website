@@ -191,6 +191,26 @@ section[id] {
   }
 }
 
+/* AI page: a commit travelling 220 world units along +x (screen: 220·cos30, 220·0.5). */
+@keyframes iso-conveyor {
+  0% {
+    translate: 0 0;
+    opacity: 0;
+  }
+  8%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    translate: 190.5px 110px;
+    opacity: 0;
+  }
+}
+
+.iso-conveyor {
+  animation: iso-conveyor 7.2s linear infinite;
+}
+
 /* One-shot entrance for illustration pieces (the hero board drops in tile by tile). */
 @keyframes iso-in {
   from {
@@ -229,6 +249,7 @@ section[id] {
   .bp-caret,
   .bp-line,
   .iso-in,
+  .iso-conveyor,
   .iso-bob,
   .iso-drop,
   .iso-blink,

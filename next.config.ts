@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // /resources has no page of its own yet; send the nav's "Resources" link to Insights.
+  // /resources and /company have no page of their own; send the nav's top-level links to the first child.
   async redirects() {
-    return [{ source: "/resources", destination: "/resources/insights", permanent: false }];
+    return [
+      { source: "/resources", destination: "/resources/insights", permanent: false },
+      { source: "/company", destination: "/company/about", permanent: false },
+    ];
   },
 };
 

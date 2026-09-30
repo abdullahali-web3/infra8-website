@@ -9,7 +9,7 @@ export function FinalCta() {
   return (
     <BpSection id="get-started" flush>
       <div>
-        <div className="dots relative grid items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:px-12 lg:py-24">
+        <div className={`dots relative grid items-center gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:px-12 lg:py-24`}>
           <div className="flex flex-col items-start gap-8 bg-white/0">
             <div className="flex flex-col items-start gap-5">
               <span className="bg-white px-1"><Eyebrow>Get started</Eyebrow></span>

@@ -68,7 +68,7 @@ export default function InsightsPage() {
           />
           <section className="border-t border-line pt-10 lg:pt-14">
             <InsightsIndex
-              items={INSIGHTS.map((i) => ({ key: i.slug, category: i.category, card: <InsightCard insight={i} /> }))}
+              items={INSIGHTS.map((i, n) => ({ key: i.slug, category: i.category, card: <InsightCard insight={i} index={n + 1} /> }))}
             />
           </section>
           <SectionGap />

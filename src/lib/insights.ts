@@ -17,8 +17,6 @@ export type Block =
 
 export type InsightCategory = "MVP" | "Product" | "Cloud & DevOps";
 
-export type InsightArt = "launch" | "build" | "scale" | "scope" | "arch" | "audit" | "cta";
-
 export type Insight = {
   slug: string;
   title: string;
@@ -29,8 +27,6 @@ export type Insight = {
   /** ISO date. */
   published: string;
   service: ServiceKey;
-  /** Card illustration: a stage scene, a document scene or the build-and-run board. */
-  art: InsightArt;
   answer: string;
   takeaways: string[];
   body: Block[];
@@ -43,7 +39,6 @@ const PUBLISHED = "2026-09-30";
 export const INSIGHTS: Insight[] = [
   {
     slug: "how-much-does-it-cost-to-build-an-mvp",
-    art: "scope",
     title: "How Much Does It Cost to Build an MVP?",
     description:
       "What actually drives MVP development cost, how to scope a first version down, and how fixed-scope pricing protects your budget.",
@@ -118,7 +113,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "how-long-does-it-take-to-build-an-mvp",
-    art: "launch",
     title: "How Long Does It Take to Build an MVP?",
     description:
       "The phases of an MVP build, what makes projects slip, and what founders can do to reach launch sooner.",
@@ -179,7 +173,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "mvp-checklist-before-hiring-a-development-team",
-    art: "cta",
     title: "The MVP Checklist: What to Decide Before You Hire a Dev Team",
     metaTitle: "MVP Checklist: What to Decide Before Hiring a Team",
     description:
@@ -246,7 +239,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "dedicated-development-team-vs-freelancers-vs-in-house",
-    art: "build",
     title: "Dedicated Team vs Freelancers vs In-House: A Founder's Guide",
     metaTitle: "Dedicated Team vs Freelancers vs In-House",
     description:
@@ -299,7 +291,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "ai-in-software-development-where-it-helps",
-    art: "arch",
     title: "AI in Software Development: Where It Helps and Where Humans Stay in Charge",
     metaTitle: "AI in Software Development: Where It Helps",
     description:
@@ -360,7 +351,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "managed-devops-vs-hiring-a-devops-engineer",
-    art: "scale",
     title: "Managed DevOps vs Hiring a DevOps Engineer",
     description:
       "When to hire a DevOps engineer, when managed DevOps services fit better, and how to stay free of lock-in either way.",
@@ -421,7 +411,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "how-to-reduce-aws-costs",
-    art: "audit",
     title: "How to Reduce Your AWS Bill Without Slowing Down",
     description:
       "Where AWS waste usually hides, the quickest cost wins, when to commit with Savings Plans, and how to stop costs creeping back.",
@@ -483,7 +472,6 @@ export const INSIGHTS: Insight[] = [
   },
   {
     slug: "soc-2-readiness-for-startups",
-    art: "audit",
     title: "SOC 2 Readiness for Startups: What Your Infrastructure Needs",
     metaTitle: "SOC 2 Readiness for Startups: Infrastructure Guide",
     description:

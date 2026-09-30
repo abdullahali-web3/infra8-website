@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" role="img" aria-label="Photo placeholder">
+  <defs>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="1" fill="#d6d6d6"/>
+    </pattern>
+    <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <rect width="7" height="7" fill="#ffffff"/>
+      <line x1="0" y1="0.5" x2="7" y2="0.5" stroke="#111111" stroke-opacity="0.22" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="480" fill="#f7f7f7"/>
+  <rect width="400" height="480" fill="url(#dots)"/>
+  <path d="M60 480 C60 380 120 330 200 330 C280 330 340 380 340 480 Z" fill="url(#hatch)" stroke="#111111" stroke-opacity="0.45" stroke-width="1.5"/>
+  <circle cx="200" cy="215" r="78" fill="url(#hatch)" stroke="#111111" stroke-opacity="0.45" stroke-width="1.5"/>
+  <circle cx="200" cy="215" r="92" fill="none" stroke="#0654fe" stroke-opacity="0.5" stroke-width="1" stroke-dasharray="4 6"/>
+  <path d="M24 24 H44 M24 24 V44 M376 24 H356 M376 24 V44" stroke="#111111" stroke-opacity="0.35" stroke-width="1.5" fill="none"/>
+</svg>

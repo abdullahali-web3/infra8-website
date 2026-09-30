@@ -32,6 +32,8 @@
 - [SOC 2 Readiness for Startups](/resources/insights/soc-2-readiness-for-startups)
 
 ## Company
+- [About](/company/about): who Infra8 is, why one team builds and runs, and four commitments on every project (you own everything, scope and price in writing, senior engineers only, visible progress).
+- [How we integrate AI](/company/how-we-integrate-ai): AI is used for first passes in development and CloudOps (scoping, code review, tests, infrastructure scans, cost checks). A senior engineer approves every change, secrets and customer data never go into AI tools, AI has no production access, and clients can opt out.
 - [Careers](/resources/careers): how the team works and the roles it hires for.
 
 ## Links
