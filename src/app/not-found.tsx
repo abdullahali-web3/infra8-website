@@ -42,7 +42,7 @@ export default function NotFound() {
                     before="/"
                     after="/"
                     delay={0.1}
-                    className={`${HEADING_H1} text-balance`}
+                    className={HEADING_H1}
                   />
                   <RevealText
                     text="The link may be old, or the page may have moved. Here are the places most people are looking for."

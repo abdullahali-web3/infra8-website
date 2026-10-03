@@ -1,6 +1,6 @@
 import { CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
-import { BP_PAD, BlueprintColumn, Eyebrow } from "@/components/ui/Blueprint";
+import { BP_PAD, BlueprintColumn, Eyebrow, HEADING_H1 } from "@/components/ui/Blueprint";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 import { HeroLattice } from "@/components/illustrations/HeroLattice";
@@ -29,7 +29,7 @@ export function Hero() {
                 before="/"
                 after="/"
                 delay={0.1}
-                className="[text-box:trim-both_cap_alphabetic] font-display text-[36px] leading-[1.08] tracking-[-0.04em] text-black sm:text-[52px] sm:leading-[58px]"
+                className={HEADING_H1}
               />
               <RevealText
                 text="Founders, SMEs, & Startups hire Infra8 to provide end-to-end product development solutions and devOps/Cloud infrastructure management to scale and grow."

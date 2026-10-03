@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 @theme {
+  /* Fluid heading sizes: they shrink smoothly with the window (and with browser zoom) instead of
+     jumping at a breakpoint. h1 reaches 52px and h2 44px at desktop widths. */
+  --text-h1: clamp(34px, 1.9rem + 2vw, 52px);
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(30px, 1.6rem + 1.6vw, 44px);
+  --text-h2--line-height: 1.13;
   --color-ink: #111111;
   --color-ink-soft: rgba(17, 17, 17, 0.8);
   --color-nav: #252525;
@@ -91,6 +97,14 @@ section[id] {
 
 @utility text-balance {
   text-wrap: balance;
+}
+
+/* Sideways scrolling without a visible scrollbar (segmented controls on small screens). */
+@utility scroll-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Blueprint dot field (gutters, panels, hovered cells). */

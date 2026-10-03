@@ -78,7 +78,7 @@ export default async function InsightPage({ params }: Props) {
                 before="/"
                 after="/"
                 delay={0.1}
-                className={`${HEADING} max-w-[920px] text-balance`}
+                className={`${HEADING} max-w-[920px]`}
               />
               <p className="max-w-[720px] text-base leading-7 tracking-[-0.02em] text-ink-soft sm:text-[18px]">
                 {insight.description}

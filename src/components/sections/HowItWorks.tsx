@@ -6,6 +6,7 @@ import { TRACKS } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BP_PAD, BpSection, SectionHead } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
+import { Segmented } from "@/components/ui/Segmented";
 import { StepIso, type StepState } from "@/components/illustrations/iso/StepIso";
 
 type TrackKey = keyof typeof TRACKS;
@@ -48,23 +49,13 @@ export function HowItWorks() {
       />
 
       <div className={`mt-10 ${BP_PAD}`}>
-        <div role="tablist" aria-label="Choose a track" className="inline-flex border border-line p-[3px] font-mono text-[12px] uppercase">
-          {KEYS.map((k) => {
-            const on = track === k;
-            return (
-              <button
-                key={k}
-                role="tab"
-                type="button"
-                aria-selected={on}
-                onClick={() => chooseTrack(k)}
-                className={`h-9 px-4 leading-none uppercase transition-colors duration-300 ${on ? "bg-ink text-white" : "text-ink-soft hover:bg-surface-2 hover:text-ink"}`}
-              >
-                {TRACKS[k].label}
-              </button>
-            );
-          })}
-        </div>
+        <Segmented
+          kind="tabs"
+          label="Choose a track"
+          value={track}
+          onChange={chooseTrack}
+          options={KEYS.map((k) => ({ value: k, label: TRACKS[k].label }))}
+        />
       </div>
 
 

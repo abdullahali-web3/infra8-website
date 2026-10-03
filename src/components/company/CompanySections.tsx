@@ -31,8 +31,8 @@ export function ReasonRows({
             <li key={it.title} className="group/card flex gap-5 border-line py-6 not-first:border-t first:pt-0 last:pb-0">
               <Reveal delay={(i % 3) * 0.06} className="flex gap-5">
                 <IconTile icon={ICONS[it.icon]} size="md" />
-                <span className="flex flex-col gap-1.5 pt-0.5">
-                  <h3 className="font-display text-[20px] leading-[1.3] tracking-[-0.03em] text-ink transition-colors duration-300 group-hover/card:text-brand">
+                <span className="flex flex-col gap-2">
+                  <h3 className="[text-box:trim-start_cap_alphabetic] font-display text-[20px] leading-[1.3] tracking-[-0.03em] text-ink transition-colors duration-300 group-hover/card:text-brand">
                     {it.title}
                   </h3>
                   <p className="text-base leading-7 tracking-[-0.02em] text-ink-soft">{it.body}</p>
@@ -185,7 +185,8 @@ export function TwoLists({
                   return (
                     <li key={it.text} className="group/card flex gap-4 border-line py-4 text-base leading-7 tracking-[-0.02em] text-ink-soft not-first:border-t first:pt-0">
                       <IconTile icon={ICONS[it.icon]} size="line" />
-                      <span>
+                      {/* Trimmed to cap height, so the tile's top edge meets the top of the first line's letters. */}
+                      <span className="[text-box:trim-start_cap_alphabetic]">
                         {rest.length ? <span className="text-ink">{head}: </span> : null}
                         {rest.length ? rest.join(": ") : head}
                       </span>

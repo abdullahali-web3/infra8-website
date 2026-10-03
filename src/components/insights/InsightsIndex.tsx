@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { INSIGHT_CATEGORIES, type InsightCategory } from "@/lib/insights";
+import { Segmented } from "@/components/ui/Segmented";
 
 type Filter = "All" | InsightCategory;
 
@@ -16,23 +17,16 @@ export function InsightsIndex({ items }: { items: { category: InsightCategory; c
   return (
     <>
       <div className="px-5 sm:px-8 lg:px-12">
-        <div role="group" aria-label="Filter articles by topic" className="inline-flex flex-wrap border border-line p-[3px] font-mono text-[12px] uppercase">
-          {filters.map((f) => {
-            const on = f === filter;
-            const count = f === "All" ? items.length : items.filter((i) => i.category === f).length;
-            return (
-              <button
-                key={f}
-                type="button"
-                aria-pressed={on}
-                onClick={() => setFilter(f)}
-                className={`h-9 px-4 leading-none uppercase transition-colors duration-300 ${on ? "bg-ink text-white" : "text-ink-soft hover:bg-surface-2 hover:text-ink"}`}
-              >
-                {f} <span className={on ? "text-white/60" : "text-muted"}>{count}</span>
-              </button>
-            );
-          })}
-        </div>
+        <Segmented
+          label="Filter articles by topic"
+          value={filter}
+          onChange={setFilter}
+          options={filters.map((f) => ({
+            value: f,
+            label: f,
+            count: f === "All" ? items.length : items.filter((i) => i.category === f).length,
+          }))}
+        />
       </div>
       {/* Every card draws its right and bottom edge; the wrapper clips the outermost ones. This stays
           correct whatever the filter hides, unlike nth-child borders. */}

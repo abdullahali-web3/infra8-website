@@ -100,8 +100,8 @@ export function RevealText({
   const nodes = parse(text).flatMap((seg, segIndex) =>
     seg.text.split(/(\s+)/).map((token, tokenIndex) => {
       if (token === "") return null;
-      // A newline in the text is a forced line break (the blueprint headings are set in two lines).
-      if (/\n/.test(token)) return <br key={`${segIndex}-${tokenIndex}`} />;
+      // A newline in the copy is only a hint: it becomes a space, and `text-balance` on the heading
+      // picks the line breaks, so narrow widths never strand one word on its own line.
       if (/^\s+$/.test(token)) return " ";
       return (
         <span

@@ -58,16 +58,19 @@ export function BpSection({
   );
 }
 
-/** Page H1 (hero of every page). */
+/**
+ * Page H1 (hero of every page). Sizes are fluid tokens and lines are balanced, so a heading never
+ * leaves one word alone on a line at any width or zoom level.
+ */
 export const HEADING_H1 =
-  "[text-box:trim-both_cap_alphabetic] font-display text-[36px] leading-[1.08] tracking-[-0.04em] text-black sm:text-[52px] sm:leading-[58px]";
+  "[text-box:trim-both_cap_alphabetic] text-balance font-display text-h1 tracking-[-0.04em] text-black";
 
-/** The one heading style for every H1/H2 on the page: two lines between light slashes. */
-export const HEADING =
-  "font-display text-[32px] leading-[1.12] tracking-[-0.04em] text-ink sm:text-[44px] sm:leading-[50px]";
+/** The one H2 style: fluid size, balanced lines between light slashes. */
+export const HEADING = "text-balance font-display text-h2 tracking-[-0.04em] text-ink";
 
 export function SlashHeading({ title, className = "" }: { title: string; className?: string }) {
-  return <RevealText as="h2" text={title} before="/" after="/" delay={0.05} className={`${HEADING} ${className}`} />;
+  // The max width keeps section headings to about two balanced lines on desktop.
+  return <RevealText as="h2" text={title} before="/" after="/" delay={0.05} className={`${HEADING} max-w-[15em] ${className}`} />;
 }
 
 /** Eyebrow + heading on the left, an optional sub or action on the right. */

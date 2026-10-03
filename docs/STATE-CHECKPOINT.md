@@ -44,6 +44,10 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 - **Headings:**
   - `SectionHead` = a small `Eyebrow` (blue square + mono label) + `SlashHeading` (`/ Two-line Title Case heading /`), with an optional sub on the right.
   - Page heroes (`ServiceHero`, `PageHero`) have **breadcrumbs only, no eyebrow**, and an H1 with `text-balance`.
+- **Headings scale and wrap consistently** (client, 2026-10-03): H1/H2 use fluid tokens `text-h1` / `text-h2` (clamp, 52px / 44px at desktop) with `text-balance`; a `
+` in heading copy is only a hint and renders as a space, so no width or zoom level strands one word on a line. `SlashHeading` caps at `max-w-[15em]` (about two lines). `design/orphans.mjs` scans pages for stubby lines.
+- **Switches** (tabs and filters) use `ui/Segmented`: a light track with a sliding white thumb and count badges; one row that scrolls sideways on phones.
+- **Icon beside text:** the text gets `[text-box:trim-start_cap_alphabetic]` so the `IconTile` top meets the cap height.
 - **Typography:**
   - Google Sans Flex (display), Inter (body) and Geist Mono (labels).
   - **One heading font**: no serif accent words; the Newsreader font was removed.
@@ -67,6 +71,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
     - `CtaIso` (build + run board, used in the final CTA; the client allows it to repeat)
     - `LayerStack` (homepage stack)
     - `AiGateIso` (AI page only)
+    - `CareersIso` (careers hero only: a team board of four desks, one dashed "open seat")
     - `ServicesIso` (/services hero only: launch, build and run platforms stepping up, joined by a marching path)
   - Hero = `HeroLattice` (the Figma lattice, lifting tiles).
   - **Do not reuse a scene on a new page** (the final CTA is the exception).

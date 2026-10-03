@@ -26,7 +26,7 @@ export function PageHero({
         <div className="flex flex-col gap-8">
           <Breadcrumbs items={crumbs} />
           <div className="flex flex-col gap-7">
-            <RevealText as="h1" text={title} before="/" after="/" delay={0.1} className={`${HEADING_H1} max-w-[820px] text-balance`} />
+            <RevealText as="h1" text={title} before="/" after="/" delay={0.1} className={`${HEADING_H1} max-w-[820px]`} />
             <RevealText
               text={sub}
               delay={0.3}

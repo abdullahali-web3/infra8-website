@@ -80,9 +80,9 @@ export default function ContactPage() {
                   <ol className="flex flex-col">
                     {NEXT_STEPS.map((s) => (
                       <li key={s.title} className="flex gap-4 border-t border-line py-4">
-                        <IconTile icon={s.icon} className="-mt-1.5" />
+                        <IconTile icon={s.icon} />
                         <span className="flex flex-col gap-1">
-                          <span className="text-[15px] leading-5 font-medium tracking-[-0.02em] text-ink">{s.title}</span>
+                          <span className="[text-box:trim-start_cap_alphabetic] text-[15px] leading-5 font-medium tracking-[-0.02em] text-ink">{s.title}</span>
                           <span className="text-sm leading-[22px] tracking-[-0.01em] text-muted">{s.body}</span>
                         </span>
                       </li>

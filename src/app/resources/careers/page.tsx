@@ -11,7 +11,7 @@ import { Logo } from "@/components/ui/Logo";
 import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/Reveal";
 import type { Crumb } from "@/components/service/Breadcrumbs";
-import { CtaIso } from "@/components/illustrations/iso/CtaIso";
+import { CareersIso } from "@/components/illustrations/iso/CareersIso";
 import { ICONS } from "@/components/ui/icons";
 import { IconTile } from "@/components/ui/IconTile";
 
@@ -58,7 +58,7 @@ export default function CareersPage() {
                 See the Roles We Hire For
               </BlockButton>
             }
-            art={<CtaIso />}
+            art={<CareersIso />}
           />
 
           <SectionGap />
