@@ -133,7 +133,7 @@ export default async function InsightPage({ params }: Props) {
                     <p className="text-[15px] leading-6 tracking-[-0.02em] text-muted">{service.summary}</p>
                   </div>
                   <BlockButton href={service.path} variant="brand">
-                    Explore service
+                    Explore Service
                   </BlockButton>
                 </div>
               </article>

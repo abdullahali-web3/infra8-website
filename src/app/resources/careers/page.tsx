@@ -1,9 +1,8 @@
-import { ChevronRight, ShieldCheck, Sparkles, Users, Workflow, type LucideIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { ROUTES } from "@/lib/content";
 import { CAREERS } from "@/lib/careers";
 import { pageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
-import type { ServiceIcon } from "@/lib/services";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { BlockButton } from "@/components/ui/BlockButton";
@@ -13,6 +12,8 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/Reveal";
 import type { Crumb } from "@/components/service/Breadcrumbs";
 import { CtaIso } from "@/components/illustrations/iso/CtaIso";
+import { ICONS } from "@/components/service/ServiceSections";
+import { IconTile } from "@/components/ui/IconTile";
 
 export const metadata = pageMetadata({ ...CAREERS.meta, path: ROUTES.careers });
 
@@ -21,12 +22,6 @@ const CRUMBS: Crumb[] = [
   { name: "Careers", href: ROUTES.careers },
 ];
 
-const ICONS: Partial<Record<ServiceIcon, LucideIcon>> = {
-  users: Users,
-  workflow: Workflow,
-  shieldCheck: ShieldCheck,
-  sparkles: Sparkles,
-};
 
 const HOVER_LINE =
   "absolute inset-x-0 -top-px z-10 h-0.5 origin-left scale-x-0 bg-brand transition-[scale] duration-500 ease-out group-hover/card:scale-x-100";
@@ -78,7 +73,7 @@ export default function CareersPage() {
             />
             <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
               {CAREERS.principles.map((p, i) => {
-                const Icon = ICONS[p.icon] ?? Users;
+                const Icon = ICONS[p.icon];
                 return (
                   <li
                     key={p.title}
@@ -113,6 +108,7 @@ export default function CareersPage() {
                 >
                   <span aria-hidden className={HOVER_LINE} />
                   <Reveal delay={(i % 2) * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
+                    <IconTile icon={ICONS[r.icon]} size="md" />
                     <h3 className="font-display text-[24px] leading-[1.2] tracking-[-0.03em] text-ink transition-colors group-hover/card:text-brand">
                       {r.title}
                     </h3>

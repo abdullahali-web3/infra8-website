@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ChevronRight } from "lucide-react";
 import { headingId, type Block } from "@/lib/insights";
 
 /** Highlights [bracketed placeholders] so unfinished legal details can't pass as final. */
@@ -47,7 +48,7 @@ export function ArticleBody({ blocks, placeholders = false }: { blocks: Block[];
               <ul key={i} className="flex flex-col gap-3">
                 {b.items.map((it) => (
                   <li key={it} className="flex gap-3 text-[17px] leading-8 tracking-[-0.01em] text-ink-soft">
-                    <span aria-hidden className="mt-[12px] size-2 shrink-0 bg-brand" />
+                    <ChevronRight aria-hidden className="mt-2 size-4 shrink-0 text-brand" strokeWidth={2} />
                     <span>{t(it)}</span>
                   </li>
                 ))}

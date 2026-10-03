@@ -97,7 +97,7 @@ export function ToolStack() {
             Use a different stack? We&rsquo;ll work in yours.
           </p>
           <BlockButton href={CTA.contact} variant="outline">
-            Tell us your stack
+            Tell Us Your Stack
           </BlockButton>
         </div>
       </div>

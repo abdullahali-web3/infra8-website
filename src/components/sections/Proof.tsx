@@ -39,7 +39,7 @@ export function Proof() {
                 </div>
                 <div className="px-6 pt-8 pb-6">
                   <BlockButton href={CTA.contact} variant="outline" full>
-                    Request the sample
+                    Request the Sample
                   </BlockButton>
                 </div>
               </article>

@@ -1,10 +1,11 @@
 import Image from "next/image";
-import { CircleCheck, ShieldCheck } from "lucide-react";
+import { CircleCheck } from "lucide-react";
 import type { ServiceIcon } from "@/lib/services";
 import { BP_PAD, BpSection, Eyebrow, SectionHead, SlashHeading, Tag } from "@/components/ui/Blueprint";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
 import { ICONS } from "@/components/service/ServiceSections";
+import { IconTile } from "@/components/ui/IconTile";
 
 const HOVER_LINE =
   "absolute inset-x-0 -top-px z-10 h-0.5 origin-left scale-x-0 bg-brand transition-[scale] duration-500 ease-out group-hover/card:scale-x-100";
@@ -113,7 +114,17 @@ export function TeamGrid({ members }: { members: { name: string; role: string }[
 }
 
 /** Concerns as question and answer cells, two by two. */
-export function ConcernGrid({ eyebrow, title, sub, items }: { eyebrow: string; title: string; sub?: string; items: { q: string; a: string }[] }) {
+export function ConcernGrid({
+  eyebrow,
+  title,
+  sub,
+  items,
+}: {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  items: { icon: ServiceIcon; q: string; a: string }[];
+}) {
   return (
     <BpSection>
       <SectionHead eyebrow={eyebrow} title={title} sub={sub} />
@@ -125,7 +136,7 @@ export function ConcernGrid({ eyebrow, title, sub, items }: { eyebrow: string; t
           >
             <span aria-hidden className={HOVER_LINE} />
             <Reveal delay={(i % 2) * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
-              <span className="font-mono text-[12px] leading-none text-muted transition-colors group-hover/card:text-brand">{`Q.0${i + 1}`}</span>
+              <IconTile icon={ICONS[c.icon]} size="md" />
               <h3 className="font-display text-[22px] leading-[1.25] tracking-[-0.03em] text-ink">{c.q}</h3>
               <p className="flex gap-3 text-base leading-7 tracking-[-0.02em] text-ink-soft">
                 <CircleCheck aria-hidden className="mt-[5px] size-[18px] shrink-0 text-ok" strokeWidth={2} />
@@ -140,7 +151,17 @@ export function ConcernGrid({ eyebrow, title, sub, items }: { eyebrow: string; t
 }
 
 /** Two columns of bullet lists (e.g. development vs CloudOps). */
-export function TwoLists({ eyebrow, title, sub, lists }: { eyebrow: string; title: string; sub?: string; lists: { title: string; items: string[] }[] }) {
+export function TwoLists({
+  eyebrow,
+  title,
+  sub,
+  lists,
+}: {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  lists: { title: string; items: { icon: ServiceIcon; text: string }[] }[];
+}) {
   return (
     <BpSection>
       <SectionHead eyebrow={eyebrow} title={title} sub={sub} />
@@ -151,10 +172,10 @@ export function TwoLists({ eyebrow, title, sub, lists }: { eyebrow: string; titl
               <h3 className="font-display text-[24px] leading-[1.2] tracking-[-0.03em] text-ink">{l.title}</h3>
               <ul className="flex flex-col">
                 {l.items.map((it) => {
-                  const [head, ...rest] = it.split(": ");
+                  const [head, ...rest] = it.text.split(": ");
                   return (
-                    <li key={it} className="flex gap-4 border-line py-4 text-base leading-7 tracking-[-0.02em] text-ink-soft not-first:border-t first:pt-0">
-                      <span aria-hidden className="mt-[10px] size-2 shrink-0 bg-brand" />
+                    <li key={it.text} className="group/card flex gap-4 border-line py-4 text-base leading-7 tracking-[-0.02em] text-ink-soft not-first:border-t first:pt-0">
+                      <IconTile icon={ICONS[it.icon]} className="-mt-0.5" />
                       <span>
                         {rest.length ? <span className="text-ink">{head}: </span> : null}
                         {rest.length ? rest.join(": ") : head}
@@ -207,8 +228,20 @@ export function SplitTable({ eyebrow, title, sub, head, rows }: { eyebrow: strin
   );
 }
 
-/** Guardrails: six shield items in a 3×2 grid. */
-export function Guardrails({ id, eyebrow, title, sub, items }: { id?: string; eyebrow: string; title: string; sub?: string; items: { title: string; body: string }[] }) {
+/** Guardrails: six items, each with its own icon, in a 3×2 grid. */
+export function Guardrails({
+  id,
+  eyebrow,
+  title,
+  sub,
+  items,
+}: {
+  id?: string;
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  items: { icon: ServiceIcon; title: string; body: string }[];
+}) {
   return (
     <BpSection id={id}>
       <SectionHead eyebrow={eyebrow} title={title} sub={sub} />
@@ -217,8 +250,8 @@ export function Guardrails({ id, eyebrow, title, sub, items }: { id?: string; ey
           {items.map((g, i) => (
             <li key={g.title} className="group/card relative border-r border-b border-line">
               <span aria-hidden className={HOVER_LINE} />
-              <Reveal delay={(i % 3) * 0.08} className="flex h-full gap-4 px-6 py-8 lg:px-8">
-                <ShieldCheck aria-hidden className="mt-0.5 size-6 shrink-0 text-brand" strokeWidth={1.5} />
+              <Reveal delay={(i % 3) * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8">
+                <IconTile icon={ICONS[g.icon]} size="md" />
                 <span className="flex flex-col gap-2">
                   <h3 className="font-display text-[19px] leading-[1.3] tracking-[-0.03em] text-ink">{g.title}</h3>
                   <p className="text-[15px] leading-6 tracking-[-0.02em] text-muted">{g.body}</p>

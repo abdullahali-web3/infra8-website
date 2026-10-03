@@ -7,6 +7,8 @@ import { CircleAlert, CircleCheck, LoaderCircle } from "lucide-react";
 import { sendContact, type ContactField, type ContactState } from "@/app/contact/actions";
 import { CONTACT_TIMELINES, CONTACT_TOPICS, isContactTopic, type ContactTopic } from "@/lib/contact";
 import { ROUTES } from "@/lib/content";
+import { BlockButton, BlockButtonBody, blockButtonClass } from "@/components/ui/BlockButton";
+import { Select } from "@/components/ui/Select";
 
 const INITIAL: ContactState = { status: "idle" };
 
@@ -88,12 +90,9 @@ export function ContactForm({ initialTopic = null }: { initialTopic?: ContactTop
           We reply within 24 hours on business days. If you asked for an MVP estimate, the reply includes a price range and a
           timeline.
         </p>
-        <Link
-          href={ROUTES.insights}
-          className="inline-flex h-11 items-center border border-line px-4 font-mono text-[12px] leading-none text-ink uppercase transition-colors hover:border-ink"
-        >
-          Read our insights while you wait
-        </Link>
+        <BlockButton href={ROUTES.insights} variant="outline">
+          Read Our Insights While You Wait
+        </BlockButton>
       </div>
     );
   }
@@ -158,21 +157,14 @@ export function ContactForm({ initialTopic = null }: { initialTopic?: ContactTop
             />
           </Field>
           <Field id="timeline" label="Timeline" optional error={e.timeline}>
-            <select
+            <Select
               id="timeline"
               name="timeline"
+              options={CONTACT_TIMELINES}
               defaultValue={v.timeline ?? ""}
-              aria-invalid={!!e.timeline}
-              aria-describedby={describedBy("timeline")}
-              className={`${INPUT} ${e.timeline ? BAD_BORDER : OK_BORDER} appearance-none bg-[url('/content/icons/chevron-down.svg')] bg-[length:9px_5px] bg-[position:right_16px_center] bg-no-repeat pr-10`}
-            >
-              <option value="">Choose one</option>
-              {CONTACT_TIMELINES.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
-              ))}
-            </select>
+              invalid={!!e.timeline}
+              describedBy={describedBy("timeline")}
+            />
           </Field>
         </div>
 
@@ -247,21 +239,13 @@ export function ContactForm({ initialTopic = null }: { initialTopic?: ContactTop
             </Link>
             .
           </p>
-          <button
-            type="submit"
-            disabled={pending}
-            className="group/blk relative isolate inline-flex h-12 shrink-0 items-center justify-center gap-3 overflow-hidden bg-brand px-6 font-mono text-[12px] leading-none text-white uppercase transition-colors disabled:cursor-wait disabled:opacity-70"
-          >
-            <span
-              aria-hidden
-              className="absolute inset-0 -z-10 origin-right scale-x-0 bg-ink transition-[scale] duration-500 ease-out group-hover/blk:origin-left group-hover/blk:scale-x-100 group-disabled/blk:scale-x-0"
-            />
-            {pending ? (
-              <LoaderCircle aria-hidden className="size-4 animate-spin" strokeWidth={2} />
-            ) : (
-              <span aria-hidden className="size-2 shrink-0 bg-white" />
-            )}
-            <span className="[text-box:trim-both_cap_alphabetic]">{pending ? "Sending" : "Send message"}</span>
+          <button type="submit" disabled={pending} className={blockButtonClass({ variant: "brand", className: "shrink-0" })}>
+            <BlockButtonBody
+              variant="brand"
+              icon={pending ? <LoaderCircle className="size-4 animate-spin" strokeWidth={2} /> : undefined}
+            >
+              {pending ? "Sending" : "Send Message"}
+            </BlockButtonBody>
           </button>
         </div>
       </form>

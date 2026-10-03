@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Clock, MailOpen, MessagesSquare } from "lucide-react";
 import { ROUTES } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
@@ -6,6 +7,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Benefits } from "@/components/ui/Benefits";
 import { BP_PAD, BlueprintColumn, SectionGap } from "@/components/ui/Blueprint";
+import { IconTile } from "@/components/ui/IconTile";
 import { PageHero } from "@/components/ui/PageHero";
 import { Faq } from "@/components/sections/Faq";
 import type { Crumb } from "@/components/service/Breadcrumbs";
@@ -24,9 +26,9 @@ const CRUMBS: Crumb[] = [
 ];
 
 const NEXT_STEPS = [
-  { title: "We read it", body: "A senior engineer reads your message, not a sales script." },
-  { title: "You hear back within 24 hours", body: "On business days, with clear next steps: a price range for a build, a team proposal or an audit plan." },
-  { title: "A short call, if useful", body: "To fill the gaps. Then you get a written scope and price before any work starts." },
+  { icon: MailOpen, title: "We read it", body: "A senior engineer reads your message, not a sales script." },
+  { icon: Clock, title: "You hear back within 24 hours", body: "On business days, with clear next steps: a price range for a build, a team proposal or an audit plan." },
+  { icon: MessagesSquare, title: "A short call, if useful", body: "To fill the gaps. Then you get a written scope and price before any work starts." },
 ];
 
 export default function ContactPage() {
@@ -76,9 +78,9 @@ export default function ContactPage() {
                 <div className="flex flex-col gap-4">
                   <p className="font-mono text-[12px] leading-none text-muted uppercase">What happens next</p>
                   <ol className="flex flex-col">
-                    {NEXT_STEPS.map((s, i) => (
+                    {NEXT_STEPS.map((s) => (
                       <li key={s.title} className="flex gap-4 border-t border-line py-4">
-                        <span className="pt-[3px] font-mono text-[11px] leading-none text-brand">{`0${i + 1}`}</span>
+                        <IconTile icon={s.icon} className="-mt-1.5" />
                         <span className="flex flex-col gap-1">
                           <span className="text-[15px] leading-5 font-medium tracking-[-0.02em] text-ink">{s.title}</span>
                           <span className="text-sm leading-[22px] tracking-[-0.01em] text-muted">{s.body}</span>

@@ -41,21 +41,25 @@ export const CAREERS = {
   ],
   roles: [
     {
+      icon: "code" as ServiceIcon,
       title: "Senior Full-Stack Engineer",
       body: "Build web products end to end, from the data model to the interface, for MVPs and live products.",
       tools: ["React", "Next.js", "Node.js", "PostgreSQL"],
     },
     {
+      icon: "smartphone" as ServiceIcon,
       title: "Senior Mobile Engineer",
       body: "Ship iOS and Android apps from one codebase, with the backend team alongside you.",
       tools: ["Flutter", "React", "Figma"],
     },
     {
+      icon: "server" as ServiceIcon,
       title: "Senior Backend Engineer",
       body: "Design APIs, data models and integrations that hold up as products grow.",
       tools: ["Python", "FastAPI", "Django", "Redis"],
     },
     {
+      icon: "cloud" as ServiceIcon,
       title: "Senior DevOps and Cloud Engineer",
       body: "Run client infrastructure as code, build pipelines and harden security on the major clouds.",
       tools: ["AWS", "Terraform", "Kubernetes", "GitHub Actions"],

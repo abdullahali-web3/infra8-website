@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from "react";
 import { ExternalLink, X } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { BlockButtonBody, blockButtonClass } from "@/components/ui/BlockButton";
 
 /**
  * Wraps a product link: clicking asks for confirmation in a modal before opening the product's own
@@ -61,22 +62,21 @@ export function ProductLauncher({
           <p className="font-mono text-[12px] leading-none text-muted">{product.domain}</p>
         </div>
         <div className="flex flex-col-reverse gap-3 border-t border-line px-6 py-4 sm:flex-row sm:justify-end">
-          <button
-            type="button"
-            onClick={close}
-            className="h-11 border border-line px-4 font-mono text-[12px] leading-none text-ink uppercase transition-colors hover:border-ink"
-          >
-            Stay here
+          <button type="button" onClick={close} className={blockButtonClass({ variant: "outline" })}>
+            <BlockButtonBody variant="outline" arrow={false}>
+              Stay Here
+            </BlockButtonBody>
           </button>
           <a
             href={product.url}
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="inline-flex h-11 items-center justify-center gap-2 bg-brand px-4 font-mono text-[12px] leading-none text-white uppercase transition-colors hover:bg-brand-deep"
+            className={blockButtonClass({ variant: "brand" })}
           >
-            Continue to {product.name}
-            <ExternalLink aria-hidden className="size-4" strokeWidth={1.75} />
+            <BlockButtonBody variant="brand" icon={<ExternalLink className="size-4" strokeWidth={1.75} />}>
+              Continue to {product.name}
+            </BlockButtonBody>
           </a>
         </div>
       </dialog>

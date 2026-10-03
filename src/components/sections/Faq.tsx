@@ -38,7 +38,7 @@ export function Faq({
             />
             <Reveal delay={0.2}>
               <BlockButton href={CTA.contact} variant="outline">
-                Ask us directly
+                Ask Us Directly
               </BlockButton>
             </Reveal>
           </div>

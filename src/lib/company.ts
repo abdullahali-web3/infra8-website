@@ -80,18 +80,22 @@ export const AI_PAGE = {
   },
   concerns: [
     {
+      icon: "brainCircuit" as ServiceIcon,
       q: "Will our code train someone else's model?",
       a: "We only use AI tools on business terms that exclude training on your code, and we list the tools used on your project so you can review them.",
     },
     {
+      icon: "database" as ServiceIcon,
       q: "Can AI see our customer data?",
       a: "No. Customer data stays in your accounts. Prompts never include production data, secrets or credentials.",
     },
     {
+      icon: "gitPullRequest" as ServiceIcon,
       q: "Can AI-written code be trusted?",
       a: "Not on its own. Every change is reviewed by a senior engineer and has to pass your tests before it merges.",
     },
     {
+      icon: "server" as ServiceIcon,
       q: "Will AI change our production systems?",
       a: "No. Changes go through your pipeline with a human approval. AI can propose a change; it can't deploy one.",
     },
@@ -100,19 +104,19 @@ export const AI_PAGE = {
     {
       title: "AI-augmented development",
       items: [
-        "Scoping: turning a brief into features and open questions, which is how estimates arrive within 24 hours.",
-        "Code review: a first pass on every pull request, looking for bugs and risky patterns.",
-        "Tests: drafting unit tests for new code, which an engineer then checks.",
-        "Documentation: keeping READMEs and handover docs current as the code changes.",
+        { icon: "listChecks" as ServiceIcon, text: "Scoping: turning a brief into features and open questions, which is how estimates arrive within 24 hours." },
+        { icon: "gitPullRequest" as ServiceIcon, text: "Code review: a first pass on every pull request, looking for bugs and risky patterns." },
+        { icon: "flaskConical" as ServiceIcon, text: "Tests: drafting unit tests for new code, which an engineer then checks." },
+        { icon: "bookOpen" as ServiceIcon, text: "Documentation: keeping READMEs and handover docs current as the code changes." },
       ],
     },
     {
       title: "AI-augmented CloudOps",
       items: [
-        "Infrastructure scans: misconfigurations, open ports and public storage flagged early.",
-        "Cost checks: idle and oversized resources surfaced for the monthly review.",
-        "Infrastructure as code: a first pass on Terraform and pipeline changes before review.",
-        "Incident notes: timelines drafted from logs, for an engineer to confirm and act on.",
+        { icon: "scanSearch" as ServiceIcon, text: "Infrastructure scans: misconfigurations, open ports and public storage flagged early." },
+        { icon: "piggyBank" as ServiceIcon, text: "Cost checks: idle and oversized resources surfaced for the monthly review." },
+        { icon: "fileCode" as ServiceIcon, text: "Infrastructure as code: a first pass on Terraform and pipeline changes before review." },
+        { icon: "notebookPen" as ServiceIcon, text: "Incident notes: timelines drafted from logs, for an engineer to confirm and act on." },
       ],
     },
   ],
@@ -127,12 +131,12 @@ export const AI_PAGE = {
     ],
   },
   guardrails: [
-    { title: "Human review on every change", body: "Nothing merges without a senior engineer's approval." },
-    { title: "No secrets or customer data in prompts", body: "Keys, credentials and production data never go into AI tools." },
-    { title: "Approved tools only", body: "A short list of vetted tools, written down for each project." },
-    { title: "Least-privilege access", body: "Access to your cloud is scoped, logged and revocable at any time." },
-    { title: "Everything in your accounts", body: "Code, pipelines and infrastructure live in accounts you own." },
-    { title: "Opt out anytime", body: "If your policy rules out AI tools, we work without them on your project." },
+    { icon: "userCheck" as ServiceIcon, title: "Human review on every change", body: "Nothing merges without a senior engineer's approval." },
+    { icon: "keyRound" as ServiceIcon, title: "No secrets or customer data in prompts", body: "Keys, credentials and production data never go into AI tools." },
+    { icon: "listChecks" as ServiceIcon, title: "Approved tools only", body: "A short list of vetted tools, written down for each project." },
+    { icon: "fingerprint" as ServiceIcon, title: "Least-privilege access", body: "Access to your cloud is scoped, logged and revocable at any time." },
+    { icon: "folderLock" as ServiceIcon, title: "Everything in your accounts", body: "Code, pipelines and infrastructure live in accounts you own." },
+    { icon: "power" as ServiceIcon, title: "Opt out anytime", body: "If your policy rules out AI tools, we work without them on your project." },
   ],
   faq: [
     {

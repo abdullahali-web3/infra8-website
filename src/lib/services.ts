@@ -26,7 +26,22 @@ export type ServiceIcon =
   | "activity"
   | "piggyBank"
   | "fileCode"
-  | "sparkles";
+  | "sparkles"
+  | "listChecks"
+  | "flaskConical"
+  | "scanSearch"
+  | "notebookPen"
+  | "brainCircuit"
+  | "database"
+  | "userCheck"
+  | "keyRound"
+  | "fingerprint"
+  | "folderLock"
+  | "power"
+  | "smartphone"
+  | "mailOpen"
+  | "clock"
+  | "messagesSquare";
 
 export type ServiceKey = "mvp" | "product" | "cloud";
 
