@@ -9,7 +9,7 @@ export function Proof() {
   return (
     <BpSection id="proof">
       <SectionHead
-        eyebrow="Work"
+        eyebrow="How engagements start"
         title={"See What You'll Get\nBefore You Pay"}
         sub="Request a sample deliverable to see exactly what our work looks like, before you commit to anything."
       />
@@ -36,7 +36,7 @@ export function Proof() {
                 </div>
                 <div className="px-6 pt-8 pb-6">
                   <BlockButton href={CTA.contact} variant="outline" full>
-                    Request the Sample
+                    Request the Free Sample
                   </BlockButton>
                 </div>
               </article>

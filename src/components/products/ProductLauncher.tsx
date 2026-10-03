@@ -74,7 +74,7 @@ export function ProductLauncher({
             onClick={close}
             className={blockButtonClass({ variant: "brand", full: true, className: "sm:flex-1" })}
           >
-            <BlockButtonBody variant="brand" full icon={<ExternalLink className="size-4" strokeWidth={1.75} />}>
+            <BlockButtonBody variant="brand" icon={<ExternalLink className="size-4" strokeWidth={1.75} />}>
               Continue to {product.name}
             </BlockButtonBody>
           </a>

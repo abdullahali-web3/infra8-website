@@ -223,7 +223,7 @@ export function ServiceStack({ stack }: { stack: Service["stack"] }) {
 export function ServicePricing({ pricing, cta }: { pricing: Service["pricing"]; cta: { label: string; href: string } }) {
   return (
     <BpSection flush>
-      <div className="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+      <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div className="flex flex-col gap-7 border-line px-5 py-16 sm:px-8 lg:border-r lg:px-12 lg:py-24">
           <Eyebrow>Pricing</Eyebrow>
           <SlashHeading title={pricing.question} />
@@ -259,7 +259,7 @@ export function ServicePricing({ pricing, cta }: { pricing: Service["pricing"]; 
                   </li>
                 ))}
               </ul>
-              <div className="border-t border-line p-4">
+              <div className="border-t border-line sm:p-4">
                 <BlockButton href={cta.href} variant="brand" full>
                   {cta.label}
                 </BlockButton>

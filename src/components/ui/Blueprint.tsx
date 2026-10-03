@@ -26,7 +26,8 @@ export function BlueprintColumn({ children }: { children: ReactNode }) {
  */
 export function Eyebrow({ children }: { children: string }) {
   return (
-    <span className="inline-flex items-center gap-2 font-mono text-[12px] leading-none text-muted uppercase">
+    // items-start + a cap-trimmed label: the square sits level with the first line when the label wraps.
+    <span className="inline-flex items-start gap-2 font-mono text-[12px] leading-[1.6] text-muted uppercase">
       <span aria-hidden className="size-2 shrink-0 bg-brand" />
       <ScrambleText text={children} className="[text-box:trim-both_cap_alphabetic]" />
     </span>

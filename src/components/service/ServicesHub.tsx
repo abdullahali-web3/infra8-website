@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import { BlockButtonBody, blockButtonClass } from "@/components/ui/BlockButton";
 import Link from "next/link";
 import { SERVICE_ORDER, SERVICES, SERVICES_HUB } from "@/lib/services";
 import { STAGES } from "@/lib/content";
@@ -47,9 +48,11 @@ export function ServiceCards() {
                       {s.name}
                     </span>
                     <span className="text-base leading-6 tracking-[-0.02em] text-muted">{s.summary}</span>
-                    <span className="mt-auto inline-flex items-center gap-2 pt-4 font-mono text-[12px] leading-none text-ink-soft uppercase transition-colors group-hover/card:text-brand">
-                      Explore {s.name}
-                      <ChevronRight aria-hidden className="size-4 transition-[translate] duration-300 group-hover/card:translate-x-1" strokeWidth={1.75} />
+                    {/* Styled as the outline button; the whole card is the link, so it can't be a nested <a>. */}
+                    <span className="mt-auto pt-4">
+                      <span className={blockButtonClass({ variant: "outline", full: true })}>
+                        <BlockButtonBody variant="outline">Explore {s.name}</BlockButtonBody>
+                      </span>
                     </span>
                   </span>
                 </Link>

@@ -33,8 +33,10 @@ export function blockButtonClass({
   full?: boolean;
   className?: string;
 } = {}) {
-  return `group/blk relative isolate inline-flex h-12 items-stretch overflow-hidden text-[15px] leading-none font-medium tracking-[-0.01em] whitespace-nowrap select-none disabled:cursor-wait disabled:opacity-70 ${
-    full ? "w-full" : ""
+  // Phones: every button spans the full width, and a long label may wrap to two lines rather than
+  // push the page wider than the screen. From sm up labels stay on one line.
+  return `group/blk relative isolate inline-flex min-h-12 items-stretch overflow-hidden text-[15px] leading-none font-medium tracking-[-0.01em] select-none sm:whitespace-nowrap disabled:cursor-wait disabled:opacity-70 ${
+    full ? "w-full" : "max-sm:w-full"
   } ${VARIANTS[variant].body} ${className}`;
 }
 
@@ -45,13 +47,11 @@ export function blockButtonClass({
 export function BlockButtonBody({
   children,
   variant = "ink",
-  full = false,
   icon,
   arrow = true,
 }: {
   children: ReactNode;
   variant?: Variant;
-  full?: boolean;
   icon?: ReactNode;
   arrow?: boolean;
 }) {
@@ -62,7 +62,8 @@ export function BlockButtonBody({
         aria-hidden
         className={`absolute inset-0 -z-10 origin-right scale-x-0 transition-[scale] duration-500 ease-out group-hover/blk:origin-left group-hover/blk:scale-x-100 group-focus-visible/blk:origin-left group-focus-visible/blk:scale-x-100 group-disabled/blk:scale-x-0 motion-reduce:transition-none ${v.wipe}`}
       />
-      <span className={`flex items-center px-5 ${full || !arrow ? "flex-1" : ""} ${arrow ? "" : "justify-center"}`}>
+      {/* The label takes any extra width, so a stretched button never leaves a gap after the arrow cell. */}
+      <span className={`flex flex-1 items-center px-4 py-3 leading-[1.25] sm:px-5 ${arrow ? "" : "justify-center"}`}>
         <span className="[text-box:trim-both_cap_alphabetic]">{children}</span>
       </span>
       {arrow ? (
@@ -102,7 +103,7 @@ export function BlockButton({
   const Tag = href.startsWith("/") ? Link : "a";
   return (
     <Tag href={href} className={blockButtonClass({ variant, full, className })}>
-      <BlockButtonBody variant={variant} full={full}>
+      <BlockButtonBody variant={variant}>
         {children}
       </BlockButtonBody>
     </Tag>

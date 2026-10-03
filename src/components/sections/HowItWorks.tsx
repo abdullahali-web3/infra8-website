@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useInView } from "motion/react";
 import { TRACKS } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
@@ -15,13 +15,22 @@ const KEYS = Object.keys(TRACKS) as TrackKey[];
 const STEP_MS = 4500;
 const HOLD_FILL_MS = 450;
 
+// Phones stack the steps in one column, where a timer would run ahead of the reader.
+const PHONE = "(max-width: 639px)";
+function subscribePhone(onChange: () => void) {
+  const mq = window.matchMedia(PHONE);
+  mq.addEventListener("change", onChange);
+  return () => mq.removeEventListener("change", onChange);
+}
+
 const INDEX_TONE: Record<StepState, string> = { done: "text-ink/60", active: "text-brand", next: "text-muted/60" };
 const TITLE_TONE: Record<StepState, string> = { done: "text-ink", active: "text-brand", next: "text-muted" };
 
 /**
  * "How it works": four step cells per track. The active step's bar fills, then hands over to the
  * next one (CSS animation + animationend), so the section plays through the process on its own.
- * Hovering a step jumps to it and holds. Both tracks stay in the DOM for crawlers.
+ * Hovering a step jumps to it and holds. On phones there is no timer: the step crossing the middle
+ * of the screen becomes active as the reader scrolls. Both tracks stay in the DOM for crawlers.
  */
 export function HowItWorks() {
   const [track, setTrack] = useState<TrackKey>("product");
@@ -29,7 +38,22 @@ export function HowItWorks() {
   const [held, setHeld] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
   const inView = useInView(gridRef, { amount: 0.35 });
+  const isPhone = useSyncExternalStore(subscribePhone, () => window.matchMedia(PHONE).matches, () => false);
   const running = inView && !held;
+
+  // Phones: follow the reader. A step becomes active when it crosses a band in the middle of the screen.
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!isPhone || !grid) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setStep(Number((e.target as HTMLElement).dataset.step));
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+    grid.querySelectorAll(`[data-track="${track}"] > li`).forEach((li) => io.observe(li));
+    return () => io.disconnect();
+  }, [isPhone, track]);
 
   function chooseTrack(k: TrackKey) {
     setTrack(k);
@@ -65,6 +89,7 @@ export function HowItWorks() {
           return (
             <ol
               key={k}
+              data-track={k}
               hidden={!isActive}
               role="tabpanel"
               aria-label={TRACKS[k].label}
@@ -75,6 +100,7 @@ export function HowItWorks() {
                 return (
                   <li
                     key={s.title}
+                    data-step={i}
                     onMouseEnter={() => {
                       setStep(i);
                       setHeld(true);
@@ -97,12 +123,12 @@ export function HowItWorks() {
                           key={`${k}-${step}-${held}`}
                           className="bp-progress absolute inset-0 bg-brand"
                           style={{
-                            ["--bp-dur" as string]: held ? `${HOLD_FILL_MS}ms` : `${STEP_MS}ms`,
-                            animationTimingFunction: held ? "cubic-bezier(0.22, 1, 0.36, 1)" : "linear",
-                            animationPlayState: held || running ? "running" : "paused",
+                            ["--bp-dur" as string]: held || isPhone ? `${HOLD_FILL_MS}ms` : `${STEP_MS}ms`,
+                            animationTimingFunction: held || isPhone ? "cubic-bezier(0.22, 1, 0.36, 1)" : "linear",
+                            animationPlayState: held || isPhone || running ? "running" : "paused",
                           }}
                           onAnimationEnd={() => {
-                            if (!held) setStep((n) => (n + 1) % TRACKS[k].steps.length);
+                            if (!held && !isPhone) setStep((n) => (n + 1) % TRACKS[k].steps.length);
                           }}
                         />
                       ) : null}

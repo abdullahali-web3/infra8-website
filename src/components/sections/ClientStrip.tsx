@@ -4,10 +4,11 @@ import { RevealAfterLoad } from "@/components/RevealAfterLoad";
 
 function Cell({ c }: { c: (typeof CLIENTS)[number] }) {
   return (
-    <li className="group flex shrink-0 items-center border-y border-l border-line px-12 py-6 transition-colors duration-300 hover:bg-surface-2">
+    // --k scales the logo artwork: about 60% size on phones, so two and a half logos fit in view.
+    <li className="group flex shrink-0 items-center border-y border-l border-line px-6 py-4 transition-colors duration-300 [--k:0.62] hover:bg-surface-2 sm:px-12 sm:py-6 sm:[--k:1]">
       <div
-        className="flex h-[38px] items-start opacity-90 grayscale-[0.15] transition-[opacity,filter,transform] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
-        style={{ gap: c.gap }}
+        className="flex items-start opacity-90 grayscale-[0.15] transition-[opacity,filter,transform] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+        style={{ gap: `calc(${c.gap}px * var(--k))`, height: "calc(38px * var(--k))" }}
       >
         <Image
           src={`/content/clients/${c.file}-mark.svg`}
@@ -15,7 +16,7 @@ function Cell({ c }: { c: (typeof CLIENTS)[number] }) {
           width={Math.round(c.markW)}
           height={38}
           unoptimized
-          style={{ width: c.markW, height: 38 }}
+          style={{ width: `calc(${c.markW}px * var(--k))`, height: "calc(38px * var(--k))" }}
         />
         <Image
           src={`/content/clients/${c.file}-text.svg`}
@@ -23,7 +24,7 @@ function Cell({ c }: { c: (typeof CLIENTS)[number] }) {
           width={Math.round(c.textW)}
           height={38}
           unoptimized
-          style={{ width: c.textW, height: 38 }}
+          style={{ width: `calc(${c.textW}px * var(--k))`, height: "calc(38px * var(--k))" }}
         />
       </div>
     </li>

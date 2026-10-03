@@ -244,13 +244,13 @@ export function Header() {
         >
           <span className="relative block h-3 w-5">
             <span
-              className={`absolute left-0 h-px w-5 bg-ink transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`}
+              className={`absolute left-0 h-[1.5px] w-5 bg-ink transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}`}
             />
             <span
-              className={`absolute top-1.5 left-0 h-px w-5 bg-ink transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
+              className={`absolute top-1.5 left-0 h-[1.5px] w-5 bg-ink transition-opacity duration-200 ${open ? "opacity-0" : "opacity-100"}`}
             />
             <span
-              className={`absolute left-0 h-px w-5 bg-ink transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`}
+              className={`absolute left-0 h-[1.5px] w-5 bg-ink transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}`}
             />
           </span>
         </button>

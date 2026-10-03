@@ -42,7 +42,7 @@ export function ToolStack() {
       />
 
       <div ref={ref} className="mt-12 lg:mt-16" onMouseLeave={() => setHeld(false)}>
-        <div className="relative border-t border-line px-5 py-12 lg:py-16">
+        <div className="relative border-t border-line px-5 py-12 max-sm:hidden lg:py-16">
           <div aria-hidden className="dots absolute inset-0 [mask-image:radial-gradient(closest-side,#000_30%,transparent)]" />
           <div className="relative">
             <LayerStack active={active} onSelect={select} />

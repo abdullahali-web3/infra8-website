@@ -46,6 +46,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
   - Page heroes (`ServiceHero`, `PageHero`) have **breadcrumbs only, no eyebrow**, and an H1 with `text-balance`.
 - **Headings scale and wrap consistently** (client, 2026-10-03): H1/H2 use fluid tokens `text-h1` / `text-h2` (clamp, 52px / 44px at desktop) with `text-balance`; a `
 ` in heading copy is only a hint and renders as a space, so no width or zoom level strands one word on a line. `SlashHeading` caps at `max-w-[15em]` (about two lines). `design/orphans.mjs` scans pages for stubby lines.
+- **Phones** (client, 2026-10-03): every `BlockButton` is full width below `sm`; its label always takes the spare width (no gap after the arrow cell) and may wrap below `sm` instead of widening the page. `design/overflow.mjs` finds any element wider than the screen at 320 to 412px. How It Works follows scroll on phones (no timer); the exploded stack is hidden below `sm`; client logos render at 62% (`--k`).
 - **Switches** (tabs and filters) use `ui/Segmented`: a light track with a sliding white thumb and count badges; one row that scrolls sideways on phones.
 - **Icon beside text:** the text gets `[text-box:trim-start_cap_alphabetic]` so the `IconTile` top meets the cap height.
 - **Typography:**
