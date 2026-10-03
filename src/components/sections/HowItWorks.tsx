@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useInView } from "motion/react";
-import { TRACKS } from "@/lib/content";
+import { CTA, TRACKS } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BP_PAD, BpSection, SectionHead } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
@@ -66,8 +66,11 @@ export function HowItWorks() {
         eyebrow="How it works"
         title={"What Happens After\nYou Contact Us"}
         aside={
-          <Reveal delay={0.15}>
-            <BlockButton href={TRACKS[track].ctaHref}>{TRACKS[track].cta}</BlockButton>
+          // Desktop: beside the heading. Smaller screens get the same button after the steps instead.
+          <Reveal delay={0.15} className="max-lg:hidden">
+            <BlockButton href={CTA.contact} variant="brand">
+              Partner With Us
+            </BlockButton>
           </Reveal>
         }
       />
@@ -152,6 +155,11 @@ export function HowItWorks() {
         })}
       </div>
 
+      <div className={`border-t border-line py-8 lg:hidden ${BP_PAD}`}>
+        <BlockButton href={CTA.contact} variant="brand">
+          Partner With Us
+        </BlockButton>
+      </div>
     </BpSection>
   );
 }

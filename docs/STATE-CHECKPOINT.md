@@ -46,6 +46,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
   - Page heroes (`ServiceHero`, `PageHero`) have **breadcrumbs only, no eyebrow**, and an H1 with `text-balance`.
 - **Headings scale and wrap consistently** (client, 2026-10-03): H1/H2 use fluid tokens `text-h1` / `text-h2` (clamp, 52px / 44px at desktop) with `text-balance`; a `
 ` in heading copy is only a hint and renders as a space, so no width or zoom level strands one word on a line. `SlashHeading` caps at `max-w-[15em]` (about two lines). `design/orphans.mjs` scans pages for stubby lines.
+- **How It Works CTA**: one "Partner With Us" for both tracks; beside the heading on desktop, after the steps below `lg`.
 - **Phones** (client, 2026-10-03): every `BlockButton` is full width below `sm`; its label always takes the spare width (no gap after the arrow cell) and may wrap below `sm` instead of widening the page. `design/overflow.mjs` finds any element wider than the screen at 320 to 412px. How It Works follows scroll on phones (no timer); the exploded stack is hidden below `sm`; client logos render at 62% (`--k`).
 - **Switches** (tabs and filters) use `ui/Segmented`: a light track with a sliding white thumb and count badges; one row that scrolls sideways on phones.
 - **Icon beside text:** the text gets `[text-box:trim-start_cap_alphabetic]` so the `IconTile` top meets the cap height.
@@ -113,6 +114,7 @@ The contact form sends nothing until one of these is set in Vercel (Project → 
 Both can be set; a lead counts as delivered if either accepts it. With neither, visitors see "We couldn't send your message just now" (their text is kept) and the server logs a warning. Tested end to end locally with a webhook receiver on 2026-09-30.
 
 ## 7. Technical notes and gotchas
+- **Security** (2026-10-03): `next.config.ts` sends a no-nonce CSP (self-only; keeps static pages on the CDN), X-Frame-Options DENY, nosniff, a strict Referrer-Policy and a Permissions-Policy; no X-Powered-By. Vercel adds HSTS. JSON-LD is the only raw HTML (with `<` escaped). The webhook's Slack `text` escapes `& < >` so visitors can't ping `<!channel>`. `npm audit --omit=dev` is clean; the 5 dev-only highs are `braces` in eslint-config-next's tooling (no patched version yet; never deployed). No rate limiting on the contact action beyond the honeypot and time check: consider it once leads flow.
 - Stack: Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, Tailwind v4 (`@theme` tokens in `globals.css`), Motion, GSAP (plugins registered only in `src/lib/gsap.ts`), lucide-react.
 - Commands: `npm run dev -- -p 3100`, `npm run build`, `npm run lint` (the only warnings are in the git-ignored `design/` scripts).
 - Deploy: `vercel deploy --prod --yes` from the project root (CLI account `mabdullahaliofficial-9377`). There is no Git auto-deploy. A one-off "Not authorized" response was transient; retrying worked.

@@ -85,6 +85,10 @@ function summary(lead: Lead) {
   ].join("\n");
 }
 
+function slackEscape(s: string) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 /**
  * Delivery is configured with environment variables (set them in Vercel):
  * - RESEND_API_KEY + CONTACT_TO_EMAIL (+ optional CONTACT_FROM_EMAIL): email via Resend.
@@ -119,7 +123,9 @@ async function deliver(lead: Lead): Promise<boolean> {
       fetch(webhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, ...lead, submittedAt: new Date().toISOString() }),
+        // `text` is Slack mrkdwn: escape &, < and > so a visitor can't trigger <!channel> pings or
+        // links. The raw fields stay as typed for CRMs.
+        body: JSON.stringify({ text: slackEscape(text), ...lead, submittedAt: new Date().toISOString() }),
       }).then((r) => r.ok),
     );
   }

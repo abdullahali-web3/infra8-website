@@ -182,8 +182,6 @@ export const TRACKS = {
         body: "You get the code, the docs and the accounts.",
       },
     ],
-    cta: "Start MVP Estimate",
-    ctaHref: CTA.mvp,
   },
   infra: {
     label: "Cloud/DevOps",
@@ -205,8 +203,6 @@ export const TRACKS = {
         body: "We run it, with a monthly review of uptime, cost and risk.",
       },
     ],
-    cta: "Book Infra Audit",
-    ctaHref: CTA.audit,
   },
 } as const;
 
