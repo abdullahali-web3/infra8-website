@@ -50,6 +50,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
   - **Title Case** for all H1/H2 and card titles (short words like for/of/and lowercase).
 - **Header:** 80px desktop / 64px mobile, squashing to 64 / 56px on scroll.
 - **Square markers** (eyebrows, buttons, tags, bullets) are 8px (`size-2`): a whole number of device pixels at 100/125/150/200% scaling, so they never render as rectangles. Their labels use `[text-box:trim-both_cap_alphabetic]` so the square centres on the capitals.
+- **Final CTA** (`FinalCta`): always a single neutral "Partner With Us"; "Explore Services" is added everywhere except the service pages and /services (`explore={false}`).
 - **All services carry equal weight** (client, 2026-10-02). General pages (home hero, About, AI page, Services hub, Products, footer, shared final CTA) use a neutral "Partner With Us" to `/contact` with no topic preselected. Service-specific CTAs appear only where every service gets its own (service cards, How it works tabs, each service page and its final CTA via `FinalCta cta=`).
 - **Buttons:** `BlockButton` (redesigned 2026-10-03 after the client called the mono-caps version "casual"): square, 48px tall, Inter 15px medium in **Title Case**, and a 48px arrow cell split off by a hairline. Hover: a colour wipe, and the chevron slides out while a new one slides in. `outline` has a 20% ink border. The `card` variant turns blue when its `group/card` parent is hovered. Real `<button>`s (form submit, dialogs) use `blockButtonClass()` + `BlockButtonBody` (`icon` swaps the arrow, `arrow={false}` drops the cell). Mono caps stay for eyebrows, tags and small text links only.
 - **Icons:** Lucide only. `ChevronRight` replaces every text arrow, and benefit lists use green `CircleCheck` (`Benefits`).
@@ -66,6 +67,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
     - `CtaIso` (build + run board, used in the final CTA; the client allows it to repeat)
     - `LayerStack` (homepage stack)
     - `AiGateIso` (AI page only)
+    - `ServicesIso` (/services hero only: launch, build and run platforms stepping up, joined by a marching path)
   - Hero = `HeroLattice` (the Figma lattice, lifting tiles).
   - **Do not reuse a scene on a new page** (the final CTA is the exception).
 - **Mega menu:** full width, aligned to the column. Services cards show their stage scenes, and Products shows the 3 featured products with thumbnails (clicking opens the leave-site dialog). Company and Resources are text-only (the client disliked icons there).
@@ -88,7 +90,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
   - `sitemap.ts` covers every live route.
 
 ## 5. Unconfirmed facts: the client must sign off before a real launch
-1. **Minimum prices** (live now): MVP from $10,000, dedicated team from $8,000/month, managed DevOps retainer from $4,000/month. These are the brief's bracketed "from" values. They appear on the service pages, in 3 articles and in llms.txt.
+1. **Minimum prices** (live now): MVP from $8,000 (client set it on 2026-10-03, down from the brief's $10,000), dedicated team from $8,000/month, managed DevOps retainer from $4,000/month. These are the brief's bracketed "from" values. They appear on the service pages, in 3 articles and in llms.txt.
 2. **Products** are 5 invented samples (Tallyloop, Driftguard, Shipnote, Quotewell, Formpilot) linking to example.com, each tagged "Sample"; no product schema until real. **Testimonials** are sample quotes with "Client name" and a visible "Sample quote" tag. **Team** profiles are placeholders (`/content/team/placeholder.svg`, tagged). The client-strip logos are Figma template placeholders.
 3. **AI policies** on the AI page: tools used on business terms that don't train on client code, no secrets or customer data in prompts, AI has no production access, human approval on every deploy, opt-out on request. Also confirm the tool list.
 4. Retainers month-to-month after an initial 3 months; a 4–6 hour time-zone overlap with US East/EU; the hiring steps on Careers; an ATS link if wanted (applications currently come through `/contact?topic=careers`).

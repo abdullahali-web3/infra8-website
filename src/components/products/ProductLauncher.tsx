@@ -61,7 +61,7 @@ export function ProductLauncher({
           </p>
           <p className="font-mono text-[12px] leading-none text-muted">{product.domain}</p>
         </div>
-        <div className="flex flex-col-reverse gap-3 border-t border-line px-6 py-4 sm:flex-row sm:justify-end">
+        <div className="flex flex-col-reverse gap-3 border-t border-line px-6 py-4 sm:flex-row">
           <button type="button" onClick={close} className={blockButtonClass({ variant: "outline" })}>
             <BlockButtonBody variant="outline" arrow={false}>
               Stay Here
@@ -72,9 +72,9 @@ export function ProductLauncher({
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className={blockButtonClass({ variant: "brand" })}
+            className={blockButtonClass({ variant: "brand", full: true, className: "sm:flex-1" })}
           >
-            <BlockButtonBody variant="brand" icon={<ExternalLink className="size-4" strokeWidth={1.75} />}>
+            <BlockButtonBody variant="brand" full icon={<ExternalLink className="size-4" strokeWidth={1.75} />}>
               Continue to {product.name}
             </BlockButtonBody>
           </a>

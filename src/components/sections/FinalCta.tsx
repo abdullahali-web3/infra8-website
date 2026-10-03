@@ -6,10 +6,10 @@ import { Reveal } from "@/components/Reveal";
 import { CtaIso } from "@/components/illustrations/iso/CtaIso";
 
 /**
- * Closing CTA. Every service carries equal weight, so the default is a neutral "Partner With Us";
- * a service page passes its own action instead.
+ * Closing CTA. Every service carries equal weight, so the action is always a neutral "Partner With Us".
+ * Service pages pass `explore={false}`: the visitor is already among the services.
  */
-export function FinalCta({ cta = { label: "Partner With Us", href: CTA.contact } }: { cta?: { label: string; href: string } }) {
+export function FinalCta({ explore = true }: { explore?: boolean }) {
   return (
     <BpSection id="get-started" flush>
       <div>
@@ -20,12 +20,14 @@ export function FinalCta({ cta = { label: "Partner With Us", href: CTA.contact }
               <SlashHeading title={"Tell Us Where Your Product Is.\nYou'll Hear Back in 24 Hours."} />
             </div>
             <Reveal delay={0.2} className="flex flex-wrap gap-3">
-              <BlockButton href={cta.href} variant="brand">
-                {cta.label}
+              <BlockButton href={CTA.contact} variant="brand">
+                Partner With Us
               </BlockButton>
-              <BlockButton href={ROUTES.services} variant="outline">
-                Explore Services
-              </BlockButton>
+              {explore ? (
+                <BlockButton href={ROUTES.services} variant="outline">
+                  Explore Services
+                </BlockButton>
+              ) : null}
             </Reveal>
             <Reveal delay={0.3}>
               <Benefits className="bg-white py-1 pr-2" />

@@ -19,11 +19,11 @@
   /* Blueprint theme */
   --color-dot: #dddddd;
   --color-brand-tint: #eaf0ff;
-  /* Third-party brand colours, used only for social marks on hover. */
-  --color-facebook: #0866ff;
-  --color-x: #000000;
-  --color-linkedin: #0a66c2;
-  --color-trustpilot: #00b67a;
+  /* Third-party brand colours for social marks on hover. Prefixed so a name like "x" never collides with utilities such as border-x. */
+  --color-social-facebook: #0866ff;
+  --color-social-x: #000000;
+  --color-social-linkedin: #0a66c2;
+  --color-social-trustpilot: #00b67a;
   --color-brand-mid: #2e6dff;
   --color-iso-muted: #bdbdbd;
   --color-code: #121212;

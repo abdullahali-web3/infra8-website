@@ -132,7 +132,7 @@ export const STAGES = [
     chips: ["Live MVP", "Pre-seed to Seed"],
     title: "Already Have an MVP",
     body: "Your MVP is out and now you need to ship faster without a rewrite. We embed senior engineers to build features, fix the foundations and get you ready for your next round.",
-    primary: "Build With a Dedicated Team",
+    primary: "Partner With a Dedicated Team",
     primaryHref: CTA.team,
     detailsHref: ROUTES.productDevelopment,
     image: "/content/images/stage-build.webp",

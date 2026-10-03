@@ -80,3 +80,9 @@ position. Those are still fine.
 ## Verify state work by reading computed styles
 When two utilities fight, a screenshot cannot tell you which won.
 `getComputedStyle(el).borderTopColor` can.
+
+## A colour token can hijack a utility name
+Every `--color-NAME` token creates `border-NAME`, `text-NAME`, `bg-NAME`... A token named
+`--color-x` turned the rails' `border-x` (left + right width) into "border colour x" (black) across
+the whole site. Never name a colour after a side, axis or size (`x`, `y`, `t`, `b`, `l`, `r`, `s`,
+`e`, `sm`, `lg`...). Prefix third-party colours instead: `--color-social-x`.

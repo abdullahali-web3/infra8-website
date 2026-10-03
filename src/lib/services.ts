@@ -194,11 +194,11 @@ export const SERVICES: Record<ServiceKey, Service> = {
     },
     pricing: {
       question: "How Much Does MVP\nDevelopment Cost?",
-      text: "It depends on the number of screens and user roles, the integrations and any compliance needs. You get a price range and timeline within 24 hours of sending your idea, and a fixed scope for the build after the discovery sprint, so the price never moves without you agreeing to it.",
+      text: "You get a price range and timeline within 24 hours of sending your idea, then a fixed scope after the discovery sprint. The price never moves without your agreement.",
       factors: ["Screens and user roles", "Integrations like payments and email", "Web, iOS or Android", "Compliance and data needs"],
       terms: "MVP projects are fixed scope and paid by milestone.",
       minimum: {
-        amount: "$10,000",
+        amount: "$8,000",
         unit: "per MVP build",
         note: "We don't take on builds below this. Under it the maths don't work for a senior team, and you'd be paying for shortcuts.",
       },
@@ -252,7 +252,7 @@ export const SERVICES: Record<ServiceKey, Service> = {
     hero: {
       title: "A Dedicated Development Team That Ships Every Week",
       sub: "Your MVP is live and the roadmap is growing faster than your team. We embed senior engineers who work in your repos and your tools, ship features every week and fix the foundations without a rewrite.",
-      cta: { label: "Build With a Dedicated Team", href: CTA.team },
+      cta: { label: "Partner With a Dedicated Team", href: CTA.team },
     },
     answer: {
       question: "What Is a Dedicated Development Team?",
@@ -344,7 +344,7 @@ export const SERVICES: Record<ServiceKey, Service> = {
     },
     pricing: {
       question: "How Is a Dedicated\nTeam Priced?",
-      text: "A dedicated team is billed monthly, based on the number of engineers and the skills your roadmap needs. After an intro call you get a proposed team and a monthly price in writing, before anyone starts. Terms are agreed up front, so there are no surprises at the end of the month.",
+      text: "Billed monthly. After an intro call you get a proposed team and a monthly price in writing, before anyone starts, so there are no surprises at the end of the month.",
       factors: ["Number of engineers", "Skills: web, mobile, backend, AI", "Time-zone overlap", "Length of the engagement"],
       terms: "Retainers are month-to-month after an initial 3 months.",
       minimum: {
@@ -512,7 +512,7 @@ export const SERVICES: Record<ServiceKey, Service> = {
     },
     pricing: {
       question: "How Much Do Managed\nDevOps Services Cost?",
-      text: "It depends on the size of your cloud, the number of environments and services, your uptime needs and any compliance work. The first step is a free audit. After it you get a written scope and price for the fixes, and a monthly price for the managed retainer, before any work starts.",
+      text: "It starts with a free audit. After it you get a written scope and price for the fixes, and a monthly price for the managed retainer, before any work starts.",
       factors: ["Size of your cloud", "Environments and services", "Uptime needs", "Compliance work like SOC 2"],
       terms: "Fixes are scoped in writing. Retainers are month-to-month after an initial 3 months.",
       minimum: {

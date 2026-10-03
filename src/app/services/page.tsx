@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { BlueprintColumn, SectionGap } from "@/components/ui/Blueprint";
 import { Faq } from "@/components/sections/Faq";
 import { FinalCta } from "@/components/sections/FinalCta";
-import { CtaIso } from "@/components/illustrations/iso/CtaIso";
+import { ServicesIso } from "@/components/illustrations/iso/ServicesIso";
 import type { Crumb } from "@/components/service/Breadcrumbs";
 import { ServiceJsonLd } from "@/components/service/ServiceJsonLd";
 import { ServiceAnswer, ServiceHero } from "@/components/service/ServiceSections";
@@ -36,7 +36,7 @@ export default function ServicesPage() {
             sub={SERVICES_HUB.hero.sub}
             cta={{ label: "Partner With Us", href: CTA.contact }}
             secondary={{ label: "Compare Services", href: "#compare" }}
-            art={<CtaIso />}
+            art={<ServicesIso />}
           />
           <ServiceAnswer question={SERVICES_HUB.answer.question} text={SERVICES_HUB.answer.text} />
           <SectionGap />
@@ -45,7 +45,7 @@ export default function ServicesPage() {
           <CompareTable />
           <SectionGap />
           <Faq />
-          <FinalCta />
+          <FinalCta explore={false} />
         </BlueprintColumn>
       </main>
       <Footer />

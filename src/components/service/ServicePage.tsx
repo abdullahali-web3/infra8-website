@@ -58,7 +58,7 @@ export function ServicePage({ service }: { service: Service }) {
           <SectionGap />
           <Faq items={service.faq} title={service.faqTitle} sub="Straight answers on scope, ownership and what happens next." />
           <RelatedServices services={related} />
-          <FinalCta cta={service.hero.cta} />
+          <FinalCta explore={false} />
         </BlueprintColumn>
       </main>
       <Footer />

@@ -52,7 +52,7 @@ export const INSIGHTS: Insight[] = [
       "Scope, not hourly rate, is the biggest cost lever.",
       "Integrations and compliance add more cost than most founders expect.",
       "Fixed scope with milestone payments caps your risk.",
-      "At Infra8, MVP builds start at $10,000.",
+      "At Infra8, MVP builds start at $8,000.",
     ],
     body: [
       { type: "h2", text: "Why Do MVP Quotes Vary So Much?" },
@@ -98,7 +98,7 @@ export const INSIGHTS: Insight[] = [
       {
         type: "callout",
         title: "How Infra8 prices an MVP",
-        text: "You get a price range and timeline within 24 hours of sending your idea. A one to two week discovery sprint turns that into a fixed scope, and the build is paid by milestone. MVP builds start at $10,000.",
+        text: "You get a price range and timeline within 24 hours of sending your idea. A one to two week discovery sprint turns that into a fixed scope, and the build is paid by milestone. MVP builds start at $8,000.",
       },
       { type: "h2", text: "What Should a Good MVP Estimate Include?" },
       {
