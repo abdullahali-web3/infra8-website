@@ -76,8 +76,8 @@ function MegaPanel({ item }: { item: NavItem }) {
     <div className="mx-auto grid w-full max-w-[1280px] grid-cols-[300px_minmax(0,1fr)] border-x border-line bg-white lg:w-[calc(100%-160px)]">
       <div className="flex flex-col gap-3 border-r border-line p-8">
         <span className="inline-flex items-center gap-2 font-mono text-[12px] leading-none text-muted uppercase">
-          <span aria-hidden className="size-1.5 bg-brand" />
-          {item.label}
+          <span aria-hidden className="size-2 shrink-0 bg-brand" />
+          <span className="[text-box:trim-both_cap_alphabetic]">{item.label}</span>
         </span>
         <p className="font-display text-[24px] leading-[1.2] tracking-[-0.03em] text-ink">{item.intro.title}</p>
         <p className="text-sm leading-5 tracking-[-0.01em] text-muted">{item.intro.body}</p>
@@ -164,19 +164,19 @@ export function Header() {
 
   // The header keeps one fixed height so the page never shifts. "Compact" only moves
   // and scales two layers (transform-only, per the motion rules): the backdrop squashes
-  // from the top (108 -> 64px desktop, 78 -> 56px mobile) and the content rides up to
+  // from the top (80 -> 64px desktop, 64 -> 56px mobile) and the content rides up to
   // stay centred in what is left of it.
   return (
     <motion.header
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: EASE }}
-      className="pointer-events-none sticky top-0 z-50 h-[78px] lg:h-[108px]"
+      className="pointer-events-none sticky top-0 z-50 h-16 lg:h-20"
     >
       <div
         aria-hidden
         className={`absolute inset-0 origin-top transition-[scale,background-color,backdrop-filter] duration-300 ease-out ${
-          compact ? "scale-y-[0.718] bg-white/85 backdrop-blur-xl lg:scale-y-[0.593]" : "bg-white"
+          compact ? "scale-y-[0.875] bg-white/85 backdrop-blur-xl lg:scale-y-[0.8]" : "bg-white"
         }`}
       />
       <div
@@ -184,13 +184,13 @@ export function Header() {
         className={`absolute inset-x-0 top-0 h-px bg-line transition-[translate,opacity] duration-300 ease-out ${
           compact
             ? "translate-y-[55px] opacity-100 lg:translate-y-[63px]"
-            : "translate-y-[77px] opacity-0 lg:translate-y-[107px]"
+            : "translate-y-[63px] opacity-0 lg:translate-y-[79px]"
         }`}
       />
 
       <div
         className={`relative mx-auto flex h-full w-full max-w-[1440px] items-center justify-between px-5 transition-[translate] duration-300 ease-out sm:px-8 lg:px-20 ${
-          compact ? "-translate-y-[11px] lg:-translate-y-[22px]" : ""
+          compact ? "-translate-y-1 lg:-translate-y-2" : ""
         }`}
       >
         <Link href="/" aria-label="Infra8 home" className="pointer-events-auto shrink-0">
@@ -271,7 +271,7 @@ export function Header() {
               if (!e.currentTarget.contains(e.relatedTarget as Node | null)) scheduleClose();
             }}
             className={`pointer-events-auto absolute inset-x-0 hidden border-y border-line bg-white shadow-[0_32px_64px_-40px_rgba(17,17,17,0.35)] lg:block ${
-              compact ? "top-16" : "top-[108px]"
+              compact ? "top-16" : "top-20"
             }`}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -297,7 +297,7 @@ export function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: EASE }}
-            className="pointer-events-auto absolute inset-x-0 top-full max-h-[calc(100dvh-78px)] overflow-y-auto border-t border-line bg-white shadow-[0_24px_48px_-24px_rgba(17,17,17,0.25)] lg:hidden"
+            className="pointer-events-auto absolute inset-x-0 top-full max-h-[calc(100dvh-64px)] overflow-y-auto border-t border-line bg-white shadow-[0_24px_48px_-24px_rgba(17,17,17,0.25)] lg:hidden"
           >
             <ul className="flex flex-col px-5 py-4 sm:px-8">
               {NAV.map((item, i) => (

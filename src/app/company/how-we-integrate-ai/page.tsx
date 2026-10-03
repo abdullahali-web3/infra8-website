@@ -36,8 +36,8 @@ export default function HowWeIntegrateAiPage() {
             sub={AI_PAGE.hero.sub}
             actions={
               <div className="flex flex-wrap gap-3">
-                <BlockButton href={CTA.mvp} variant="brand">
-                  Get MVP Estimate in 24 Hours
+                <BlockButton href={CTA.contact} variant="brand">
+                  Partner With Us
                 </BlockButton>
                 <BlockButton href="#guardrails" variant="outline">
                   See Our Guardrails

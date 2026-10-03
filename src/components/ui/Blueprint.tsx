@@ -19,12 +19,16 @@ export function BlueprintColumn({ children }: { children: ReactNode }) {
   );
 }
 
-/** Compact section label: a small blue square and a mono caption that decodes on first view. */
+/**
+ * Compact section label: a small blue square and a mono caption that decodes on first view.
+ * Markers are 8px, a whole number of device pixels at 100/125/150/200% scaling, so they never
+ * render as 7x8 rectangles; the label is trimmed to its cap height so the square centres on the capitals.
+ */
 export function Eyebrow({ children }: { children: string }) {
   return (
     <span className="inline-flex items-center gap-2 font-mono text-[12px] leading-none text-muted uppercase">
-      <span aria-hidden className="size-1.5 bg-brand" />
-      <ScrambleText text={children} />
+      <span aria-hidden className="size-2 shrink-0 bg-brand" />
+      <ScrambleText text={children} className="[text-box:trim-both_cap_alphabetic]" />
     </span>
   );
 }
@@ -103,8 +107,8 @@ export function Tag({ children, tone = "ink" }: { children: string; tone?: "ink"
   const dot = { ink: "bg-ink", warn: "bg-warn", ok: "bg-ok", brand: "bg-brand" }[tone];
   return (
     <span className="inline-flex h-6 items-center gap-1.5 bg-surface-2 px-2 font-mono text-[11px] leading-none tracking-[0.01em] whitespace-nowrap text-ink-soft uppercase">
-      <span aria-hidden className={`size-1.5 ${dot}`} />
-      {children}
+      <span aria-hidden className={`size-2 shrink-0 ${dot}`} />
+      <span className="[text-box:trim-both_cap_alphabetic]">{children}</span>
     </span>
   );
 }

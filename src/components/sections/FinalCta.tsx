@@ -1,11 +1,15 @@
-import { CTA } from "@/lib/content";
+import { CTA, ROUTES } from "@/lib/content";
 import { Benefits } from "@/components/ui/Benefits";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BpSection, Eyebrow, SlashHeading } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
 import { CtaIso } from "@/components/illustrations/iso/CtaIso";
 
-export function FinalCta() {
+/**
+ * Closing CTA. Every service carries equal weight, so the default is a neutral "Partner With Us";
+ * a service page passes its own action instead.
+ */
+export function FinalCta({ cta = { label: "Partner With Us", href: CTA.contact } }: { cta?: { label: string; href: string } }) {
   return (
     <BpSection id="get-started" flush>
       <div>
@@ -16,11 +20,11 @@ export function FinalCta() {
               <SlashHeading title={"Tell Us Where Your Product Is.\nYou'll Hear Back in 24 Hours."} />
             </div>
             <Reveal delay={0.2} className="flex flex-wrap gap-3">
-              <BlockButton href={CTA.mvp} variant="brand">
-                Get MVP estimate
+              <BlockButton href={cta.href} variant="brand">
+                {cta.label}
               </BlockButton>
-              <BlockButton href={CTA.audit} variant="outline">
-                Get a free infra audit
+              <BlockButton href={ROUTES.services} variant="outline">
+                Explore Services
               </BlockButton>
             </Reveal>
             <Reveal delay={0.3}>

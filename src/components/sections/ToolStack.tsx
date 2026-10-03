@@ -96,7 +96,7 @@ export function ToolStack() {
           <p className="bg-white font-display text-[20px] leading-6 tracking-[-0.03em] text-ink">
             Use a different stack? We&rsquo;ll work in yours.
           </p>
-          <BlockButton href={CTA.mvp} variant="outline">
+          <BlockButton href={CTA.contact} variant="outline">
             Tell us your stack
           </BlockButton>
         </div>

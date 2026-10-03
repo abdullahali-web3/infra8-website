@@ -30,7 +30,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 | `/company` and `/resources` | 307 redirects to About and Insights (`next.config.ts`) |
 | `/products` | Catalogue of our own SaaS products (`src/lib/products.ts`): SVG thumbnail per product (`ProductThumb`), a card that opens a leave-site confirm `<dialog>` (`ProductLauncher`), then the product site in a new tab; a "Your product could be next" cell; why we build our own. Featured products (3) also appear in the Products mega menu |
 | `/privacy-policy`, `/terms-of-service`, `/cookie-policy` | Template policies for the future **Wyoming LLC** (`src/lib/legal.ts`, template `LegalPage`). Every entity detail is a highlighted `[placeholder]` and a Draft notice shows while `LEGAL_DRAFT = true`. Checklist: `docs/LEGAL-PLACEHOLDERS.md`. They describe the site as it is today (Vercel hosting, no analytics or ad cookies) and must be updated when forms or analytics are added. Not legal advice: needs lawyer review |
-| `/contact` | The one destination for every estimate, audit and contact button (`CTA` in `content.ts` sets `?topic=mvp/team/audit/other/careers`, which preselects the topic). Form: Server Action `app/contact/actions.ts` (server-side validation, honeypot + 3-second bot check, keeps values on error) and a client form (`components/contact/ContactForm.tsx`, `useActionState`, focus moves to the error summary). Aside: what happens next. FAQ below |
+| `/contact` | The one destination for every estimate, audit and contact button (service CTAs set `?topic=mvp/team/audit/careers`, which preselects the topic; `CTA.contact` is plain `/contact` with nothing preselected, and the topic is then required). Form order: "Connect With Us" heading, name/email, company/timeline, topic, message; the form sits in a dotted frame and leads, the aside (what happens next, benefits) is quieter. Form: Server Action `app/contact/actions.ts` (server-side validation, honeypot + 3-second bot check, keeps values on error) and a client form (`components/contact/ContactForm.tsx`, `useActionState`, focus moves to the error summary). Aside: what happens next. FAQ below |
 | Custom 404 (`app/not-found.tsx`) | Every unmatched URL and every `notFound()` call: "This Page Doesn't Exist", new `NotFoundIso` (missing tile), popular links, noindex. Returns HTTP 404 |
 
 ### Next likely asks
@@ -48,6 +48,9 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
   - Google Sans Flex (display), Inter (body) and Geist Mono (labels).
   - **One heading font**: no serif accent words; the Newsreader font was removed.
   - **Title Case** for all H1/H2 and card titles (short words like for/of/and lowercase).
+- **Header:** 80px desktop / 64px mobile, squashing to 64 / 56px on scroll.
+- **Square markers** (eyebrows, buttons, tags, bullets) are 8px (`size-2`): a whole number of device pixels at 100/125/150/200% scaling, so they never render as rectangles. Their labels use `[text-box:trim-both_cap_alphabetic]` so the square centres on the capitals.
+- **All services carry equal weight** (client, 2026-10-02). General pages (home hero, About, AI page, Services hub, Products, footer, shared final CTA) use a neutral "Partner With Us" to `/contact` with no topic preselected. Service-specific CTAs appear only where every service gets its own (service cards, How it works tabs, each service page and its final CTA via `FinalCta cta=`).
 - **Buttons:** `BlockButton`: square, mono caps, a small square marker, and a wipe on hover. The `card` variant turns blue when its `group/card` parent is hovered. Full-width buttons end in a Lucide `ChevronRight`.
 - **Icons:** Lucide only. `ChevronRight` replaces every text arrow, and benefit lists use green `CircleCheck` (`Benefits`).
 - **Cards:**
@@ -89,6 +92,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 4. Retainers month-to-month after an initial 3 months; a 4–6 hour time-zone overlap with US East/EU; the hiring steps on Careers; an ATS link if wanted (applications currently come through `/contact?topic=careers`).
 5. **Legal**: the 17 placeholders in `docs/LEGAL-PLACEHOLDERS.md` (LLC name, Wyoming addresses, emails, effective date, court county, providers, retention periods, liability cap).
 6. The production domain and email, and real impact numbers (years, projects shipped) if wanted.
+7. **Social profile URLs** for Facebook, X, LinkedIn and Trustpilot (`siteConfig.socials`). The footer shows all four marks now; each becomes a link (and joins `sameAs`) once its URL is set.
 
 ## 6. Lead delivery (must be set before leads can arrive)
 The contact form sends nothing until one of these is set in Vercel (Project → Settings → Environment Variables → Production):

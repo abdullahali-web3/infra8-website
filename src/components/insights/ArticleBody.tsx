@@ -47,7 +47,7 @@ export function ArticleBody({ blocks, placeholders = false }: { blocks: Block[];
               <ul key={i} className="flex flex-col gap-3">
                 {b.items.map((it) => (
                   <li key={it} className="flex gap-3 text-[17px] leading-8 tracking-[-0.01em] text-ink-soft">
-                    <span aria-hidden className="mt-[13px] size-1.5 shrink-0 bg-brand" />
+                    <span aria-hidden className="mt-[12px] size-2 shrink-0 bg-brand" />
                     <span>{t(it)}</span>
                   </li>
                 ))}

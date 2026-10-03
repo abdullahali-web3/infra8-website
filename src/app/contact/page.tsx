@@ -12,9 +12,9 @@ import type { Crumb } from "@/components/service/Breadcrumbs";
 import { ContactForm, ContactFormFromUrl } from "@/components/contact/ContactForm";
 
 export const metadata = pageMetadata({
-  title: "Contact Infra8: MVP Estimates and Infra Audits",
+  title: "Contact Infra8: Talk to Our Senior Engineers",
   description:
-    "Tell us about your product. Get an MVP estimate within 24 hours, a dedicated team proposal or a free infrastructure audit. We reply on business days.",
+    "Tell us about your product. Ask for an MVP estimate, a dedicated team or a free infrastructure audit, and hear back within 24 hours on business days.",
   path: ROUTES.contact,
 });
 
@@ -25,7 +25,7 @@ const CRUMBS: Crumb[] = [
 
 const NEXT_STEPS = [
   { title: "We read it", body: "A senior engineer reads your message, not a sales script." },
-  { title: "You hear back within 24 hours", body: "On business days. For an MVP, that reply includes a price range and a timeline." },
+  { title: "You hear back within 24 hours", body: "On business days, with clear next steps: a price range for a build, a team proposal or an audit plan." },
   { title: "A short call, if useful", body: "To fill the gaps. Then you get a written scope and price before any work starts." },
 ];
 
@@ -65,31 +65,31 @@ export default function ContactPage() {
           />
 
           <section className="border-t border-line" aria-label="Contact form">
-            <div className={`grid grid-cols-[minmax(0,1fr)] gap-10 py-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-12 lg:py-14 ${BP_PAD}`}>
-              {/* The form reads ?topic= on the client; the fallback is the same form with the default topic. */}
+            <div className={`grid grid-cols-[minmax(0,1fr)] gap-10 py-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:gap-14 lg:py-14 ${BP_PAD}`}>
+              {/* The form reads ?topic= on the client; the fallback is the same form with nothing preselected. */}
               <Suspense fallback={<ContactForm />}>
                 <ContactFormFromUrl />
               </Suspense>
 
-              <aside className="flex flex-col gap-8 lg:sticky lg:top-28 lg:self-start">
-                <div className="flex flex-col gap-5">
+              {/* Supporting detail: kept quieter than the form so the form leads. */}
+              <aside className="flex flex-col gap-10 lg:sticky lg:top-24 lg:self-start lg:pt-3">
+                <div className="flex flex-col gap-4">
                   <p className="font-mono text-[12px] leading-none text-muted uppercase">What happens next</p>
-                  <ol className="flex flex-col border-l border-line">
+                  <ol className="flex flex-col">
                     {NEXT_STEPS.map((s, i) => (
-                      <li key={s.title} className="relative flex flex-col gap-1.5 pb-6 pl-6 last:pb-0">
-                        <span aria-hidden className="absolute top-0.5 -left-[5px] size-[9px] bg-brand" />
-                        <span className="font-mono text-[11px] leading-none text-brand">{`0${i + 1}`}</span>
-                        <span className="font-display text-[19px] leading-[1.3] tracking-[-0.03em] text-ink">{s.title}</span>
-                        <span className="text-[15px] leading-6 tracking-[-0.02em] text-muted">{s.body}</span>
+                      <li key={s.title} className="flex gap-4 border-t border-line py-4">
+                        <span className="pt-[3px] font-mono text-[11px] leading-none text-brand">{`0${i + 1}`}</span>
+                        <span className="flex flex-col gap-1">
+                          <span className="text-[15px] leading-5 font-medium tracking-[-0.02em] text-ink">{s.title}</span>
+                          <span className="text-sm leading-[22px] tracking-[-0.01em] text-muted">{s.body}</span>
+                        </span>
                       </li>
                     ))}
                   </ol>
                 </div>
-                <div className="dots border border-line p-6">
-                  <div className="flex flex-col gap-4 bg-white p-5">
-                    <p className="font-display text-[19px] leading-[1.3] tracking-[-0.03em] text-ink">Every project starts the same way</p>
-                    <Benefits className="flex-col" />
-                  </div>
+                <div className="flex flex-col gap-4">
+                  <p className="font-mono text-[12px] leading-none text-muted uppercase">Every project starts the same way</p>
+                  <Benefits className="flex-col" />
                 </div>
               </aside>
             </div>

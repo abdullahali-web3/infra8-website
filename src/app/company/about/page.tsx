@@ -56,8 +56,8 @@ export default function AboutPage() {
             sub={ABOUT.hero.sub}
             actions={
               <div className="flex flex-wrap gap-3">
-                <BlockButton href={CTA.mvp} variant="brand">
-                  Get MVP Estimate in 24 Hours
+                <BlockButton href={CTA.contact} variant="brand">
+                  Partner With Us
                 </BlockButton>
                 <BlockButton href={ROUTES.ai} variant="outline">
                   How We Integrate AI

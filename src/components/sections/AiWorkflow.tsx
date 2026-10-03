@@ -221,7 +221,7 @@ export function AiWorkflow() {
             })}
           </ul>
           <Reveal delay={0.2}>
-            <BlockButton href={CTA.mvp}>Start MVP estimate</BlockButton>
+            <BlockButton href={CTA.contact}>Talk to Our Engineers</BlockButton>
           </Reveal>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CTA, FOOTER } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BlueprintColumn } from "@/components/ui/Blueprint";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 const LINK =
   "group/f inline-flex items-center gap-2 text-[15px] tracking-[-0.02em] text-ink-soft transition-colors hover:text-brand";
@@ -25,12 +26,13 @@ export function Footer() {
             <p className="max-w-[340px] text-base leading-7 tracking-[-0.02em] text-ink-soft">
               One senior engineering team that builds your product and runs it in the cloud.
             </p>
-            <BlockButton href={CTA.mvp} variant="brand">
-              Get MVP estimate
+            <BlockButton href={CTA.contact} variant="brand">
+              Partner With Us
             </BlockButton>
             <span className="font-mono text-[12px] leading-5 text-muted uppercase">
               Response within 24 hours on business days
             </span>
+            <SocialLinks className="pt-2" />
           </div>
 
           <div className="grid grid-cols-2 gap-10 px-5 py-12 max-lg:border-t max-lg:border-line sm:grid-cols-3 sm:px-8 lg:px-12 lg:py-16">

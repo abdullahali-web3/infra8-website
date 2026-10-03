@@ -55,9 +55,9 @@ export function BlockButton({
       <span className="flex items-center gap-3">
         <span
           aria-hidden
-          className={`size-1.5 shrink-0 transition-[rotate,background-color] duration-300 group-hover/blk:rotate-45 group-focus-visible/blk:rotate-45 ${v.mark}`}
+          className={`size-2 shrink-0 transition-[rotate,background-color] duration-300 group-hover/blk:rotate-45 group-focus-visible/blk:rotate-45 ${v.mark}`}
         />
-        <span className={`transition-colors duration-300 ${v.hover}`}>{children}</span>
+        <span className={`[text-box:trim-both_cap_alphabetic] transition-colors duration-300 ${v.hover}`}>{children}</span>
       </span>
       {full ? (
         <span aria-hidden className={`transition-[translate,color] duration-300 group-hover/blk:translate-x-0.5 ${v.hover}`}>

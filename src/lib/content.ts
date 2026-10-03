@@ -3,7 +3,7 @@ export const CTA = {
   mvp: "/contact?topic=mvp",
   team: "/contact?topic=team",
   audit: "/contact?topic=audit",
-  contact: "/contact?topic=other",
+  contact: "/contact",
   careers: "/contact?topic=careers",
   services: "#services",
 } as const;
@@ -332,7 +332,7 @@ export const STACK = {
   stats: [
     { value: ORBIT_LOGOS.length, label: "Tools and technologies" },
     { value: MAJOR_CLOUDS.length, label: "Major cloud platforms" },
-    { value: 24, label: "Hours to MVP estimate" },
+    { value: 24, label: "Hours to a first reply" },
   ],
   chips: [
     { label: "Frontend and mobile", logo: "React" },
@@ -418,7 +418,7 @@ export const PROOF = [
 
 /** Stats: every number restates a fact already on the page (estimate, discovery, ownership, stack). */
 export const STATS = [
-  { value: 24, suffix: "hrs", label: "From your first message to an MVP estimate" },
+  { value: 24, suffix: "hrs", label: "From your first message to a senior engineer’s reply" },
   { value: 2, prefix: "1–", suffix: "wks", label: "Discovery sprint before any build starts" },
   { value: 100, suffix: "%", label: "Of the code and cloud accounts stay in your name" },
   { value: LAYER_TOOLS.length, suffix: "", label: "Mainstream tools across product and cloud" },

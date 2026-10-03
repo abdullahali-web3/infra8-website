@@ -34,7 +34,7 @@ export default function ServicesPage() {
             crumbs={CRUMBS}
             title={SERVICES_HUB.hero.title}
             sub={SERVICES_HUB.hero.sub}
-            cta={{ label: "Get MVP Estimate in 24 Hours", href: CTA.mvp }}
+            cta={{ label: "Partner With Us", href: CTA.contact }}
             secondary={{ label: "Compare Services", href: "#compare" }}
             art={<CtaIso />}
           />

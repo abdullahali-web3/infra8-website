@@ -38,7 +38,7 @@ export function Hero() {
               />
             </div>
             <Reveal delay={0.4} className="flex flex-wrap items-center gap-3">
-              <BlockButton href={CTA.mvp} variant="brand">
+              <BlockButton href={CTA.contact} variant="brand">
                 Let&rsquo;s Discuss Your Project
               </BlockButton>
               <BlockButton href={CTA.services} variant="outline">

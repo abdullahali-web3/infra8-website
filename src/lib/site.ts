@@ -33,9 +33,11 @@ export const siteConfig = {
   ],
   /** Profile links → JSON-LD `sameAs` (crucial for GEO). Empty strings are ignored. */
   socials: {
-    linkedin: "", // TODO
-    github: "", // TODO
+    facebook: "", // TODO: client to send the profile URL
     x: "", // TODO
+    linkedin: "", // TODO
+    trustpilot: "", // TODO
+    github: "", // TODO
     clutch: "", // TODO
   },
   /** Not rendered publicly by default. Use the estimate form. */

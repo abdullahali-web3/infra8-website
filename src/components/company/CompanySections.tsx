@@ -154,7 +154,7 @@ export function TwoLists({ eyebrow, title, sub, lists }: { eyebrow: string; titl
                   const [head, ...rest] = it.split(": ");
                   return (
                     <li key={it} className="flex gap-4 border-line py-4 text-base leading-7 tracking-[-0.02em] text-ink-soft not-first:border-t first:pt-0">
-                      <span aria-hidden className="mt-[11px] size-1.5 shrink-0 bg-brand" />
+                      <span aria-hidden className="mt-[10px] size-2 shrink-0 bg-brand" />
                       <span>
                         {rest.length ? <span className="text-ink">{head}: </span> : null}
                         {rest.length ? rest.join(": ") : head}

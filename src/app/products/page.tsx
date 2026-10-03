@@ -78,8 +78,8 @@ export default function ProductsPage() {
             title="Products We Build and Run Ourselves"
             sub="Alongside client work, we build and run our own SaaS products. Each one is a proving ground for the stack, the process and the AI tooling we bring to every project."
             actions={
-              <BlockButton href={CTA.mvp} variant="brand">
-                Build Your Product With Us
+              <BlockButton href={CTA.contact} variant="brand">
+                Partner With Us
               </BlockButton>
             }
           />
@@ -100,10 +100,10 @@ export default function ProductsPage() {
                       <SlashHeading title={"Your Product\nCould Be Next"} />
                     </span>
                     <p className="max-w-[320px] bg-white text-[15px] leading-6 tracking-[-0.02em] text-ink-soft">
-                      The team behind these products builds MVPs for founders, with an estimate in 24 hours.
+                      The team behind these products builds and runs products for founders and growing companies.
                     </p>
-                    <BlockButton href={ROUTES.mvpDevelopment} variant="outline">
-                      Explore MVP Development
+                    <BlockButton href={ROUTES.services} variant="outline">
+                      Explore Services
                     </BlockButton>
                   </div>
                 </li>
