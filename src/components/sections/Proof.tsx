@@ -1,6 +1,6 @@
 import { PROOF, CTA } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
-import { BpSection, SectionHead, Tag } from "@/components/ui/Blueprint";
+import { BpSection, SectionHead } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
 import { DocIso } from "@/components/illustrations/iso/DocIso";
 
@@ -23,10 +23,7 @@ export function Proof() {
             />
             <Reveal delay={i * 0.1} className="flex w-full">
               <article className="flex w-full flex-col">
-                <header className="flex items-center justify-end px-6 pt-6 lg:px-8">
-                  <Tag tone="brand">Sample</Tag>
-                </header>
-                <div className="relative mx-6 mt-4 h-[220px]">
+                <div className="relative mx-6 mt-10 h-[220px]">
                   <div className="relative h-full">
                     <DocIso kind={p.key} />
                   </div>

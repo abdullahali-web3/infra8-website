@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { STAGES } from "@/lib/content";
-import { ChevronRight } from "lucide-react";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BpSection, SectionHead, Tag } from "@/components/ui/Blueprint";
 import { Reveal } from "@/components/Reveal";
@@ -50,19 +48,13 @@ export function Stages() {
                   <p className="text-base leading-6 tracking-[-0.02em] text-muted">{s.body}</p>
                 </div>
 
-                <div className="flex flex-col gap-4 px-6 pt-8 pb-7 lg:px-8">
+                <div className="flex flex-col gap-2 px-6 pt-8 pb-7 lg:px-8">
                   <BlockButton href={s.primaryHref} variant="card" full>
                     {s.primary}
                   </BlockButton>
-                  <Link
-                    href={s.detailsHref}
-                    className="group/link inline-flex items-center gap-2 self-start font-mono text-[12px] leading-none text-ink-soft uppercase transition-colors hover:text-brand"
-                  >
-                    View service details
-                    <span aria-hidden className="transition-[translate] duration-300 group-hover/link:translate-x-1">
-                      <ChevronRight className="size-4" strokeWidth={1.75} />
-                    </span>
-                  </Link>
+                  <BlockButton href={s.detailsHref} variant="outline" full>
+                    View Service Details
+                  </BlockButton>
                 </div>
               </article>
             </Reveal>

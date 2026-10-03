@@ -2,33 +2,45 @@ import Image from "next/image";
 import { CircleCheck } from "lucide-react";
 import type { ServiceIcon } from "@/lib/services";
 import { BP_PAD, BpSection, Eyebrow, SectionHead, SlashHeading, Tag } from "@/components/ui/Blueprint";
-import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
-import { ICONS } from "@/components/service/ServiceSections";
+import { ICONS } from "@/components/ui/icons";
 import { IconTile } from "@/components/ui/IconTile";
 
 const HOVER_LINE =
   "absolute inset-x-0 -top-px z-10 h-0.5 origin-left scale-x-0 bg-brand transition-[scale] duration-500 ease-out group-hover/card:scale-x-100";
 
-/** Heading on the left, a few paragraphs of story on the right. */
-export function StoryBlock({ eyebrow, title, paragraphs }: { eyebrow: string; title: string; paragraphs: string[] }) {
+/** Heading on the left (sticky on desktop), a stack of icon rows on the right. */
+export function ReasonRows({
+  eyebrow,
+  title,
+  items,
+}: {
+  eyebrow: string;
+  title: string;
+  items: { icon: ServiceIcon; title: string; body: string }[];
+}) {
   return (
     <BpSection>
       <div className={`grid gap-10 pb-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 lg:pb-24 ${BP_PAD}`}>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 lg:sticky lg:top-28 lg:self-start">
           <Eyebrow>{eyebrow}</Eyebrow>
           <SlashHeading title={title} />
         </div>
-        <div className="flex flex-col gap-6">
-          {paragraphs.map((p, i) => (
-            <RevealText
-              key={i}
-              text={p}
-              delay={0.08 * i}
-              className={i === paragraphs.length - 1 ? "text-[19px] leading-8 tracking-[-0.02em] text-ink" : "text-[17px] leading-8 tracking-[-0.01em] text-ink-soft"}
-            />
+        <ul className="flex flex-col">
+          {items.map((it, i) => (
+            <li key={it.title} className="group/card flex gap-5 border-line py-6 not-first:border-t first:pt-0 last:pb-0">
+              <Reveal delay={(i % 3) * 0.06} className="flex gap-5">
+                <IconTile icon={ICONS[it.icon]} size="md" />
+                <span className="flex flex-col gap-1.5 pt-0.5">
+                  <h3 className="font-display text-[20px] leading-[1.3] tracking-[-0.03em] text-ink transition-colors duration-300 group-hover/card:text-brand">
+                    {it.title}
+                  </h3>
+                  <p className="text-base leading-7 tracking-[-0.02em] text-ink-soft">{it.body}</p>
+                </span>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </BpSection>
   );
@@ -51,7 +63,6 @@ export function IconCells({
       <SectionHead eyebrow={eyebrow} title={title} sub={sub} />
       <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
         {items.map((it, i) => {
-          const Icon = ICONS[it.icon];
           return (
             <li
               key={it.title}
@@ -59,9 +70,7 @@ export function IconCells({
             >
               <span aria-hidden className={HOVER_LINE} />
               <Reveal delay={i * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
-                <span className="grid size-11 place-items-center border border-line text-brand transition-colors duration-300 group-hover/card:border-brand group-hover/card:bg-brand group-hover/card:text-white">
-                  <Icon aria-hidden className="size-5" strokeWidth={1.75} />
-                </span>
+                <IconTile icon={ICONS[it.icon]} size="md" />
                 <h3 className="font-display text-[20px] leading-[1.25] tracking-[-0.03em] text-ink">{it.title}</h3>
                 <p className="text-base leading-6 tracking-[-0.02em] text-muted">{it.body}</p>
               </Reveal>
@@ -175,7 +184,7 @@ export function TwoLists({
                   const [head, ...rest] = it.text.split(": ");
                   return (
                     <li key={it.text} className="group/card flex gap-4 border-line py-4 text-base leading-7 tracking-[-0.02em] text-ink-soft not-first:border-t first:pt-0">
-                      <IconTile icon={ICONS[it.icon]} className="-mt-0.5" />
+                      <IconTile icon={ICONS[it.icon]} size="line" />
                       <span>
                         {rest.length ? <span className="text-ink">{head}: </span> : null}
                         {rest.length ? rest.join(": ") : head}

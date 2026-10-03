@@ -23,12 +23,40 @@ export const ABOUT = {
     question: "What Is Infra8?",
     text: "Infra8 is a senior engineering team that builds MVPs for founders and runs cloud infrastructure, DevOps and security for live products. Clients own all code and infrastructure, work starts with a written scope and price, and progress is visible every week, from the first estimate to the monthly cloud review.",
   },
-  story: {
+  /** Why one team for build and run: six reasons, shown as rows beside the heading. */
+  reasons: {
     title: "Why One Team\nfor Build and Run",
-    paragraphs: [
-      "Most startups meet two kinds of engineering partner. A development shop builds the product and moves on. A DevOps consultancy arrives later, once the product is live and something breaks. Between them sits a handoff: code written by people who won't run it, handed to people who didn't write it.",
-      "That gap is where weeks disappear, where cloud bills and security risks pile up, and where founders end up managing two vendors who each point at the other.",
-      "Infra8 closes it. One senior team builds the product and keeps it running, so the decisions made on day one are made by the people who will live with them.",
+    items: [
+      {
+        icon: "infinity" as ServiceIcon,
+        title: "One team from first commit to uptime",
+        body: "The engineers who build your product also run the cloud it lives on. You work with one team for the whole life of the product.",
+      },
+      {
+        icon: "arrowSwitch" as ServiceIcon,
+        title: "No handoff between build and run",
+        body: "Code is never thrown over a wall to an operations team that has never seen it. The people who wrote it take it to production and keep it there.",
+      },
+      {
+        icon: "graph" as ServiceIcon,
+        title: "Day-one decisions built to last",
+        body: "Architecture, hosting and data choices are made by the people who will maintain them, so they are made for the long run, not just for launch.",
+      },
+      {
+        icon: "shieldCheck" as ServiceIcon,
+        title: "Security and cost built in early",
+        body: "Monitoring, access control and cost limits go in during the first build, not after the first incident or the first surprising cloud bill.",
+      },
+      {
+        icon: "users" as ServiceIcon,
+        title: "One vendor, one point of contact",
+        body: "One weekly rhythm and one accountable team, instead of two vendors who each point at the other when something breaks.",
+      },
+      {
+        icon: "unlock" as ServiceIcon,
+        title: "Free to take it in-house",
+        body: "Code, cloud accounts and documentation stay in your name, so you can move the work to your own team whenever it makes sense.",
+      },
     ],
   },
   commitments: [

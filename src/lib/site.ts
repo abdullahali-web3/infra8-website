@@ -42,6 +42,8 @@ export const siteConfig = {
   },
   /** Not rendered publicly by default. Use the estimate form. */
   email: "", // TODO
+  /** Shown on the careers page; profiles are sent here, not through the client contact form. */
+  careersEmail: "", // TODO(client): the real careers inbox
 } as const;
 
 export type SiteConfig = typeof siteConfig;

@@ -41,7 +41,12 @@ export type ServiceIcon =
   | "smartphone"
   | "mailOpen"
   | "clock"
-  | "messagesSquare";
+  | "messagesSquare"
+  | "infinity"
+  | "arrowSwitch"
+  | "unlock"
+  | "eye"
+  | "graph";
 
 export type ServiceKey = "mvp" | "product" | "cloud";
 

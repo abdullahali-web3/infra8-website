@@ -4,7 +4,6 @@ export const CTA = {
   team: "/contact?topic=team",
   audit: "/contact?topic=audit",
   contact: "/contact",
-  careers: "/contact?topic=careers",
   services: "#services",
 } as const;
 

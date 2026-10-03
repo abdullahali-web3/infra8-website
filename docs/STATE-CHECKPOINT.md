@@ -23,10 +23,10 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 | `/` | Homepage: hero with the Figma tile lattice, client strip, ticker, Services, How it works, AI-native workflow, Our stack (exploded layers), Work, Testimonials + stats, FAQ, final CTA |
 | `/services` | Hub: hero, AEO answer, 3 service cards, comparison `<table>`, FAQ, CTA |
 | `/services/mvp-development`, `/services/product-development`, `/services/cloud-devops-management` | Template `ServicePage`: hero, AEO answer, fit / not a fit, 6 deliverables, 4-step process, tools, pricing model with a minimum price, FAQ, related services, CTA |
-| `/company/about` | Story, 4 commitments, **placeholder** team grid (6), ways to work with us, careers strip, CTA |
+| `/company/about` | AEO answer, "Why Infra8" (heading on the side, 6 icon rows: `ReasonRows`), 4 commitments, **placeholder** team grid (6), ways to work with us, CTA. No careers strip |
 | `/company/how-we-integrate-ai` | Security concerns Q&A, where AI helps (dev + CloudOps), AI vs engineer table, 6 guardrails, FAQ, new `AiGateIso` illustration |
 | `/resources/insights` + 8 articles at `/resources/insights/[slug]` | Text-only cards with a category filter; articles have a short answer, takeaways, TOC, tables, callouts, related service and articles |
-| `/resources/careers` | How we work, roles we hire for (not open postings), hiring steps, apply CTA |
+| `/resources/careers` | Roles we hire for (no icons; not open postings), how we work, hiring steps, then an email CTA to `siteConfig.careersEmail` (**empty: shows a highlighted `[careers email]` placeholder** until the client sends it). Careers is not in the contact form; a job listing page and flow come later |
 | `/company` and `/resources` | 307 redirects to About and Insights (`next.config.ts`) |
 | `/products` | Catalogue of our own SaaS products (`src/lib/products.ts`): SVG thumbnail per product (`ProductThumb`), a card that opens a leave-site confirm `<dialog>` (`ProductLauncher`), then the product site in a new tab; a "Your product could be next" cell; why we build our own. Featured products (3) also appear in the Products mega menu |
 | `/privacy-policy`, `/terms-of-service`, `/cookie-policy` | Template policies for the future **Wyoming LLC** (`src/lib/legal.ts`, template `LegalPage`). Every entity detail is a highlighted `[placeholder]` and a Draft notice shows while `LEGAL_DRAFT = true`. Checklist: `docs/LEGAL-PLACEHOLDERS.md`. They describe the site as it is today (Vercel hosting, no analytics or ad cookies) and must be updated when forms or analytics are added. Not legal advice: needs lawyer review |
@@ -53,7 +53,7 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 - **All services carry equal weight** (client, 2026-10-02). General pages (home hero, About, AI page, Services hub, Products, footer, shared final CTA) use a neutral "Partner With Us" to `/contact` with no topic preselected. Service-specific CTAs appear only where every service gets its own (service cards, How it works tabs, each service page and its final CTA via `FinalCta cta=`).
 - **Buttons:** `BlockButton` (redesigned 2026-10-03 after the client called the mono-caps version "casual"): square, 48px tall, Inter 15px medium in **Title Case**, and a 48px arrow cell split off by a hairline. Hover: a colour wipe, and the chevron slides out while a new one slides in. `outline` has a 20% ink border. The `card` variant turns blue when its `group/card` parent is hovered. Real `<button>`s (form submit, dialogs) use `blockButtonClass()` + `BlockButtonBody` (`icon` swaps the arrow, `arrow={false}` drops the cell). Mono caps stay for eyebrows, tags and small text links only.
 - **Icons:** Lucide only. `ChevronRight` replaces every text arrow, and benefit lists use green `CircleCheck` (`Benefits`).
-- **No square bullets in lists** (client, 2026-10-03): list items and cells carry a relevant Lucide icon in an `IconTile` (hairline square, muted line icon, blue on `group/card` hover, GitHub-like). Icons are keyed through `ServiceIcon` + `ICONS` (`ServiceSections.tsx`). Article body lists use a small brand `ChevronRight`. Squares remain only as the eyebrow/tag marker.
+- **Content icons are Primer Octicons** (GitHub's set, `@primer/octicons-react`), keyed through `ServiceIcon` + `ICONS` in `components/ui/icons.ts`, always shown in `IconTile` (hairline square, **ink at rest, blue on `group/card` hover**, the same everywhere). Sizes: `line` (28px, top-aligned with a 28px text line), `sm`, `md` (44px with the native 24px drawing). Lucide stays for interface glyphs (chevrons, ticks). No square bullets in lists. Article body lists use a small brand `ChevronRight`. Squares remain only as the eyebrow/tag marker.
 - **Form controls:** no native `<select>`; use `ui/Select` (themed listbox, full keyboard support, posts via a hidden input).
 - **Cards:**
   - Cells share hairlines rail to rail. On hover a blue line draws along the top and the title turns blue. Nothing is pre-highlighted.
@@ -94,7 +94,8 @@ A B2B marketing site for Infra8, a senior engineering team that **builds MVPs** 
 4. Retainers month-to-month after an initial 3 months; a 4–6 hour time-zone overlap with US East/EU; the hiring steps on Careers; an ATS link if wanted (applications currently come through `/contact?topic=careers`).
 5. **Legal**: the 17 placeholders in `docs/LEGAL-PLACEHOLDERS.md` (LLC name, Wyoming addresses, emails, effective date, court county, providers, retention periods, liability cap).
 6. The production domain and email, and real impact numbers (years, projects shipped) if wanted.
-7. **Social profile URLs** for Facebook, X, LinkedIn and Trustpilot (`siteConfig.socials`). The footer shows all four marks now; each becomes a link (and joins `sameAs`) once its URL is set.
+7. **Social profile URLs** for Facebook, X, LinkedIn and Trustpilot (`siteConfig.socials`). The footer shows all four marks (grey, brand colour on hover); each becomes a link (and joins `sameAs`) once its URL is set.
+8. **Careers email** (`siteConfig.careersEmail`), shown on the careers page CTA.
 
 ## 6. Lead delivery (must be set before leads can arrive)
 The contact form sends nothing until one of these is set in Vercel (Project → Settings → Environment Variables → Production):

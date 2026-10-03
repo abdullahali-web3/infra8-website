@@ -1,4 +1,4 @@
-/** Contact page options. `?topic=` on /contact preselects one of these keys. */
+/** Contact page options (clients only; careers has its own flow). `?topic=` on /contact preselects one of these keys. */
 export const CONTACT_TOPICS = [
   {
     key: "mvp",
@@ -23,12 +23,6 @@ export const CONTACT_TOPICS = [
     label: "Something else",
     hint: "Questions, samples or partnerships",
     prompt: "How can we help?",
-  },
-  {
-    key: "careers",
-    label: "Joining the team",
-    hint: "Tell us what you've built",
-    prompt: "What have you built, and what would you like to work on next? Add a link to your profile or CV.",
   },
 ] as const;
 

@@ -40,7 +40,7 @@
 - [Careers](/resources/careers): how the team works and the roles it hires for.
 
 ## Contact
-- [Contact](/contact): one form for MVP estimates, dedicated team proposals, free infrastructure audits, general questions and job applications. Replies within 24 hours on business days.
+- [Contact](/contact): one form for MVP estimates, dedicated team proposals, free infrastructure audits and general questions. Replies within 24 hours on business days.
 
 ## Links
 - Site: TODO production URL

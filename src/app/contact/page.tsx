@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import { Clock, MailOpen, MessagesSquare } from "lucide-react";
 import { ROUTES } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
@@ -7,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Benefits } from "@/components/ui/Benefits";
 import { BP_PAD, BlueprintColumn, SectionGap } from "@/components/ui/Blueprint";
+import { ICONS } from "@/components/ui/icons";
 import { IconTile } from "@/components/ui/IconTile";
 import { PageHero } from "@/components/ui/PageHero";
 import { Faq } from "@/components/sections/Faq";
@@ -26,9 +26,9 @@ const CRUMBS: Crumb[] = [
 ];
 
 const NEXT_STEPS = [
-  { icon: MailOpen, title: "We read it", body: "A senior engineer reads your message, not a sales script." },
-  { icon: Clock, title: "You hear back within 24 hours", body: "On business days, with clear next steps: a price range for a build, a team proposal or an audit plan." },
-  { icon: MessagesSquare, title: "A short call, if useful", body: "To fill the gaps. Then you get a written scope and price before any work starts." },
+  { icon: ICONS.mailOpen, title: "We read it", body: "A senior engineer reads your message, not a sales script." },
+  { icon: ICONS.clock, title: "You hear back within 24 hours", body: "On business days, with clear next steps: a price range for a build, a team proposal or an audit plan." },
+  { icon: ICONS.messagesSquare, title: "A short call, if useful", body: "To fill the gaps. Then you get a written scope and price before any work starts." },
 ];
 
 export default function ContactPage() {

@@ -12,10 +12,12 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/Reveal";
 import type { Crumb } from "@/components/service/Breadcrumbs";
 import { CtaIso } from "@/components/illustrations/iso/CtaIso";
-import { ICONS } from "@/components/service/ServiceSections";
+import { ICONS } from "@/components/ui/icons";
 import { IconTile } from "@/components/ui/IconTile";
 
 export const metadata = pageMetadata({ ...CAREERS.meta, path: ROUTES.careers });
+
+const CAREERS_EMAIL = siteConfig.careersEmail;
 
 const CRUMBS: Crumb[] = [
   { name: "Home", href: "/" },
@@ -52,46 +54,12 @@ export default function CareersPage() {
             title={CAREERS.hero.title}
             sub={CAREERS.hero.sub}
             actions={
-              <div className="flex flex-wrap gap-3">
-                <BlockButton href="#roles" variant="brand">
-                  See the Roles We Hire For
-                </BlockButton>
-                <BlockButton href={CAREERS.applyHref} variant="outline">
-                  Send Your Profile
-                </BlockButton>
-              </div>
+              <BlockButton href="#roles" variant="brand">
+                See the Roles We Hire For
+              </BlockButton>
             }
             art={<CtaIso />}
           />
-
-          <SectionGap />
-          <BpSection>
-            <SectionHead
-              eyebrow="How we work"
-              title={"What Working\nat Infra8 Is Like"}
-              sub="Four ideas run through every project, from a first MVP to a cloud we run for years."
-            />
-            <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
-              {CAREERS.principles.map((p, i) => {
-                const Icon = ICONS[p.icon];
-                return (
-                  <li
-                    key={p.title}
-                    className="group/card relative border-line max-sm:not-first:border-t sm:max-lg:nth-[n+3]:border-t sm:max-lg:even:border-l lg:not-first:border-l"
-                  >
-                    <span aria-hidden className={HOVER_LINE} />
-                    <Reveal delay={i * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
-                      <span className="grid size-11 place-items-center border border-line text-brand transition-colors duration-300 group-hover/card:border-brand group-hover/card:bg-brand group-hover/card:text-white">
-                        <Icon aria-hidden className="size-5" strokeWidth={1.75} />
-                      </span>
-                      <h3 className="font-display text-[20px] leading-[1.25] tracking-[-0.03em] text-ink">{p.title}</h3>
-                      <p className="text-base leading-6 tracking-[-0.02em] text-muted">{p.body}</p>
-                    </Reveal>
-                  </li>
-                );
-              })}
-            </ul>
-          </BpSection>
 
           <SectionGap />
           <BpSection id="roles">
@@ -108,7 +76,6 @@ export default function CareersPage() {
                 >
                   <span aria-hidden className={HOVER_LINE} />
                   <Reveal delay={(i % 2) * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
-                    <IconTile icon={ICONS[r.icon]} size="md" />
                     <h3 className="font-display text-[24px] leading-[1.2] tracking-[-0.03em] text-ink transition-colors group-hover/card:text-brand">
                       {r.title}
                     </h3>
@@ -124,6 +91,32 @@ export default function CareersPage() {
                   </Reveal>
                 </li>
               ))}
+            </ul>
+          </BpSection>
+
+          <SectionGap />
+          <BpSection>
+            <SectionHead
+              eyebrow="How we work"
+              title={"What Working\nat Infra8 Is Like"}
+              sub="Four ideas run through every project, from a first MVP to a cloud we run for years."
+            />
+            <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+              {CAREERS.principles.map((p, i) => {
+                return (
+                  <li
+                    key={p.title}
+                    className="group/card relative border-line max-sm:not-first:border-t sm:max-lg:nth-[n+3]:border-t sm:max-lg:even:border-l lg:not-first:border-l"
+                  >
+                    <span aria-hidden className={HOVER_LINE} />
+                    <Reveal delay={i * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
+                      <IconTile icon={ICONS[p.icon]} size="md" />
+                      <h3 className="font-display text-[20px] leading-[1.25] tracking-[-0.03em] text-ink">{p.title}</h3>
+                      <p className="text-base leading-6 tracking-[-0.02em] text-muted">{p.body}</p>
+                    </Reveal>
+                  </li>
+                );
+              })}
             </ul>
           </BpSection>
 
@@ -164,12 +157,27 @@ export default function CareersPage() {
                   <Eyebrow>Apply</Eyebrow>
                 </span>
                 <span className="bg-white">
-                  <SlashHeading title={"Don't See Your Role?\nSend Your Profile Anyway."} />
+                  <SlashHeading title={"A Strong Engineer?\nSend Us Your Profile."} />
                 </span>
+                <p className="max-w-[520px] bg-white text-base leading-7 tracking-[-0.02em] text-ink-soft">
+                  Even if no role above fits, email your CV, GitHub or portfolio to{" "}
+                  {CAREERS_EMAIL ? (
+                    <a href={`mailto:${CAREERS_EMAIL}`} className="text-ink underline decoration-line underline-offset-4 hover:text-brand">
+                      {CAREERS_EMAIL}
+                    </a>
+                  ) : (
+                    <mark className="bg-warn/10 px-0.5 text-warn underline decoration-warn/40 decoration-dashed underline-offset-4">
+                      [careers email]
+                    </mark>
+                  )}{" "}
+                  with a line on what you&rsquo;d like to work on next. We read every one.
+                </p>
               </div>
-              <BlockButton href={CAREERS.applyHref} variant="brand">
-                Send Your Profile
-              </BlockButton>
+              {CAREERS_EMAIL ? (
+                <BlockButton href={`mailto:${CAREERS_EMAIL}`} variant="brand">
+                  Email Your Profile
+                </BlockButton>
+              ) : null}
             </div>
           </BpSection>
         </BlueprintColumn>

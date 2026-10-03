@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
           <span className="font-mono text-[11px] leading-none text-muted uppercase">{product.category}</span>
           <span className="flex items-center gap-1.5" aria-label={`Built with ${product.stack.join(", ")}`}>
             {product.stack.map((t) => (
-              <span key={t} title={t} className="grid size-7 place-items-center border border-line bg-white">
+              <span key={t} className="grid size-7 place-items-center border border-line bg-white">
                 <Logo name={t} size={15} />
               </span>
             ))}

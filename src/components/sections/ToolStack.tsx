@@ -5,7 +5,7 @@ import { useInView, useReducedMotion } from "motion/react";
 import { CTA, STACK, STACK_LAYERS } from "@/lib/content";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BpSection, SectionHead } from "@/components/ui/Blueprint";
-import { Logo } from "@/components/ui/Logo";
+import { LogoTip } from "@/components/ui/LogoTip";
 import { LayerStack } from "@/components/illustrations/iso/LayerStack";
 
 const CYCLE_MS = 2800;
@@ -69,14 +69,7 @@ export function ToolStack() {
                 <p className="text-sm leading-5 tracking-[-0.01em] text-muted">{layer.body}</p>
                 <ul className="mt-auto flex flex-wrap gap-2 pt-3" aria-label={`${layer.title} tools`}>
                   {layer.tools.map((t) => (
-                    <li
-                      key={t}
-                      title={t}
-                      className="grid size-9 place-items-center border border-line bg-white"
-                    >
-                      <Logo name={t} size={20} />
-                      <span className="sr-only">{t}</span>
-                    </li>
+                    <LogoTip key={t} name={t} />
                   ))}
                 </ul>
               </li>

@@ -1,86 +1,17 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import {
-  Activity,
-  BookOpen,
-  ChevronRight,
-  CircleCheck,
-  CircleX,
-  Cloud,
-  Code,
-  FileCode,
-  FileText,
-  GitPullRequest,
-  PenTool,
-  PiggyBank,
-  Presentation,
-  Rocket,
-  ShieldCheck,
-  Sparkles,
-  Users,
-  Workflow,
-  Wrench,
-  Server,
-  ListChecks,
-  FlaskConical,
-  ScanSearch,
-  NotebookPen,
-  BrainCircuit,
-  Database,
-  UserCheck,
-  KeyRound,
-  Fingerprint,
-  FolderLock,
-  Power,
-  Smartphone,
-  MailOpen,
-  Clock,
-  MessagesSquare,
-  type LucideIcon,
-} from "lucide-react";
-import type { Service, ServiceIcon } from "@/lib/services";
+import { ChevronRight, CircleCheck, CircleX } from "lucide-react";
+import type { Service } from "@/lib/services";
 import { Benefits } from "@/components/ui/Benefits";
 import { BlockButton } from "@/components/ui/BlockButton";
 import { BP_PAD, BpSection, Eyebrow, HEADING_H1, SectionHead, SlashHeading } from "@/components/ui/Blueprint";
 import { Logo } from "@/components/ui/Logo";
 import { RevealText } from "@/components/ui/RevealText";
 import { Reveal } from "@/components/Reveal";
+import { ICONS } from "@/components/ui/icons";
+import { IconTile } from "@/components/ui/IconTile";
 import { Breadcrumbs, type Crumb } from "./Breadcrumbs";
 
-export const ICONS: Record<ServiceIcon, LucideIcon> = {
-  fileText: FileText,
-  penTool: PenTool,
-  code: Code,
-  cloud: Cloud,
-  presentation: Presentation,
-  rocket: Rocket,
-  users: Users,
-  gitPullRequest: GitPullRequest,
-  wrench: Wrench,
-  bookOpen: BookOpen,
-  workflow: Workflow,
-  server: Server,
-  shieldCheck: ShieldCheck,
-  activity: Activity,
-  piggyBank: PiggyBank,
-  fileCode: FileCode,
-  sparkles: Sparkles,
-  listChecks: ListChecks,
-  flaskConical: FlaskConical,
-  scanSearch: ScanSearch,
-  notebookPen: NotebookPen,
-  brainCircuit: BrainCircuit,
-  database: Database,
-  userCheck: UserCheck,
-  keyRound: KeyRound,
-  fingerprint: Fingerprint,
-  folderLock: FolderLock,
-  power: Power,
-  smartphone: Smartphone,
-  mailOpen: MailOpen,
-  clock: Clock,
-  messagesSquare: MessagesSquare,
-};
 
 /** Blue line that draws along the top of a hovered cell (cells carry `group/card`). */
 function HoverLine() {
@@ -202,14 +133,13 @@ export function ServiceFit({ fit }: { fit: Service["fit"] }) {
   );
 }
 
-/** What you get: six deliverables with Lucide icons. */
+/** What you get: six deliverables, each with its icon. */
 export function ServiceDeliverables({ deliverables }: { deliverables: Service["deliverables"] }) {
   return (
     <BpSection>
       <SectionHead eyebrow="What you get" title={deliverables.title} sub={deliverables.sub} />
       <ul className="mt-12 grid border-t border-line sm:grid-cols-2 lg:mt-16 lg:grid-cols-3">
         {deliverables.items.map((d, i) => {
-          const Icon = ICONS[d.icon];
           return (
             <li
               key={d.title}
@@ -217,9 +147,7 @@ export function ServiceDeliverables({ deliverables }: { deliverables: Service["d
             >
               <HoverLine />
               <Reveal delay={(i % 3) * 0.08} className="flex h-full flex-col gap-4 px-6 py-8 lg:px-8 lg:py-10">
-                <span className="grid size-11 place-items-center border border-line bg-white text-brand transition-colors duration-300 group-hover/card:border-brand group-hover/card:bg-brand group-hover/card:text-white">
-                  <Icon aria-hidden className="size-5" strokeWidth={1.75} />
-                </span>
+                <IconTile icon={ICONS[d.icon]} size="md" />
                 <h3 className="font-display text-[20px] leading-[1.25] tracking-[-0.03em] text-ink">{d.title}</h3>
                 <p className="text-base leading-6 tracking-[-0.02em] text-muted">{d.body}</p>
               </Reveal>

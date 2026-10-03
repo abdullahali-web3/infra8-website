@@ -178,7 +178,7 @@ export function ContactForm({ initialTopic = null }: { initialTopic?: ContactTop
                   key={t.key}
                   className={`group/opt relative flex cursor-pointer flex-col gap-1 border px-4 py-3 transition-colors ${
                     on ? "border-brand bg-brand-tint/40" : e.topic ? "border-warn" : "border-line hover:border-ink/40"
-                  } ${t.key === "careers" ? "sm:col-span-2" : ""}`}
+                  }`}
                 >
                   <input
                     type="radio"
